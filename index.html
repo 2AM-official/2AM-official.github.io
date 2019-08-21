@@ -234,7 +234,7 @@
           <h1 class="post-title" itemprop="name headline">
                 
                 
-                <a href="/2019/08/12/Mac:Github+Hexo/" class="post-title-link" itemprop="url">Mac:Github+Hexo</a>
+                <a href="/2019/08/12/Mac:Github+Hexo/" class="post-title-link" itemprop="url">Github + Hexo (Mac)</a>
               
             
           </h1>
@@ -266,7 +266,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2019-08-21 14:28:05" itemprop="dateModified" datetime="2019-08-21T14:28:05+08:00">2019-08-21</time>
+                <time title="Modified: 2019-08-21 14:31:18" itemprop="dateModified" datetime="2019-08-21T14:31:18+08:00">2019-08-21</time>
               </span>
             
           
@@ -283,13 +283,13 @@
 
       
           
-            <p>##安装git配置用户名和邮箱<br>查看当前电脑是否安装git <code>git --version</code><br>初次安装git需要配置用户名和邮箱，否则git会提示：<em>please tell me who you are</em><br>运行命令来配置你的用户名和邮箱</p>
+            <h2 id="安装git配置用户名和邮箱"><a href="#安装git配置用户名和邮箱" class="headerlink" title="安装git配置用户名和邮箱"></a>安装git配置用户名和邮箱</h2><p>查看当前电脑是否安装git <code>git --version</code><br>初次安装git需要配置用户名和邮箱，否则git会提示：<em>please tell me who you are</em><br>运行命令来配置你的用户名和邮箱</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ git config --global user.name &quot;2AM-official&quot;</span><br><span class="line">$ git config --global user.email &quot;zhaoxinglyu@icloud.com&quot;</span><br></pre></td></tr></table></figure>
 
 <p><em>此用户名和邮箱是git提交代码时用来显示你身份和联系方式的，并不是github用户名和邮箱，但我在这里为了省事直接使用我本人的github邮箱</em></p>
-<p>##git使用ssh密匙<br>git支持https和git两种传输协议，github分享链接时会有两种协议可选：git协议链接和https协议链接。<br><em>git使用https协议，每次pull，push都会提示要输入密码；使用git协议，然后使用ssh密匙，这样可以免去每次都输密码的麻烦</em></p>
-<p>###初次使用git的用户要使用git协议大概需要三个步骤：<br>1、生成密匙对<br>2、设置远程仓库（本文以github为例）上的公匙<br>3、把git的remote url修改为git协议<br><em>以上两个步骤初次设置过后，以后都不需要再次设置，此步骤视以后项目的remote url而定，如果以后其他项目的协议为https则需要此步骤</em></p>
-<p>####1、生成密匙对<br>大多数git服务器都会选择使用SSH公匙来进行授权。系统中的每个用户都必须提供一个公匙用于授权，没有的话就要生成一个。<br>生成公匙的过程在所有操作系统上都差不多，首先要确认一下本机是否已经有一个公匙。<br>SSH公匙默认储存在账户的主目录下<code>~/.ssh</code>目录</p>
+<h2 id="git使用ssh密匙"><a href="#git使用ssh密匙" class="headerlink" title="git使用ssh密匙"></a>git使用ssh密匙</h2><p>git支持https和git两种传输协议，github分享链接时会有两种协议可选：git协议链接和https协议链接。<br><em>git使用https协议，每次pull，push都会提示要输入密码；使用git协议，然后使用ssh密匙，这样可以免去每次都输密码的麻烦</em></p>
+<h3 id="初次使用git的用户要使用git协议大概需要三个步骤："><a href="#初次使用git的用户要使用git协议大概需要三个步骤：" class="headerlink" title="初次使用git的用户要使用git协议大概需要三个步骤："></a>初次使用git的用户要使用git协议大概需要三个步骤：</h3><p>1、生成密匙对<br>2、设置远程仓库（本文以github为例）上的公匙<br>3、把git的remote url修改为git协议<br><em>以上两个步骤初次设置过后，以后都不需要再次设置，此步骤视以后项目的remote url而定，如果以后其他项目的协议为https则需要此步骤</em></p>
+<h4 id="、生成密匙对"><a href="#、生成密匙对" class="headerlink" title="、生成密匙对"></a>、生成密匙对</h4><p>大多数git服务器都会选择使用SSH公匙来进行授权。系统中的每个用户都必须提供一个公匙用于授权，没有的话就要生成一个。<br>生成公匙的过程在所有操作系统上都差不多，首先要确认一下本机是否已经有一个公匙。<br>SSH公匙默认储存在账户的主目录下<code>~/.ssh</code>目录</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ cd ~/.ssh</span><br><span class="line">$ ls</span><br></pre></td></tr></table></figure>
 
 <p>看一下有没有id_rsa和id_rsa.pub（或者是id_dsa和id_dsa.pub之类成对的文件），有.pub后缀的文件就是公匙，另一个文件则是密匙。<br>假如没有这些文件，甚至连.ssh目录都没有，可以用ssh-keygen来创建。该程序在Linux/Mac系统上由SSH包提供。</p>
@@ -302,7 +302,7 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Your public key has been saved in /home/you/.ssh/id_rsa.pub.</span><br><span class="line">The key fingerprint is: # 01:0f:f4:3b:ca:85:d6:17:a1:7d:f0:68:9d:f0:a2:db your_email@youremail.com</span><br></pre></td></tr></table></figure>
 
 <p>到此为止，你的本地密匙对就生成了</p>
-<p>####2、添加公匙到你的远程仓库（github）<br>1）查看你生成的公匙：</p>
+<h4 id="2、添加公匙到你的远程仓库（github）"><a href="#2、添加公匙到你的远程仓库（github）" class="headerlink" title="2、添加公匙到你的远程仓库（github）"></a>2、添加公匙到你的远程仓库（github）</h4><p>1）查看你生成的公匙：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ cat ~/.ssh/id_rsa.pub</span><br><span class="line"></span><br><span class="line">ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQC0X6L1zLL4VHuvGb8aJH3ippTozmReSUzgntvk434aJ/v7kOdJ/MTyBlWXFCR+HAo3FXRitBqxiX1nKhXpHAZsMciLq8vR3c8E7CjZN733f5AL8uEYJA+YZevY5UCvEg+umT7PHghKYaJwaCxV7sjYP7Z6V79OMCEAGDNXC26IBMdMgOluQjp6o6j2KAdtRBdCDS/QIU5THQDxJ9lBXjk1fiq9tITo/aXBvjZeD+gH/Apkh/0GbO8VQLiYYmNfqqAHHeXdltORn8N7C9lOa/UW3KM7QdXo6J0GFlBVQeTE/IGqhMS5PMln3 admin@admin-PC</span><br></pre></td></tr></table></figure>
 
 <p>2）登陆你的github账户。点击你的头像，然后<strong>Settings -&gt; 左栏点击 SSH and GPG keys -&gt; 点击 New SSH key</strong><br>3）复制上面公匙内容，粘贴进“Key”文本域内。 title域，自己随便起个名字。<br>4）点击Add key。<br>完成以后，验证下这个key是不是正常工作：</p>
@@ -312,28 +312,27 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Hi xxx! You&apos;ve successfully authenticated, but GitHub does not # provide shell access.</span><br></pre></td></tr></table></figure>
 
 <p>则为设置成功</p>
-<p>####3、修改git的remote url<br>使用命令<code>git remote -v</code>查看你当前的remote url</p>
+<h4 id="3、修改git的remote-url"><a href="#3、修改git的remote-url" class="headerlink" title="3、修改git的remote url"></a>3、修改git的remote url</h4><p>使用命令<code>git remote -v</code>查看你当前的remote url</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ git remote -v</span><br><span class="line">origin https://github.com/someaccount/someproject.git (fetch)</span><br><span class="line">origin https://github.com/someaccount/someproject.git (push)</span><br></pre></td></tr></table></figure>
 
 <p><em>如果是以上的结果那么说明此项目是使用https协议进行访问的,如果地址是git开头则表示是git协议</em><br>你可以登陆你的github，就像本文开头的图例，你在上面可以看到你的ssh协议相应的url<br>复制此ssh链接，然后使用命令 git remote set-url 来调整你的url</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git remote set-url origin git@github.com:someaccount/someproject.git</span><br></pre></td></tr></table></figure>
 
 <p>然后你可以用命令<code>git remote -v</code>查看一下，url是否已经变成了ssh地址<br>然后你就可以愉快的使用git fetch, git pull , git push，再也不用输入烦人的密码了</p>
-<p>##安装Hexo</p>
-<p>###安装Nodejs<br>因为hexo是基于nodejs的应用，所以要先安装nodejs才可以，使用以下命令</p>
+<h2 id="安装Hexo"><a href="#安装Hexo" class="headerlink" title="安装Hexo"></a>安装Hexo</h2><h3 id="安装Nodejs"><a href="#安装Nodejs" class="headerlink" title="安装Nodejs"></a>安装Nodejs</h3><p>因为hexo是基于nodejs的应用，所以要先安装nodejs才可以，使用以下命令</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ sudo apt-get install nodejs</span><br><span class="line">$ sudo apt-get install npm</span><br></pre></td></tr></table></figure>
 
-<p>###Hexo安装<br>Hexo 是一个功能强大的静态网站生成系统，快速、简洁、高效。Hexo 支持 GitHub Flavored Markdown 的所有功能，甚至可以整合 Octopress 的大多数插件。可以一键部署到github，还有丰富的插件和主题,还支持热部署哦。执行如下命令进行安装。</p>
+<h3 id="Hexo安装"><a href="#Hexo安装" class="headerlink" title="Hexo安装"></a>Hexo安装</h3><p>Hexo 是一个功能强大的静态网站生成系统，快速、简洁、高效。Hexo 支持 GitHub Flavored Markdown 的所有功能，甚至可以整合 Octopress 的大多数插件。可以一键部署到github，还有丰富的插件和主题,还支持热部署哦。执行如下命令进行安装。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo npm install hexo-cli -g</span><br></pre></td></tr></table></figure>
 
-<p>###快速开始<br>安装Hexo成功后，使用如下命令快速新建一个博客系统，然后运行它</p>
+<h3 id="快速开始"><a href="#快速开始" class="headerlink" title="快速开始"></a>快速开始</h3><p>安装Hexo成功后，使用如下命令快速新建一个博客系统，然后运行它</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ hexo init blog</span><br><span class="line">$ cd blog</span><br><span class="line">$ npm install</span><br><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
 
 <p><em>如果npm安装失败，使用sudo安装</em><br>运行成功后，访问http：//0.0.0.0：4000/ 就可以看到博客的样子</p>
-<p>###新增文章<br>使用如下命令新增一篇md格式的文章</p>
+<h3 id="新增文章"><a href="#新增文章" class="headerlink" title="新增文章"></a>新增文章</h3><p>使用如下命令新增一篇md格式的文章</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new &apos;your title&apos;</span><br></pre></td></tr></table></figure>
 
-<p>###推送网站<br>上面只是在本地预览，接下来做的就是推送网站，也就是发布网站。<br>在blog根目录里的_config.yml文件称为<strong>站点配置文件</strong><br>在根目录里的themes文件夹，里面也有个_config.yml文件，这个称为<strong>主题配置文件</strong><br>下一步将我们的Hexo和github关联起来，打开站点的配置文件_config.yml，翻到最后修改为：</p>
+<h3 id="推送网站"><a href="#推送网站" class="headerlink" title="推送网站"></a>推送网站</h3><p>上面只是在本地预览，接下来做的就是推送网站，也就是发布网站。<br>在blog根目录里的_config.yml文件称为<strong>站点配置文件</strong><br>在根目录里的themes文件夹，里面也有个_config.yml文件，这个称为<strong>主题配置文件</strong><br>下一步将我们的Hexo和github关联起来，打开站点的配置文件_config.yml，翻到最后修改为：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">deploy:</span><br><span class="line">type: git</span><br><span class="line">repo: 这里填入你之前在GitHub上创建仓库的完整路径，记得加上 .git</span><br><span class="line">branch: master</span><br></pre></td></tr></table></figure>
 
 <p>保存站点配置文件<br>其实就是给hexo d 这个命令做相应的配置，让hexo知道你要把blog部署在哪个位置，很显然，我们部署在我们GitHub的仓库里。最后安装Git部署插件，输入命令：</p>
@@ -343,7 +342,7 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ hexo clean</span><br><span class="line">$ hexo g</span><br><span class="line">$ hexo d</span><br></pre></td></tr></table></figure>
 
 <p><em>其实第三条的<code>hexo d</code>就是部署网站命令，d是deploy的缩写</em><br>完成后，打开浏览器，在地址栏输入你的放置个人网站的仓库路径即可</p>
-<p>###Acknowledge:<br><a href="https://help.github.com/en/articles/caching-your-github-password-in-git#platform-linux" target="_blank" rel="noopener">https://help.github.com/en/articles/caching-your-github-password-in-git#platform-linux</a><br><a href="https://www.tuicool.com/articles/BzUrAvF" target="_blank" rel="noopener">https://www.tuicool.com/articles/BzUrAvF</a><br><a href="https://www.cnblogs.com/zhaoyu1995/p/6239950.html" target="_blank" rel="noopener">https://www.cnblogs.com/zhaoyu1995/p/6239950.html</a><br><a href="https://zhuanlan.zhihu.com/p/26625249" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/26625249</a></p>
+<h3 id="Acknowledge"><a href="#Acknowledge" class="headerlink" title="Acknowledge:"></a>Acknowledge:</h3><p><a href="https://help.github.com/en/articles/caching-your-github-password-in-git#platform-linux" target="_blank" rel="noopener">https://help.github.com/en/articles/caching-your-github-password-in-git#platform-linux</a><br><a href="https://www.tuicool.com/articles/BzUrAvF" target="_blank" rel="noopener">https://www.tuicool.com/articles/BzUrAvF</a><br><a href="https://www.cnblogs.com/zhaoyu1995/p/6239950.html" target="_blank" rel="noopener">https://www.cnblogs.com/zhaoyu1995/p/6239950.html</a><br><a href="https://zhuanlan.zhihu.com/p/26625249" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/26625249</a></p>
 
           
         
