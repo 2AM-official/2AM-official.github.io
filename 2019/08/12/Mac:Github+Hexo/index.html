@@ -63,7 +63,7 @@
 <meta property="og:site_name" content="Room of Requirment">
 <meta property="og:description" content="安装git配置用户名和邮箱查看当前电脑是否安装git git --version初次安装git需要配置用户名和邮箱，否则git会提示：please tell me who you are运行命令来配置你的用户名和邮箱 12$ git config --global user.name &amp;quot;2AM-official&amp;quot;$ git config --global user.email">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2019-08-21T06:31:18.416Z">
+<meta property="og:updated_time" content="2019-08-21T06:33:14.571Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Github + Hexo (Mac)">
 <meta name="twitter:description" content="安装git配置用户名和邮箱查看当前电脑是否安装git git --version初次安装git需要配置用户名和邮箱，否则git会提示：please tell me who you are运行命令来配置你的用户名和邮箱 12$ git config --global user.name &amp;quot;2AM-official&amp;quot;$ git config --global user.email">
@@ -267,7 +267,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2019-08-21 14:31:18" itemprop="dateModified" datetime="2019-08-21T14:31:18+08:00">2019-08-21</time>
+                <time title="Modified: 2019-08-21 14:33:14" itemprop="dateModified" datetime="2019-08-21T14:33:14+08:00">2019-08-21</time>
               </span>
             
           
@@ -289,7 +289,7 @@
 <p><em>此用户名和邮箱是git提交代码时用来显示你身份和联系方式的，并不是github用户名和邮箱，但我在这里为了省事直接使用我本人的github邮箱</em></p>
 <h2 id="git使用ssh密匙"><a href="#git使用ssh密匙" class="headerlink" title="git使用ssh密匙"></a>git使用ssh密匙</h2><p>git支持https和git两种传输协议，github分享链接时会有两种协议可选：git协议链接和https协议链接。<br><em>git使用https协议，每次pull，push都会提示要输入密码；使用git协议，然后使用ssh密匙，这样可以免去每次都输密码的麻烦</em></p>
 <h3 id="初次使用git的用户要使用git协议大概需要三个步骤："><a href="#初次使用git的用户要使用git协议大概需要三个步骤：" class="headerlink" title="初次使用git的用户要使用git协议大概需要三个步骤："></a>初次使用git的用户要使用git协议大概需要三个步骤：</h3><p>1、生成密匙对<br>2、设置远程仓库（本文以github为例）上的公匙<br>3、把git的remote url修改为git协议<br><em>以上两个步骤初次设置过后，以后都不需要再次设置，此步骤视以后项目的remote url而定，如果以后其他项目的协议为https则需要此步骤</em></p>
-<h4 id="、生成密匙对"><a href="#、生成密匙对" class="headerlink" title="、生成密匙对"></a>、生成密匙对</h4><p>大多数git服务器都会选择使用SSH公匙来进行授权。系统中的每个用户都必须提供一个公匙用于授权，没有的话就要生成一个。<br>生成公匙的过程在所有操作系统上都差不多，首先要确认一下本机是否已经有一个公匙。<br>SSH公匙默认储存在账户的主目录下<code>~/.ssh</code>目录</p>
+<h4 id="生成密匙对"><a href="#生成密匙对" class="headerlink" title="生成密匙对"></a>生成密匙对</h4><p>大多数git服务器都会选择使用SSH公匙来进行授权。系统中的每个用户都必须提供一个公匙用于授权，没有的话就要生成一个。<br>生成公匙的过程在所有操作系统上都差不多，首先要确认一下本机是否已经有一个公匙。<br>SSH公匙默认储存在账户的主目录下<code>~/.ssh</code>目录</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ cd ~/.ssh</span><br><span class="line">$ ls</span><br></pre></td></tr></table></figure>
 
 <p>看一下有没有id_rsa和id_rsa.pub（或者是id_dsa和id_dsa.pub之类成对的文件），有.pub后缀的文件就是公匙，另一个文件则是密匙。<br>假如没有这些文件，甚至连.ssh目录都没有，可以用ssh-keygen来创建。该程序在Linux/Mac系统上由SSH包提供。</p>
@@ -368,6 +368,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+              <a href="/2019/08/22/初识CNN-RNN/" rel="prev" title="初识CNN, RNN">
+                初识CNN, RNN <i class="fa fa-chevron-right"></i>
+              </a>
+            
           </div>
         </div>
     </footer>
@@ -419,7 +423,7 @@
         
           <a href="/archives/">
         
-          <span class="site-state-item-count">2</span>
+          <span class="site-state-item-count">3</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -434,7 +438,9 @@
         
           
         
-        <span class="site-state-item-count">2</span>
+          
+        
+        <span class="site-state-item-count">3</span>
         <span class="site-state-item-name">tags</span>
         
       </div>
@@ -455,7 +461,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#安装git配置用户名和邮箱"><span class="nav-number">1.</span> <span class="nav-text">安装git配置用户名和邮箱</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#git使用ssh密匙"><span class="nav-number">2.</span> <span class="nav-text">git使用ssh密匙</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#初次使用git的用户要使用git协议大概需要三个步骤："><span class="nav-number">2.1.</span> <span class="nav-text">初次使用git的用户要使用git协议大概需要三个步骤：</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#、生成密匙对"><span class="nav-number">2.1.1.</span> <span class="nav-text">、生成密匙对</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2、添加公匙到你的远程仓库（github）"><span class="nav-number">2.1.2.</span> <span class="nav-text">2、添加公匙到你的远程仓库（github）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3、修改git的remote-url"><span class="nav-number">2.1.3.</span> <span class="nav-text">3、修改git的remote url</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装Hexo"><span class="nav-number">3.</span> <span class="nav-text">安装Hexo</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#安装Nodejs"><span class="nav-number">3.1.</span> <span class="nav-text">安装Nodejs</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Hexo安装"><span class="nav-number">3.2.</span> <span class="nav-text">Hexo安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#快速开始"><span class="nav-number">3.3.</span> <span class="nav-text">快速开始</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#新增文章"><span class="nav-number">3.4.</span> <span class="nav-text">新增文章</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#推送网站"><span class="nav-number">3.5.</span> <span class="nav-text">推送网站</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Acknowledge"><span class="nav-number">3.6.</span> <span class="nav-text">Acknowledge:</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#安装git配置用户名和邮箱"><span class="nav-number">1.</span> <span class="nav-text">安装git配置用户名和邮箱</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#git使用ssh密匙"><span class="nav-number">2.</span> <span class="nav-text">git使用ssh密匙</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#初次使用git的用户要使用git协议大概需要三个步骤："><span class="nav-number">2.1.</span> <span class="nav-text">初次使用git的用户要使用git协议大概需要三个步骤：</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#生成密匙对"><span class="nav-number">2.1.1.</span> <span class="nav-text">生成密匙对</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2、添加公匙到你的远程仓库（github）"><span class="nav-number">2.1.2.</span> <span class="nav-text">2、添加公匙到你的远程仓库（github）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3、修改git的remote-url"><span class="nav-number">2.1.3.</span> <span class="nav-text">3、修改git的remote url</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装Hexo"><span class="nav-number">3.</span> <span class="nav-text">安装Hexo</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#安装Nodejs"><span class="nav-number">3.1.</span> <span class="nav-text">安装Nodejs</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Hexo安装"><span class="nav-number">3.2.</span> <span class="nav-text">Hexo安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#快速开始"><span class="nav-number">3.3.</span> <span class="nav-text">快速开始</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#新增文章"><span class="nav-number">3.4.</span> <span class="nav-text">新增文章</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#推送网站"><span class="nav-number">3.5.</span> <span class="nav-text">推送网站</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Acknowledge"><span class="nav-number">3.6.</span> <span class="nav-text">Acknowledge:</span></a></li></ol></li></ol></div>
             
 
           </div>
