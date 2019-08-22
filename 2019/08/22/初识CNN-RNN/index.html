@@ -63,7 +63,7 @@
 <meta property="og:site_name" content="Room of Requirment">
 <meta property="og:description" content="Convolutional Neural Networks(CNNs)CNNs的结构Convolution (卷积)1、卷积的定义我们称$(fg)(n)$为$f,g$的卷积其连续的定义为：$(fg)(n) = \int{-\infty}^{+\infty} {f(t)g(n - t)}  {\rm d}t$其离散的定义为：$(f*g)(n) = \sum{t=-\infty}^{\infty} {">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2019-08-22T14:42:31.092Z">
+<meta property="og:updated_time" content="2019-08-22T14:50:54.410Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="初识CNN, RNN">
 <meta name="twitter:description" content="Convolutional Neural Networks(CNNs)CNNs的结构Convolution (卷积)1、卷积的定义我们称$(fg)(n)$为$f,g$的卷积其连续的定义为：$(fg)(n) = \int{-\infty}^{+\infty} {f(t)g(n - t)}  {\rm d}t$其离散的定义为：$(f*g)(n) = \sum{t=-\infty}^{\infty} {">
@@ -254,7 +254,7 @@
                 
               
 
-              <time title="Created: 2019-08-22 22:05:10 / Modified: 22:42:31" itemprop="dateCreated datePublished" datetime="2019-08-22T22:05:10+08:00">2019-08-22</time>
+              <time title="Created: 2019-08-22 22:05:10 / Modified: 22:50:54" itemprop="dateCreated datePublished" datetime="2019-08-22T22:05:10+08:00">2019-08-22</time>
             </span>
           
             
@@ -486,51 +486,6 @@
 
   
 
-  
-    
-      <script type="text/x-mathjax-config">
-
-  MathJax.Hub.Config({
-    tex2jax: {
-      inlineMath: [ ['$', '$'], ['\\(', '\\)'] ],
-      processEscapes: true,
-      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
-    },
-    TeX: {
-      equationNumbers: {
-        autoNumber: 'AMS'
-      }
-    }
-  });
-
-  MathJax.Hub.Register.StartupHook('TeX Jax Ready', function() {
-    MathJax.InputJax.TeX.prefilterHooks.Add(function(data) {
-      if (data.display) {
-        var next = data.script.nextSibling;
-        while (next && next.nodeName.toLowerCase() === '#text') {
-          next = next.nextSibling;
-        }
-        if (next && next.nodeName.toLowerCase() === 'br') {
-          next.parentNode.removeChild(next);
-        }
-      }
-    });
-  });
-
-  MathJax.Hub.Queue(function() {
-    var all = MathJax.Hub.getAllJax(), i;
-    for (i = 0; i < all.length; i += 1) {
-      element = document.getElementById(all[i].inputID + '-Frame').parentNode;
-      if (element.nodeName.toLowerCase() == 'li') {
-        element = element.parentNode;
-      }
-      element.classList.add('has-jax');
-    }
-  });
-</script>
-<script src="//cdn.jsdelivr.net/npm/mathjax@2/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-
-    
   
 
   
