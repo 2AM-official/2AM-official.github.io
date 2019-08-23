@@ -55,18 +55,24 @@
   };
 </script>
 
-  <meta name="description" content="Convolutional Neural Networks(CNNs)CNNs的结构Convolution (卷积)1、卷积的定义我们称 $(f*g)(n)$ 为 $f,g$ 的卷积其连续的定义为：  (f*g)(n) = \int_{-\infty}^{+\infty} {f(t)g(n - t)}  {\rm d}t其离散的定义为：  (f*g)(n) = \sum_{t=-\infty}^{">
+  <meta name="description" content="Convolutional Neural Networks(CNNs)CNNs的结构 Convolution (卷积)卷积的数学理解1、卷积的定义我们称 $(f*g)(n)$ 为 $f,g$ 的卷积其连续的定义为：  (f*g)(n) = \int_{-\infty}^{+\infty} {f(t)g(n - t)}  {\rm d}t其离散的定义为：  (f*g)(n) = \sum_{t=-\">
 <meta name="keywords" content="ArtificalIntelligence">
 <meta property="og:type" content="article">
 <meta property="og:title" content="初识CNN, RNN">
 <meta property="og:url" content="http://yoursite.com/2019/08/22/初识CNN-RNN/index.html">
 <meta property="og:site_name" content="Room of Requirment">
-<meta property="og:description" content="Convolutional Neural Networks(CNNs)CNNs的结构Convolution (卷积)1、卷积的定义我们称 $(f*g)(n)$ 为 $f,g$ 的卷积其连续的定义为：  (f*g)(n) = \int_{-\infty}^{+\infty} {f(t)g(n - t)}  {\rm d}t其离散的定义为：  (f*g)(n) = \sum_{t=-\infty}^{">
+<meta property="og:description" content="Convolutional Neural Networks(CNNs)CNNs的结构 Convolution (卷积)卷积的数学理解1、卷积的定义我们称 $(f*g)(n)$ 为 $f,g$ 的卷积其连续的定义为：  (f*g)(n) = \int_{-\infty}^{+\infty} {f(t)g(n - t)}  {\rm d}t其离散的定义为：  (f*g)(n) = \sum_{t=-\">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2019-08-23T03:50:41.385Z">
+<meta property="og:image" content="http://yoursite.com/images/3a1.png">
+<meta property="og:image" content="http://yoursite.com/images/3a2.gif">
+<meta property="og:image" content="http://yoursite.com/images/3a3.jpeg">
+<meta property="og:image" content="http://yoursite.com/images/3a4.png">
+<meta property="og:image" content="http://yoursite.com/images/3a5.jpeg">
+<meta property="og:updated_time" content="2019-08-23T11:25:24.198Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="初识CNN, RNN">
-<meta name="twitter:description" content="Convolutional Neural Networks(CNNs)CNNs的结构Convolution (卷积)1、卷积的定义我们称 $(f*g)(n)$ 为 $f,g$ 的卷积其连续的定义为：  (f*g)(n) = \int_{-\infty}^{+\infty} {f(t)g(n - t)}  {\rm d}t其离散的定义为：  (f*g)(n) = \sum_{t=-\infty}^{">
+<meta name="twitter:description" content="Convolutional Neural Networks(CNNs)CNNs的结构 Convolution (卷积)卷积的数学理解1、卷积的定义我们称 $(f*g)(n)$ 为 $f,g$ 的卷积其连续的定义为：  (f*g)(n) = \int_{-\infty}^{+\infty} {f(t)g(n - t)}  {\rm d}t其离散的定义为：  (f*g)(n) = \sum_{t=-\">
+<meta name="twitter:image" content="http://yoursite.com/images/3a1.png">
   <link rel="canonical" href="http://yoursite.com/2019/08/22/初识CNN-RNN/">
 
 
@@ -267,7 +273,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2019-08-23 11:50:41" itemprop="dateModified" datetime="2019-08-23T11:50:41+08:00">2019-08-23</time>
+                <time title="Modified: 2019-08-23 19:25:24" itemprop="dateModified" datetime="2019-08-23T19:25:24+08:00">2019-08-23</time>
               </span>
             
           
@@ -283,11 +289,39 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h2 id="Convolutional-Neural-Networks-CNNs"><a href="#Convolutional-Neural-Networks-CNNs" class="headerlink" title="Convolutional Neural Networks(CNNs)"></a>Convolutional Neural Networks(CNNs)</h2><h3 id="CNNs的结构"><a href="#CNNs的结构" class="headerlink" title="CNNs的结构"></a>CNNs的结构</h3><h4 id="Convolution-卷积"><a href="#Convolution-卷积" class="headerlink" title="Convolution (卷积)"></a>Convolution (卷积)</h4><h5 id="1、卷积的定义"><a href="#1、卷积的定义" class="headerlink" title="1、卷积的定义"></a>1、卷积的定义</h5><p>我们称 $(f*g)(n)$ 为 $f,g$ 的卷积<br>其连续的定义为：</p>
+        <h2 id="Convolutional-Neural-Networks-CNNs"><a href="#Convolutional-Neural-Networks-CNNs" class="headerlink" title="Convolutional Neural Networks(CNNs)"></a>Convolutional Neural Networks(CNNs)</h2><h3 id="CNNs的结构"><a href="#CNNs的结构" class="headerlink" title="CNNs的结构"></a>CNNs的结构</h3><p><img src="/images/3a1.png" alt="&quot;Figure 1: Convolutional Neural Network for Relation Extraction&quot;"></p>
+<h4 id="Convolution-卷积"><a href="#Convolution-卷积" class="headerlink" title="Convolution (卷积)"></a>Convolution (卷积)</h4><h5 id="卷积的数学理解"><a href="#卷积的数学理解" class="headerlink" title="卷积的数学理解"></a>卷积的数学理解</h5><h6 id="1、卷积的定义"><a href="#1、卷积的定义" class="headerlink" title="1、卷积的定义"></a>1、卷积的定义</h6><p>我们称 $(f*g)(n)$ 为 $f,g$ 的卷积<br>其连续的定义为：</p>
 <script type="math/tex; mode=display">
 (f*g)(n) = \int_{-\infty}^{+\infty} {f(t)g(n - t)}  {\rm d}t</script><p>其离散的定义为：</p>
 <script type="math/tex; mode=display">
-(f*g)(n) = \sum_{t=-\infty}^{\infty} {f(t)g(n - t)}</script>
+(f*g)(n) = \sum_{t=-\infty}^{\infty} {f(t)g(n - t)}</script><p>这两个式子有一个共同特征：都类似于$n = t + n - t$<br>我们令$x = r, y = n - r$,那么$x + y = n$ 就是下面这些直线<br><img src="/images/3a2.gif" alt="lines"></p>
+<h6 id="2、离散卷积的例子：丢骰子"><a href="#2、离散卷积的例子：丢骰子" class="headerlink" title="2、离散卷积的例子：丢骰子"></a>2、离散卷积的例子：丢骰子</h6><p>将两枚🎲抛出去，两枚🎲点数加起来为4的概率是多少？<br>我们把🎲各个点数出现的概率表示出来：<br>相加点数4出现概率为：$f(1)g(3)$ $f(2)g(2)$ $f(3)g(1)$<br>因此，两枚🎲点数加起来为4的概率为：$f(1)g(3) + f(2)g(2) + f(3)g(1)$<br>符合卷积的定义，把它写成标准的形式就是：</p>
+<script type="math/tex; mode=display">
+(f*g)(4) = \sum_{m=1}^{3} {f(4 -m)g(m)}</script><h6 id="3、连续卷积的例子：做馒头"><a href="#3、连续卷积的例子：做馒头" class="headerlink" title="3、连续卷积的例子：做馒头"></a>3、连续卷积的例子：做馒头</h6><p>假设我们拥有一台可以一天不断生产馒头的机器<br>假设馒头的生产速度为$f(t)$，那么一天后生产出的馒头总量为：</p>
+<script type="math/tex; mode=display">
+\int_0^{24} {f(t)} {\rm d}t</script><p>馒头生产出来后会慢慢腐败，假设腐败函数为$g(t)$，比如，10个馒头，24小时会腐败 $10*g(t)$<br>如此，我们可以知道，一天后，馒头总共腐败了：</p>
+<script type="math/tex; mode=display">
+\int_0^{24} {f(t)g(24-t)} {\rm d}t</script><h5 id="卷积的实际运用"><a href="#卷积的实际运用" class="headerlink" title="卷积的实际运用"></a>卷积的实际运用</h5><p>基础CNN所用的卷积是一种2D卷积。Kernel只能在x,y上滑动位移，不能进行深度（跨通道）位移。<br>对于RGB图像，采用了三个独立的2D kernel，如黄色部分，这个kernel的维度是$X*Y*3$。再基础CNN的不同stage中，kernel的深度都应当一致，等于输入图像的通道数。<br>卷积需要输入两个参数，实质是二维空间滤波，滤波的性质与kernel选择有关，CNN的卷积是在一个2-D kernel 和输入的 2-D input map 之间，RGB中各图像通道分别完成。<br>我们假设单一通道输入图像的空间坐标为$(x,y)$ ，卷积核大小是$p * q$ ，kernel权重为$w$ ,图像亮度值是$v$ ，卷积过程就是kernel 所有权重与其在输入图像上对应元素亮度之和，可以表示为：</p>
+<script type="math/tex; mode=display">
+conv_{x,y} = \sum_i^{p*q} {w_i}{v_i}</script><p><img src="/images/3a3.jpeg" alt="convolution"><br>并将kernel随（x,y）平移扫描，可以得到输出空间，这时假设输入图像大小是$512*512$，卷积核是$3*3$，在不考虑零填充（zero padding）的情况，输出是（512 - 3 + 1） = 510 *510<br>卷积层的kernel可能不止一个，扫描步长，方向也有不同，这些进阶方式可以归纳一下：</p>
+<ul>
+<li>可以采用多个卷积核，设为n同时扫描，得到的feature map会增加n个维度，通常认为是多抓取n个特征</li>
+<li>可以采取不同扫描步长，比如上例子中采用步长为n，输出是（510/n，510/n）</li>
+<li>padding，上例中，卷积过后的图像维度是缩减的，可以在图像周围填充0来保证feature map与原始图像大小不变</li>
+<li>深度升降，例如采用增加一个1*1 kernel来增加深度，相当于复制一层前通道作为feature map</li>
+<li>跨层传递feature map，不再局限于输入即输出，例如ResNet跨层传递特征，Faster RCNN 的POI pooling</li>
+</ul>
+<h4 id="Activation（激活）"><a href="#Activation（激活）" class="headerlink" title="Activation（激活）"></a>Activation（激活）</h4><p>卷积之后，通常会加入偏置(bias), 并引入非线性激活函数(activation function)，这里定义bias为b，activation function 是h（），经过激活函数后，得到的结果是,</p>
+<script type="math/tex; mode=display">
+Z_{x,y} = h(\sum_i^{p*q} {w_i}{v_i} + b)</script><p><em>bias不与元素位置相关，只与层有关</em><br>主流的activation function 有：<br><img src="/images/3a4.png" alt="activation functions"><br>例如采用$277*277$的RGB图像， 采用96个$11*11*3$的kernels同时扫描，很容易得到输出的feature maps是96个$267*267$的二维 feature map, $267*267$是单个图像feature map的x,y轴大小，96是卷积核个数，原本的3通道在积分的时候会被作为一个元素加起来。 如上图，这些feature map可视化之后，可以看到4和35表示边缘特征，23是模糊化的输入，10和16在强调灰度变化，39强调眼睛，45强调红色通道的表现。</p>
+<h4 id="Pooling-池化"><a href="#Pooling-池化" class="headerlink" title="Pooling (池化)"></a>Pooling (池化)</h4><p>池化(pooling），是一种降采样操作(subsampling)，主要目标是降低feature maps的特征空间，或者可以认为是降低feature maps的分辨率。因为feature map参数太多，而图像细节不利于高层特征的抽取。<br><img src="/images/3a5.jpeg" alt="pooling"><br>目前主要的pooling操作有:</p>
+<ul>
+<li>最大值池化 Max pooling: $2*2$的max pooling就是取4个像素点中最大值保留</li>
+<li>平均值池化 Average pooling, $2*2$的average pooling就是取4个像素点中平均值保留</li>
+<li>L2池化 L2 pooling: 即取均方值保留<br>Pooling操作会降低参数，降低feature maps的分辨率，但是这种暴力降低在计算力足够的情况下是不是必须的，并不确定。目前一些大的CNNs网络只是偶尔使用pooling.</li>
+</ul>
+<p>该CNN stage的基本结构是可变的，目前大部分网络都是根据基本结构堆叠调整参数，或跳层连接而成</p>
+<h2 id="Piecewise-Neural-Networks-PCNNs"><a href="#Piecewise-Neural-Networks-PCNNs" class="headerlink" title="Piecewise Neural Networks(PCNNs)"></a>Piecewise Neural Networks(PCNNs)</h2>
     </div>
 
     
@@ -401,7 +435,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Convolutional-Neural-Networks-CNNs"><span class="nav-number">1.</span> <span class="nav-text">Convolutional Neural Networks(CNNs)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#CNNs的结构"><span class="nav-number">1.1.</span> <span class="nav-text">CNNs的结构</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Convolution-卷积"><span class="nav-number">1.1.1.</span> <span class="nav-text">Convolution (卷积)</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1、卷积的定义"><span class="nav-number">1.1.1.1.</span> <span class="nav-text">1、卷积的定义</span></a></li></ol></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Convolutional-Neural-Networks-CNNs"><span class="nav-number">1.</span> <span class="nav-text">Convolutional Neural Networks(CNNs)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#CNNs的结构"><span class="nav-number">1.1.</span> <span class="nav-text">CNNs的结构</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Convolution-卷积"><span class="nav-number">1.1.1.</span> <span class="nav-text">Convolution (卷积)</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#卷积的数学理解"><span class="nav-number">1.1.1.1.</span> <span class="nav-text">卷积的数学理解</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#1、卷积的定义"><span class="nav-number">1.1.1.1.1.</span> <span class="nav-text">1、卷积的定义</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#2、离散卷积的例子：丢骰子"><span class="nav-number">1.1.1.1.2.</span> <span class="nav-text">2、离散卷积的例子：丢骰子</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#3、连续卷积的例子：做馒头"><span class="nav-number">1.1.1.1.3.</span> <span class="nav-text">3、连续卷积的例子：做馒头</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#卷积的实际运用"><span class="nav-number">1.1.1.2.</span> <span class="nav-text">卷积的实际运用</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Activation（激活）"><span class="nav-number">1.1.2.</span> <span class="nav-text">Activation（激活）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Pooling-池化"><span class="nav-number">1.1.3.</span> <span class="nav-text">Pooling (池化)</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Piecewise-Neural-Networks-PCNNs"><span class="nav-number">2.</span> <span class="nav-text">Piecewise Neural Networks(PCNNs)</span></a></li></ol></div>
             
 
           </div>
