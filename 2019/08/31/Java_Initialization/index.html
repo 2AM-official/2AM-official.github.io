@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+
+
+
+
+
+<html class="theme-next muse use-motion" lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="generator" content="Hexo 3.9.0">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.3.0">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.3.0">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.3.0">
+  <link rel="mask-icon" href="/images/logo.svg?v=7.3.0" color="#222">
+
+<link rel="stylesheet" href="/css/main.css?v=7.3.0">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.7.0">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '7.3.0',
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    save_scroll: false,
+    copycode: {"enable":false,"show_result":false,"style":null},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: '',
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    translation: {
+      copy_button: 'Copy',
+      copy_success: 'Copied',
+      copy_failure: 'Copy failed'
+    }
+  };
+</script>
+
+  <meta name="description" content="用构造器确保初始化概念： 在创建对象时被自动调用的特殊方法，并额外提供了“垃圾回收器”。对于不再使用的内存资源，垃圾回收器能将它自动释放。不接受任何参数的构造器叫做默认构造器，Java文档中通常使用术语无参构造器。但是和其他方法一样，构造器也能带有形式参数，以便指定如何创建对象。如果Tree(int)是Tree类中唯一的构造器，那么编译器将不会允许你以其他任何方法创建Tree对象。在Java中，“">
+<meta name="keywords" content="Initialization">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java Initialization">
+<meta property="og:url" content="http://yoursite.com/2019/08/31/Java_Initialization/index.html">
+<meta property="og:site_name" content="Room of Requirment">
+<meta property="og:description" content="用构造器确保初始化概念： 在创建对象时被自动调用的特殊方法，并额外提供了“垃圾回收器”。对于不再使用的内存资源，垃圾回收器能将它自动释放。不接受任何参数的构造器叫做默认构造器，Java文档中通常使用术语无参构造器。但是和其他方法一样，构造器也能带有形式参数，以便指定如何创建对象。如果Tree(int)是Tree类中唯一的构造器，那么编译器将不会允许你以其他任何方法创建Tree对象。在Java中，“">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2019-09-01T14:41:07.322Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Java Initialization">
+<meta name="twitter:description" content="用构造器确保初始化概念： 在创建对象时被自动调用的特殊方法，并额外提供了“垃圾回收器”。对于不再使用的内存资源，垃圾回收器能将它自动释放。不接受任何参数的构造器叫做默认构造器，Java文档中通常使用术语无参构造器。但是和其他方法一样，构造器也能带有形式参数，以便指定如何创建对象。如果Tree(int)是Tree类中唯一的构造器，那么编译器将不会允许你以其他任何方法创建Tree对象。在Java中，“">
+  <link rel="canonical" href="http://yoursite.com/2019/08/31/Java_Initialization/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true,
+    isPage: false,
+    isArchive: false
+  };
+</script>
+
+  <title>Java Initialization | Room of Requirment</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  <div class="container sidebar-position-left">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Room of Requirment</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+        <p class="site-subtitle">Less is More</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="Toggle navigation bar">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+      
+      
+      
+        
+        <li class="menu-item menu-item-home">
+      
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>Home</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-tags">
+      
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>Tags</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-categories">
+      
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>Categories</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-archives">
+      
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives</a>
+
+  </li>
+  </ul>
+
+    
+
+</nav>
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content page-post-detail">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/08/31/Java_Initialization/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="2AM">
+      <meta itemprop="description" content="they said the fruit never gon' fall far from the tree">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Room of Requirment">
+    </span>
+      <header class="post-header">
+
+        
+          <h1 class="post-title" itemprop="name headline">Java Initialization
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2019-08-31 17:29:20" itemprop="dateCreated datePublished" datetime="2019-08-31T17:29:20+08:00">2019-08-31</time>
+            </span>
+          
+            
+
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2019-09-01 22:41:07" itemprop="dateModified" datetime="2019-09-01T22:41:07+08:00">2019-09-01</time>
+              </span>
+            
+          
+
+          <br>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="用构造器确保初始化"><a href="#用构造器确保初始化" class="headerlink" title="用构造器确保初始化"></a>用构造器确保初始化</h2><p>概念： 在创建对象时被自动调用的特殊方法，并额外提供了“垃圾回收器”。对于不再使用的内存资源，垃圾回收器能将它自动释放。<br>不接受任何参数的构造器叫做默认构造器，Java文档中通常使用术语无参构造器。但是和其他方法一样，构造器也能带有形式参数，以便指定如何创建对象。如果Tree(int)是Tree类中唯一的构造器，那么编译器将不会允许你以其他任何方法创建Tree对象。在Java中，“初始化”和“创建”捆绑在一起，两者不能分离。构造器本身并没有任何返回值。</p>
+<h2 id="方法重载"><a href="#方法重载" class="headerlink" title="方法重载"></a>方法重载</h2><p>任何程序设计语言都具备的一项重要特性就是对名字的运用。当创建一个对象时，也就给此对象分配到的存储空间取了一个名字。在Java里，构造器是强制重载方法名的另一个原因。既然构造器的名字已经由类名决定，就只能有一个构造器名。为了让方法名相同而形式参数不同的构造器同时存在，必须要用到方法重载。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="keyword">static</span> net.midview.util.Print.*;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Tree</span></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> height;</span><br><span class="line">    Tree()&#123;</span><br><span class="line">        print(<span class="string">"Planting a seedling"</span>);</span><br><span class="line">        height = <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    Tree(<span class="keyword">int</span> initialHeight)&#123;</span><br><span class="line">        height = initialHeight:</span><br><span class="line">        print(<span class="string">"Creating new Tree that is "</span> + height + <span class="string">" feet tall"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">info</span><span class="params">()</span></span>&#123;</span><br><span class="line">        print(<span class="string">"Tree is "</span> + height + <span class="string">"feet tall"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">info</span><span class="params">(String s)</span></span>&#123;</span><br><span class="line">        print(s + <span class="string">": Tree is "</span> + height + <span class="string">" feet tall"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p><em>有了方法重载，可以为两者使用相同的名字</em></p>
+<h3 id="区分重载方法"><a href="#区分重载方法" class="headerlink" title="区分重载方法"></a>区分重载方法</h3><p>重载的方法通过独一无二的<strong>参数类型列表</strong>去让Java便于区分，甚至<strong>参数顺序</strong>不同也足以区分两个方法。<em>不过一般情况下别这么做，因为这会使代码难以维护</em><br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">OverloadingOrder</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">f</span><span class="params">(String s, <span class="keyword">int</span> i)</span></span>&#123;&#125;</span><br><span class="line">    <span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">f</span><span class="params">(<span class="keyword">int</span> i, String s)</span></span>&#123;&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h3 id="涉及基本类型的重载"><a href="#涉及基本类型的重载" class="headerlink" title="涉及基本类型的重载"></a>涉及基本类型的重载</h3><p><strong>byte8位，short16位，int32位，long64位，float单精度32位，double双精度64位，char单一的16位Unicode字符</strong><br>基本类型能从一个“较小”的类型自动提升至一个“较大”的类型。如果传入的数据类型（实际参数类型）小于方法中声明的形式参数类型，实际数据类型就会被提升。<strong>char</strong>型略有不同，如果无法找到恰好接受<strong>char</strong>参数的方法，就会把<strong>char</strong>直接提升至<strong>int</strong>型。<br>如果传入的实际参数较大，就得通过类型转换来执行窄化转换。如果不这样做，编译器就会报错。</p>
+<h3 id="以返回值区分重载方法"><a href="#以返回值区分重载方法" class="headerlink" title="以返回值区分重载方法"></a>以返回值区分重载方法</h3><p>根据方法的返回值来区分重载方法是行不通的。</p>
+<h2 id="默认构造器"><a href="#默认构造器" class="headerlink" title="默认构造器"></a>默认构造器</h2><p>如果你写的类中没有构造器，则编译器会自动帮你创建一个默认构造器。<br>如果已经定义了一个构造器（无论是否有参数），编译器就不会帮你自动创建默认构造器。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Bird2</span></span>&#123;</span><br><span class="line">    Bird2(<span class="keyword">int</span> i)&#123;&#125;</span><br><span class="line">    Bird2(<span class="keyword">double</span> d)&#123;&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">NoSynthesis</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span>&#123;</span><br><span class="line">        <span class="comment">//! Bird2 b = new Bird2(); //No default</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>如果按照上述编写会报错。</p>
+<h2 id="this关键字"><a href="#this关键字" class="headerlink" title="this关键字"></a>this关键字</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Peeler</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">static</span> Apple <span class="title">peel</span><span class="params">(Apple apple)</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> apple;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Apple</span></span>&#123;</span><br><span class="line">    <span class="function">Apple <span class="title">getPeeled</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> Peeler.peel(<span class="keyword">this</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>为了将自身传递给外部方法，<strong>Apple</strong>必须使用<strong>this</strong>关键字。<br>可能为一个类写了多个构造器，有时可能想在一个构造器中调用另一个构造器，以避免重复代码。可用<strong>this</strong>关键字做到这一点。<br>```java<br>public class Flower{<br>    int petalCount = 0;<br>    String s = “initial value”;<br>    Flower(int petals){}<br>    Flower(String ss){}<br>    Flower(String s, int petals){<br>        this(petals);<br>        //! this(s); //Can’t call two!<br>        this.s = s<br>    }<br>}</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          
+        
+        <div class="post-tags">
+            <a href="/tags/Initialization/" rel="tag"># Initialization</a>
+          
+        </div>
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+              <a href="/2019/08/27/Java_Array/" rel="next" title="Java 数组">
+                <i class="fa fa-chevron-left"></i> Java 数组
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+          </div>
+        </div>
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+  </div>
+
+
+          </div>
+          
+
+
+        </div>
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">2AM</p>
+  <div class="site-description motion-element" itemprop="description">they said the fruit never gon' fall far from the tree</div>
+</div>
+  <nav class="site-state motion-element">
+      <div class="site-state-item site-state-posts">
+        
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">5</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-tags">
+        
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-name">tags</span>
+        
+      </div>
+    
+  </nav>
+
+
+
+        </div>
+      </div>
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#用构造器确保初始化"><span class="nav-number">1.</span> <span class="nav-text">用构造器确保初始化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#方法重载"><span class="nav-number">2.</span> <span class="nav-text">方法重载</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#区分重载方法"><span class="nav-number">2.1.</span> <span class="nav-text">区分重载方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#涉及基本类型的重载"><span class="nav-number">2.2.</span> <span class="nav-text">涉及基本类型的重载</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#以返回值区分重载方法"><span class="nav-number">2.3.</span> <span class="nav-text">以返回值区分重载方法</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#默认构造器"><span class="nav-number">3.</span> <span class="nav-text">默认构造器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#this关键字"><span class="nav-number">4.</span> <span class="nav-text">this关键字</span></a></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">2AM</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.9.0</div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">Theme – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> v7.3.0</div>
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+      </div>
+
+    
+
+  </div>
+
+  
+  <script src="/lib/jquery/index.js?v=3.4.1"></script>
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+<script src="/js/utils.js?v=7.3.0"></script>
+  <script src="/js/motion.js?v=7.3.0"></script>
+
+
+  <script src="/js/schemes/muse.js?v=7.3.0"></script>
+
+
+<script src="/js/next-boot.js?v=7.3.0"></script>
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+
+  
+  <script src="/js/scrollspy.js?v=7.3.0"></script>
+<script src="/js/post-details.js?v=7.3.0"></script>
+
+
+</body>
+</html>
