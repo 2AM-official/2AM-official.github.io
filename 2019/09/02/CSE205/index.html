@@ -64,7 +64,7 @@
 <meta property="og:locale" content="en">
 <meta property="og:image" content="http://yoursite.com/images/6a1.png">
 <meta property="og:image" content="http://yoursite.com/images/6a2.png">
-<meta property="og:updated_time" content="2019-09-04T03:57:41.516Z">
+<meta property="og:updated_time" content="2019-09-04T04:15:40.958Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="计算机网络和因特网">
 <meta name="twitter:description" content="电路交换和分组交换在电路交换网络中，沿着端系统通信路径，为端系统之间通信所提供的资源（缓存、链路传输速率）在通信会话期间会被预留。在分组交换网络中，这些资源则不会被预留，会话的报文按需使用这些资源，这将导致可能不得不等待（即排队）接入通信线路。并非所有的电信网络都能够被明确地归类为电路交换网络或分组交换网络。 电路交换在上图中，每台主机（例如PC和工作站）都与一台交换机直接相连。当两台主机要通信时">
@@ -269,7 +269,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2019-09-04 11:57:41" itemprop="dateModified" datetime="2019-09-04T11:57:41+08:00">2019-09-04</time>
+                <time title="Modified: 2019-09-04 12:15:40" itemprop="dateModified" datetime="2019-09-04T12:15:40+08:00">2019-09-04</time>
               </span>
             
           
@@ -302,8 +302,9 @@
 <li>传输时延(transmission delay)<br>假定分组以先到先服务方式传输，仅当所有已经到达的分组被传输后，才能传输我们的分组。<br>用$L$比特表示分组的长度，用$R$bps表示从路由器A到路由器B的链路传输速率传输时延（又称为储存转发时延）是$L/R$。<br>假定两台主机中间有$Q$条链路，它必须储存转发$Q$次，因此总时延为$QL/R$。</li>
 <li>传播时延(proagation delay)<br>一旦一个比特被推向链路，该比特需要向路由器B传播。从该链路的起点到路由器B传播所需要的时间是<strong>传播时延</strong>，该传播速率取决于该链路的物理媒体（即光纤、双绞铜线等）。<br>如果$d$是路由器A和路由器B之间的距离，$s$是传播速率，传播时延等于两台路由器之间的距离除以传播速率，即传播时延是$d/s$。<br>若传输时延大于传播时延，则会出现一个分组中的前几个比特到达了一台路由器，而该分组中还有余下的比特仍在前面的路由器中等待传输。</li>
 </ol>
-<p>如果令$d<em>{proc}$、$d</em>{queue}$、$d<em>{trans}$、$d</em>{prop}$分别表示处理时延、排队时延、传输试验和传播时延，则节点的总延时由下式给定：<br>$d<em>{nodal} = d</em>{proc} + d<em>{queue} + d</em>{trans} + d_{prop}$</p>
-
+<p>如果令$d<em>{proc}$、$d</em>{queue}$、$d<em>{trans}$、$d</em>{prop}$分别表示处理时延、排队时延、传输试验和传播时延，则节点的总延时由下式给定：</p>
+<script type="math/tex; mode=display">
+d_{nodal} = d_{proc} + d_{queue} + d_{trans} + d_{prop}</script>
     </div>
 
     
