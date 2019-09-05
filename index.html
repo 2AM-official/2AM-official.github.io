@@ -266,7 +266,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2019-09-05 16:24:02" itemprop="dateModified" datetime="2019-09-05T16:24:02+08:00">2019-09-05</time>
+                <time title="Modified: 2019-09-05 16:27:02" itemprop="dateModified" datetime="2019-09-05T16:27:02+08:00">2019-09-05</time>
               </span>
             
           
@@ -300,7 +300,7 @@
 <li>传输时延(transmission delay)<br>假定分组以先到先服务方式传输，仅当所有已经到达的分组被传输后，才能传输我们的分组。<br>用$L$比特表示分组的长度，用$R$bps表示从路由器A到路由器B的链路传输速率传输时延（又称为储存转发时延）是$L/R$。<br>假定两台主机中间有$Q$条链路，它必须储存转发$Q$次，因此总时延为$QL/R$。</li>
 <li>传播时延(proagation delay)<br>一旦一个比特被推向链路，该比特需要向路由器B传播。从该链路的起点到路由器B传播所需要的时间是<strong>传播时延</strong>，该传播速率取决于该链路的物理媒体（即光纤、双绞铜线等）。<br>如果$d$是路由器A和路由器B之间的距离，$s$是传播速率，传播时延等于两台路由器之间的距离除以传播速率，即传播时延是$d/s$。<br>若传输时延大于传播时延，则会出现一个分组中的前几个比特到达了一台路由器，而该分组中还有余下的比特仍在前面的路由器中等待传输。</li>
 </ol>
-<p>如果令$d<em>{proc}、d</em>{queue}、d<em>{trans}、d</em>{prop}$分别表示处理时延、排队时延、传输试验和传播时延，则节点的总延时由下式给定：</p>
+<p>如果令$d_proc、d_queue、d_trans、d_prop$分别表示处理时延、排队时延、传输试验和传播时延，则节点的总延时由下式给定：</p>
 <script type="math/tex; mode=display">
 d_{nodal} = d_{proc} + d_{queue} + d_{trans} + d_{prop}</script><h3 id="排队时延"><a href="#排队时延" class="headerlink" title="排队时延"></a>排队时延</h3><p>与其他三项时延不同的是，排队时延对不同的分组是不同的。例如，如果10个分组同时到达空队列，传输的第一个分组没有排队时延，而传输的最后一个分组将经受相对大的排队时延（这时它要等待其他九个分组被传输）。<br>$a$表示分组到达队列的平均速率（$a$的单位是每秒分组，即pkt/s），$R$是传输速率，即比特从队列中推出的速率（以bps为单位），假定所有分组都是由$L$比特组成的，则比特到达队列的平均速率是$La$bps。最后，假定该队列非常大，因此它基本能容纳无限数量的比特，比率$La/R$被称为<strong>流量强度(traffic intensity)</strong>。</p>
 <ol>
