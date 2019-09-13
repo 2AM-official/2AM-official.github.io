@@ -1,0 +1,647 @@
+<!DOCTYPE html>
+
+
+
+
+
+<html class="theme-next muse use-motion" lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="generator" content="Hexo 3.9.0">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.3.0">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.3.0">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.3.0">
+  <link rel="mask-icon" href="/images/logo.svg?v=7.3.0" color="#222">
+
+<link rel="stylesheet" href="/css/main.css?v=7.3.0">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.7.0">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '7.3.0',
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    save_scroll: false,
+    copycode: {"enable":false,"show_result":false,"style":null},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: '',
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    translation: {
+      copy_button: 'Copy',
+      copy_success: 'Copied',
+      copy_failure: 'Copy failed'
+    }
+  };
+</script>
+
+  <meta name="description" content="应用层协议原理研究网络应用程序核心是能够运行在不同的端系统和通过网络彼此通信的程序。（Write programs that: Run on different end systems and Communicate over network.）重要的是，你不用写在网络核心设备（如路由器或链路层交换机）上运行的软件。 网络应用程序体系结构客户机/服务器体系结构（client-server arch">
+<meta property="og:type" content="article">
+<meta property="og:title" content="CSE205W2_ApplicationLayer">
+<meta property="og:url" content="http://yoursite.com/2019/09/09/CSE205W2-ApplicationLayer/index.html">
+<meta property="og:site_name" content="Room of Requirment">
+<meta property="og:description" content="应用层协议原理研究网络应用程序核心是能够运行在不同的端系统和通过网络彼此通信的程序。（Write programs that: Run on different end systems and Communicate over network.）重要的是，你不用写在网络核心设备（如路由器或链路层交换机）上运行的软件。 网络应用程序体系结构客户机/服务器体系结构（client-server arch">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="http://yoursite.com/images/8/8a1.png">
+<meta property="og:image" content="http://yoursite.com/images/8/8a2.png">
+<meta property="og:image" content="http://yoursite.com/images/8/8a3.png">
+<meta property="og:image" content="http://yoursite.com/images/8/8a4.png">
+<meta property="og:image" content="http://yoursite.com/images/8/8a5.png">
+<meta property="og:image" content="http://yoursite.com/images/8/8a6.png">
+<meta property="og:image" content="http://yoursite.com/images/8/8a7.png">
+<meta property="og:image" content="http://yoursite.com/images/8/8a8.png">
+<meta property="og:image" content="http://yoursite.com/images/8/8a9.png">
+<meta property="og:image" content="http://yoursite.com/images/8/8a10.png">
+<meta property="og:updated_time" content="2019-09-13T06:47:40.969Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="CSE205W2_ApplicationLayer">
+<meta name="twitter:description" content="应用层协议原理研究网络应用程序核心是能够运行在不同的端系统和通过网络彼此通信的程序。（Write programs that: Run on different end systems and Communicate over network.）重要的是，你不用写在网络核心设备（如路由器或链路层交换机）上运行的软件。 网络应用程序体系结构客户机/服务器体系结构（client-server arch">
+<meta name="twitter:image" content="http://yoursite.com/images/8/8a1.png">
+  <link rel="canonical" href="http://yoursite.com/2019/09/09/CSE205W2-ApplicationLayer/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true,
+    isPage: false,
+    isArchive: false
+  };
+</script>
+
+  <title>CSE205W2_ApplicationLayer | Room of Requirment</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  <div class="container sidebar-position-left">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Room of Requirment</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+        <p class="site-subtitle">Less is More</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="Toggle navigation bar">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+      
+      
+      
+        
+        <li class="menu-item menu-item-home">
+      
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>Home</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-tags">
+      
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>Tags</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-categories">
+      
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>Categories</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-archives">
+      
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives</a>
+
+  </li>
+  </ul>
+
+    
+
+</nav>
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content page-post-detail">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/09/09/CSE205W2-ApplicationLayer/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="2AM">
+      <meta itemprop="description" content="they said the fruit never gon' fall far from the tree">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Room of Requirment">
+    </span>
+      <header class="post-header">
+
+        
+          <h1 class="post-title" itemprop="name headline">CSE205W2_ApplicationLayer
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2019-09-09 13:10:18" itemprop="dateCreated datePublished" datetime="2019-09-09T13:10:18+08:00">2019-09-09</time>
+            </span>
+          
+            
+
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2019-09-13 14:47:40" itemprop="dateModified" datetime="2019-09-13T14:47:40+08:00">2019-09-13</time>
+              </span>
+            
+          
+
+          <br>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="应用层协议原理"><a href="#应用层协议原理" class="headerlink" title="应用层协议原理"></a>应用层协议原理</h1><p>研究网络应用程序核心是能够运行在不同的端系统和通过网络彼此通信的程序。（Write programs that: Run on different end systems and Communicate over network.）<br>重要的是，你不用写在网络核心设备（如路由器或链路层交换机）上运行的软件。</p>
+<h2 id="网络应用程序体系结构"><a href="#网络应用程序体系结构" class="headerlink" title="网络应用程序体系结构"></a>网络应用程序体系结构</h2><h3 id="客户机-服务器体系结构（client-server-architecture）"><a href="#客户机-服务器体系结构（client-server-architecture）" class="headerlink" title="客户机/服务器体系结构（client-server architecture）"></a>客户机/服务器体系结构（client-server architecture）</h3><ul>
+<li>服务器（server)</li>
+</ul>
+<ol>
+<li>在客户机/服务器体系结构中，有一个总是打开的主机称为服务器，它服务于来自许多其他称为<em>客户机</em>的主机请求。</li>
+<li>服务器具有固定的、周知的地址，称为IP地址</li>
+<li>服务器的性能优异</li>
+</ol>
+<ul>
+<li>客户机（clients）</li>
+</ul>
+<ol>
+<li>服务器需要服务来自于许多客户机的主机请求</li>
+<li>客户机主机既可能有时打开，也可能总是打开</li>
+<li>客户机相互之间不直接通信</li>
+<li>可能间歇性地与网络相连</li>
+<li>可能拥有动态的地址</li>
+</ol>
+<h3 id="P2P体系结构（P2P-architecture"><a href="#P2P体系结构（P2P-architecture" class="headerlink" title="P2P体系结构（P2P architecture)"></a>P2P体系结构（P2P architecture)</h3><p>在<em>P2P体系结构</em>中，对总是打开的基础设施服务有最小的（或者没有依赖）。相反，任意间断连接的主机——称为对等方，直接相互通信。因为这种对等方通信不必通过专门的服务器，所以该体系被称为对等方到对等方（简称为对等）。<br>P2P体系结构的最突出特性之一是它的<em>自扩展性（self-scalablity）</em>。在一个P2P文件共享应用中，尽管每个对等方都由请求文件产生负载，但每个对等方向其他对等方分发文件也为系统增加了服务能力。</p>
+<h3 id="进程通信（processes-communicating）"><a href="#进程通信（processes-communicating）" class="headerlink" title="进程通信（processes communicating）"></a>进程通信（processes communicating）</h3><p>进程可以被认为是运行在端系统中的程序。当进程运行在相同的端系统上的时候，它们使用进程间通信机制相互通信。进程间通信的规则由端系统上的操作系统确定。<br>不同端系统上的进程通过跨越计算机网络交换<strong>报文（message）</strong>，发送进程创建并向网络中发送报文，接收进程接收这些报文并可能负责回送报文。</p>
+<ol>
+<li>客户机和服务器进程<br>网络应用程序是由成对的进程组成，这些进程通过网络相互发送报文。对每对通信进程，我们通常将这两个进程之一标示为<strong>客户机（client）</strong>，而另一个进程标示为<strong>服务器（server）</strong>。<br><em>在给定的一对进程之间的通信会话中，发起通信（即在该会话开始时与其他进程联系）的进程被标示为<strong>客户机</strong>，在会话开始时等待联系的进程是<strong>服务器</strong>。</em></li>
+<li>进程与计算机网络之间的接口<br>多数应用程序由通信进程组成，每对中的两个进程互相发送报文。从一个进程向另一个进程发送的报文必须通过下面的网络。进程通过一个称为<strong>套接字（socket）</strong>的软件接口在网络上发送和接收报文。套接字是同一台主机内应用层与运输层之间的接口。由于该套接字是在网络上建立网络应用程序的可编程接口，因此也将该套接字称为应用程序和网络之间的<strong>应用程序编程接口（Application Programming Interface, API)</strong>.<br>应用程序开发者可以控制套接字在<em>应用层</em>端的所有东西，但是对该套接字的<em>运输层</em>端几乎没有控制</li>
+</ol>
+<h3 id="进程寻址（Addressing-processes）"><a href="#进程寻址（Addressing-processes）" class="headerlink" title="进程寻址（Addressing processes）"></a>进程寻址（Addressing processes）</h3><p>为了识别接收进程，需要定义两种信息：</p>
+<ol>
+<li>该主机的名称或地址，<br>在因特网中，主机是用<strong>IP地址（IP address）</strong>进行标识。IP地址是用来<em>唯一</em>标识主机的32位比特数。</li>
+<li>用来指定目的主机上接收进程的标示。<br>因为通常在一台主机能够运行许多网络应用程序，目的地<strong>端口号（port number）</strong>就是服务于识别运行在主机上的接收进程。已经给流行的应用程序分配了特定的端口号。例如，Web服务进程用的是80号端口</li>
+</ol>
+<h3 id="应用层协议（application-layer-protocol）"><a href="#应用层协议（application-layer-protocol）" class="headerlink" title="应用层协议（application-layer protocol）"></a>应用层协议（application-layer protocol）</h3><p>应用层协议定义了在不同端系统上的应用程序进程如何相互传递报文：</p>
+<ul>
+<li>交换的报文类型，如请求报文和响应报文。</li>
+<li>各种报文类型的语法，如报文中的各个字段及其详细描述</li>
+<li>字段的语义，即包含在字段中的信息的含义</li>
+<li>进程何时、如何发送报文及对报文进行响应的规则<br>有些应用层协议是由RFC文档定义的，因此它们位于公共领域。例如，Web的应用层协议HTTP（超文本传输协议[RFC 2616]）就作为一个RFC供大家使用。<br>还有很多其他应用层协议是专用的，不能随意应用于公共领域。例如，很多现有的P2P文件共享系统使用的是专用应用层协议。<br>区分网络应用和应用层协议是很重要的。应用层协议只是网络应用中的一部分。</li>
+</ul>
+<h3 id="可供应用程序使用的运输服务"><a href="#可供应用程序使用的运输服务" class="headerlink" title="可供应用程序使用的运输服务"></a>可供应用程序使用的运输服务</h3><p>应用程序服务要求进行分类：</p>
+<ul>
+<li>可靠数据传输<br>对于某些应用，必须确保由应用程序的一端发送的数据正确地、完全地交付给该应用程序的另一段。如果一个协议提供了这样的确保数据交付服务，就提供了<strong>可靠数据传输（reliable data transfer）</strong>。当一个运输层协议提供这种服务时，发送进程只要将其数据传递到套接字，就可以相信该数据将能无差错地到达接收进程。<br>当一个运输层协议不提供可靠数据传输时，由发送进程发送的数据可能不能到达接收进程。对于<strong>容忍丢失的应用（loss-tolerant application）</strong>来说这是可以接受的。</li>
+<li>吞吐量<br>两个进程在一条网络路径上进行通信会话时，可用吞吐量就是发送进程能够向接收进程交付比特的速率。运输层协议能够以某种特定的速率提供确保的可用吞吐量。<br>如果运输层协议不能提供这种吞吐量，那么该应用程序或以较低速率（并且接收带宽也必须足以维持这种较低的编码速率）进行编码，或应当放弃发送。<br>具有吞吐量要求的应用程序称为<strong>带宽敏感的应用（bandwidth-sensitive application）</strong>，能够根据需要充分利用可供使用的吞吐量的应用程序称为<strong>弹性应用（elastic application）</strong>。<em>电子邮件、文件传输以及Web传输都属于弹性应用</em></li>
+<li>定时<br>运输层协议也能提供定时保证。例如，可以设置发送方注入套接字中的每个比特到达接收方的套接字不迟于100ms。<br>这种服务对于交互式实时应用程序非常适用，例如，对于因特网电话、虚拟环境、电视会议和多方游戏。<br>在非实时的应用中，较低时延总要比较高时延好，但对端到端的时延没有严格的约束。</li>
+<li>安全性<br>这种服务将对发送进程和接收进程保密，以防发送进程和接收进程以某种方式观察到数据。运输层协议也能提供除了机密性以外的其他安全性服务，包括数据完整性和端点鉴别<br><img src="/images/8/8a1.png" alt="部分网络技术的要求"></li>
+</ul>
+<h3 id="因特网提供的运输服务"><a href="#因特网提供的运输服务" class="headerlink" title="因特网提供的运输服务"></a>因特网提供的运输服务</h3><p>因特网（更一般说是TCP/IP网络）上的应用使用了两个运输层协议：UDP和TCP。</p>
+<ol>
+<li>TCP服务</li>
+</ol>
+<ul>
+<li>可靠数据传输服务（reliable transport）：进行通信的进程依靠TCP协议，无差错、按照适当顺序交付发送的数据。当应用程序的一端通过套接字传送一个字节流时，它能够依靠TCP协议将相同的字节流交付给接收方的套接字，而没有字节的丢失和冗余。</li>
+<li>面向连接服务（connection-oriented）：使用TCP协议时，在应用层数据报文开始流动之前，其客户机程序和服务器程序之间相互交换运输层控制信息。这个所谓的握手过程提示客户机和服务器做好传输分组的准备。在握手阶段后，就在两个进程的套接字之间建立了一个<strong>TCP连接（TCP connection）</strong>。当应用程序结束报文发送时，必须拆除该连接。</li>
+<li>拥塞控制机制（congestion transport）：当发送方和接收方之间的网络出现拥塞时，TCP协议的拥塞控制机制会抑制发送进程（客户机或服务器），它会试图限制每个TCP连接，使它们达到公平共享网络带宽的目的。<br><em>TCP并不提供定时服务，确保最小可用吞吐量和加密机制</em><br><em>人们已经研制了TCP的加强版本，称为<strong>安全套接字层（Secure Socket Layer，SSL）</strong>。用SSL加强后的TCP不仅能够做传统TCP所能做的一切，而且还提供了关键的进程到进程的安全性服务，包括加密、数据完整性和端点鉴别，这种加强是在应用层上实现的</em></li>
+</ul>
+<ol>
+<li>UPD服务<br>UDP是一种不提供不必要服务的轻量级运输层协议，它仅提供最小服务。<br>UDP协议提供的是不可靠数据传输服务。<br>UDP没有拥塞控制机制，所以发送端可以以任何速率向其下面的层（网络层）注入数据。因为实时应用通常可以忍受一定的数据丢失，同时有最低速率的要求，所以开发者有时在这种应用程序中会选择使用UDP协议，以避开TCP协议的拥塞控制机制和分组开销。</li>
+</ol>
+<p><img src="/images/8/8a2.png" alt="流行的因特网应用及其应用层协议和支撑的应用层协议"></p>
+<h2 id="Web应用和HTTP协议"><a href="#Web应用和HTTP协议" class="headerlink" title="Web应用和HTTP协议"></a>Web应用和HTTP协议</h2><p><strong>Web页面（Web page，也叫文档）</strong>是由<strong>对象（object）</strong>组成的。<br>对象简单来说就是文件，如HTLML文件、JPEG图形文件、Java小程序或视频片段文件，这些文件可以通过一个URL地址寻址。<br>多数Web页面包含一个<strong>基本HTML文件（base HTML file）</strong>以及几个引用对象。<br>例如，如果一个Web页面包含HTML文本和5个JPEG图形文件，那么这个Web页面有6个对象：一个基本HTML文件加5个图形。在基本HTML文件中通过对象的URL地址对对象进行引用。每个URL地址由两部分组成：存放对象的服务器主机和对象的路径名<br><img src="/images/8/8a3.png" alt="URL地址例子"><br><strong>Web浏览器（Web browser，如Internet Explore）</strong>实现了HTTP的客户机端。Web服务器（Web server）用于储存Web对象，每个对象由URL寻址。Web服务器实现了HTTP的服务器端。</p>
+<h3 id="HTTP概况"><a href="#HTTP概况" class="headerlink" title="HTTP概况"></a>HTTP概况</h3><p>Web的应用层协议是<strong>超文本传输协议（HyperText Transfer Protocol, HTTP)</strong>。<br>HTTP协议由两部分程序实现：一个客户机程序和一个服务器程序，他们运行在不同的端系统中，通过交换HTTP报文进行会话。HTTP定义了这些报文的格式以及客户机和服务器是如何进行报文交换的。<br>HTTP使用TCP作为它的支撑运输层协议<br>服务器向客户机发送被请求的文件时，并不储存任何关于该客户机的状态信息。因为一个HTTP服务器并不保存关于客户机的任何信息，所以我们说HTTP是一个<strong>无状态协议（stateless protocol）</strong>。<br>Web服务器总是打开的，具有一个固定的IP地址，它服务于数以百万记的不同浏览器。</p>
+<h3 id="非持久连接和持久连接"><a href="#非持久连接和持久连接" class="headerlink" title="非持久连接和持久连接"></a>非持久连接和持久连接</h3><ul>
+<li>非持久连接<br><img src="/images/8/8a4.png" alt="非持久连接例子"><br>每个TCP连接在服务器返回对象后关闭，即该连接并不为其他的对象而持续下来。<br>如果客户机获得多个对象需要建立多个连接</li>
+</ul>
+<p><strong>往返时间（Round-Trip Time，RTT）</strong>：一个小分组从客户机到服务器再回到客户机所花费的时间。RTT包括分组传播时延、分组在中间路由器和交换机上的排队时延以及分组处理时延<br><img src="/images/8/8a5.png" alt="请求并接收一个HTML文件所需要的时间"><br>如图所示，浏览器在浏览器和Web服务器之间发起一个TCP连接，其中涉及一个“三次握手”过程，即客户机向服务器发送一个小TCP报文段，服务器用一个小TCP报文段做出确认和响应，最后客户机向服务器返回确认。完成了三次握手的前两个部分后，客户机将三次握手的第三个部分（确认）与一个HTTP请求报文结合起来发送到该TCP连接。一旦该请求报文到达服务器，服务器向该TCP连接发送HTML文件。<br>粗略地讲，总的响应时间就是两个RTT加上服务器传输HTML文件的时间。</p>
+<p>非持久连接的缺点：必须为每一个请求的对象建立和维护一个全新的连接。对于每个这样的连接，在客户机和服务器都要分配TCP的缓冲区和变量，这给服务器带来了严重的负担。每一个对象的传输时延为两个RTT，其中一个用于建立TCP，另一个RTT用于请求和接收一个对象。</p>
+<ol>
+<li>持久连接<br>在持久连接的情况下，服务器在发送响应后应保持该TCP连接打开。在相同的客户机与服务器之间的后续请求和响应报文可通过相同的连接进行传送。对这些对象的请求可一个接一个地发出，而不必等待未决请求的回答（流水线）。<em>一般来说，如果一个连接经过一定时间间隔仍未被使用，HTTP服务器就关闭连接</em>。</li>
+</ol>
+<h3 id="HTTP报文格式"><a href="#HTTP报文格式" class="headerlink" title="HTTP报文格式"></a>HTTP报文格式</h3><p>HTTP规约[RFC 2616]包含了对HTTP报文格式的定义。HTTP报文有两种：请求报文和响应报文</p>
+<ul>
+<li>HTTP请求报文<br><img src="/images/8/8a6.png" alt="HTTP请求报文"><br>HTTP请求报文第一行叫做<strong>请求行（request line）</strong>，请求行有三个字段：方法字段、URL字段和HTTP协议版本字段。方法字段可以取值GET、POST、HEAD、PUT和DELETE。绝大部分的HTTP请求报文使用GET方法。在URL字段填写该对象的URL地址。<br>第一行后继的行叫做<strong>首部行（header line）</strong>。</li>
+</ul>
+<p><img src="/images/8/8a7.png" alt="HTTP请求报文的通用格式"><br>上图展示的是请求报文的通用格式。<br>在首部行后有一个“实体主体”（entity body）。使用GET方法时实体主体为空，而使用POST方法时才使用，HTTP客户机常常在用户提交表单时使用POST方法。例如，用户向搜索引擎提供搜索关键词。在使用POST方法的报文中，用户仍可以向服务器申请一个Web页面，但Web页面的特定内容依赖于用户在表单字段中输入的内容。<br>HEAD方法类似于GET方法。应用程序开发者常用HEAD方法进行故障跟踪。<br>PUT方法常与Web发行工具联合使用，用户利用它来将对象上传到指定的Web服务器上指定的路径。PUT方法也被应用程序用来向Web服务器上传对象。<br>利用DELETE方法，用户或者应用程序可以删除Web服务器上的对象。</p>
+<ul>
+<li>HTTP响应报文<br>响应报文分成三个部分：一个状态初始行（status line）、6个首部行（header line），然后是<strong>实体主体（entity body）</strong>。<br>状态行有三个字段：协议版本、状态码和相应服务信息。</li>
+</ul>
+<h3 id="用户与服务器的交互：cookie"><a href="#用户与服务器的交互：cookie" class="headerlink" title="用户与服务器的交互：cookie"></a>用户与服务器的交互：cookie</h3><p>HTTP服务器是无状态的，若一个Web站点通常希望能够识别用户，HTTP使用cookie来满足这一需求<br>cookie技术有4个组成部分：</p>
+<ol>
+<li>在HTTP响应报文中有一个cookie首部行</li>
+<li>在HTTP请求报文中有一个cookie首部行</li>
+<li>在用户端系统中保留一个cookie文件，由用户的浏览器管理</li>
+<li>在Web站点有一个后端数据库。<br><img src="/images/8/8a8.png" alt="用cookie保持用户状态"></li>
+</ol>
+<h3 id="Web缓存器（代理服务器）"><a href="#Web缓存器（代理服务器）" class="headerlink" title="Web缓存器（代理服务器）"></a>Web缓存器（代理服务器）</h3><p><strong>Web缓存器（Web cache）</strong>也叫<strong>代理服务器（proxy server）</strong>，它是能够代表初始Web服务器来满足HTTP请求的网络实体。Web缓存器有自己的磁盘储存空间，并在该储存空间中保存所有最近请求过的对象的拷贝。可以配置用户的浏览器，使得用户的所有HTTP请求首先指向Web缓存器。1）如果Web缓存器检查本地是否储存了该对象拷贝。如果有，Web缓存器就用HTTP响应报文向客户机浏览器返回该对象。2）如果Web缓存器没有该对象，他就与初始服务器打开一个TCP连接。Web缓存器则在TCP连接上发送则在TCP连接上发送获取该对象的HTTP请求。在收到请求后，初始服务器向Web缓存器发送具有该对象的HTTP响应。<br><img src="/images/8/8a9.png" alt="客户机通过Web缓存器请求对象"><br>注意到Web缓存器既是服务器又是客户机。<br>一般而言，Web缓存器由ISP购买并安装。<br>在因特网上部署Web缓存器的原因：</p>
+<ol>
+<li>Web缓存器可以大大减少对客户机请求的响应时间，特别是当客户机在于初始服务器之间的瓶颈带宽远低于客户机与Web缓存器之间的瓶颈带宽时更是如此。</li>
+<li>Web缓存器可以大大减少一个机构内部网与因特网接入链路上的通信量。通过减少通信量，该机构就不必急于增加带宽，因此会降低费用。</li>
+<li>Web缓存器能从整体上大大降低因特网上的Web流量，从而改善了所有应用的性能。</li>
+</ol>
+<p>对于Web缓存器优点的例子可以通过看书来进一步理解，书中已足够详细。</p>
+<h3 id="条件GET方法"><a href="#条件GET方法" class="headerlink" title="条件GET方法"></a>条件GET方法</h3><p>HTTP协议有一种机制，允许缓存器证实它的对象是最新的。这种机制就是<strong>条件GET（conditional GET）</strong>方法<br>如果1）请求报文使用GET方法；2）请求报文中包含一个If-modified-since：首部行。那么这个HTTP请求报文就是一个条件GET请求报文。<br>在一段时间后请求一个已被储存在Web缓存器中的对象时，该缓存器通过发送一个条件GET给服务器，执行最近检查，首部行中包括If-modified-since：储存对象时对象的最后修改时间。接下来，Web 服务器向该缓存器发送一个响应报文，该报文状态行中状态码和响应状态信息的值为304 Not Modified时，它告诉缓存器可以使用该对象，否则向Web缓存器发送更改后的对象。</p>
+<h2 id="因特网中的电子邮件"><a href="#因特网中的电子邮件" class="headerlink" title="因特网中的电子邮件"></a>因特网中的电子邮件</h2><p>因特网电子邮件系统的3个主要组成部分：<strong>用户代理（user agent）</strong>、<strong>邮件服务器（mail server）</strong>和<strong>简单邮件传输协议（Simple Mail Transfer Protocol, SMTP)</strong>。</p>
+<ul>
+<li>用户代理允许用户阅读、回复、转发、保存和撰写报文</li>
+<li>邮件服务器组成了电子邮件体系的核心。每个接收方在其中的某个服务器上有一个<strong>邮箱（mailbox）</strong>，邮箱管理和维护发送给接收方的报文。如果发送方的服务器不能将邮件交付到接收方的服务器时，发送方的邮件服务器在一个<strong>报文队列（message queue）</strong>中保持该报文并在以后尝试再次发送。</li>
+<li>SMTP</li>
+</ul>
+<h3 id="SMTP"><a href="#SMTP" class="headerlink" title="SMTP"></a>SMTP</h3><p>SMTP是因特网电子邮件中主要的应用层协议。它使用TCP可靠数据传输服务，从发送方的邮件服务器向接收方的邮件服务器发送邮件，端口号25。<br>SMTP一般不使用中间邮件服务器发送邮件。如果接收方的邮件服务器没有开机，该报文会保留在发送方的邮件服务器上并在稍后进行新的尝试，这意味着邮件并不在中间的某个服务器上存留。<br>使用SMTP将一个报文从发送邮件服务器传送到接收邮件服务器有以下步骤：</p>
+<ol>
+<li>如果服务器没有开机，客户机会在稍后继续尝试连接。一旦连接建立，服务器和客户机就执行一些应用层的握手。在SMTP握手的阶段，SMTP客户机指明发送方的邮件地址（产生报文的那个人）和接收方的邮件地址。</li>
+<li>一旦该SMTP客户机和服务器彼此介绍之后，客户机就发送该报文。SMTP可以利用TCP提供的可靠数据传输无差错的将邮件投递到接收服务器。</li>
+<li><p>该客户机如果有另外的报文要发送到该服务器，就在该相同的TCP连接上重复这种处理，否则，它指示TCP关闭连接。</p>
+<p>STMP客户机（C）和STMP服务器（S）之间交换脚本使用的是ASCII码<br>SMTP用的是持久连接：如果发送邮件服务器有几个报文发往同一个接收邮件服务器，它可以通过同一个TCP连接发送所有的这些报文。</p>
+<p>SMTP限制所有邮件报文的主体部分（不只是其首部）只能采用简单的7位ASCII码表示。</p>
+</li>
+</ol>
+<h3 id="SMTP和HTTP进行对比"><a href="#SMTP和HTTP进行对比" class="headerlink" title="SMTP和HTTP进行对比"></a>SMTP和HTTP进行对比</h3><ol>
+<li>当进行文件传输时，HTTP和SMTP都是用持久连接</li>
+<li>它们在建立TCP连接的时候都有握手的过程？</li>
+<li>HTTP主要是一个<strong>拉协议（pull protocol）</strong>，即人们可以在方便的时候装载Web服务器上的信息，也就是说，用户使用HTTP从该服务器拉取信息。<br>SMTP基本上是一个<strong>推协议（push protocol）</strong>，即发送邮件服务器把文件推向接收邮件服务器</li>
+<li>SMTP要求每个报文（包括它们的主体）都使用7为ASCII码格式。HTTP数据则没有这个限制</li>
+<li><p>HTTP把每个对象封装到它自己的HTTP响应报文中，而因特网电子邮件则把所有报文对象放在一个报文之中。</p>
+<h3 id="邮件报文格式"><a href="#邮件报文格式" class="headerlink" title="邮件报文格式"></a>邮件报文格式</h3><p>首部行储存环境信息在报文主体的前面，这些行由RFC822定义，首部行和该报文主体用空行（即回车换行）进行分隔。RFC822定义了邮件首部行及其语义解释的精确格式。<br>某些关键词是必须的，有些则是可选的。<br>这些首部行不同于SMTP的握手协议。<br>在报文首部之后，紧接着是一个空白行，然后是以ACSII格式表示的报文主体。</p>
+</li>
+</ol>
+<h3 id="邮件访问协议"><a href="#邮件访问协议" class="headerlink" title="邮件访问协议"></a>邮件访问协议</h3><p>有多个流行的邮件访问协议来使接收方的用户代理可从邮件服务器中取出邮件：<strong>第三版的邮局协议（Post Office Protocol-Version 3）</strong>、<strong>因特网邮件访问协议（Internet Mail Access Protocol, IMAP)</strong>以及HTTP。<br><img src="/images/8/8a10.png" alt="电子邮件协议及其通信实体"></p>
+<ol>
+<li>POP3<br>POP3是一个非常简单的邮件访问协议，由RFC1939进行了定义。<br>随着TCP连接的创建，POP3按照几个阶段进行工作：</li>
+</ol>
+<ul>
+<li>特许（authorization）阶段<br>用户发送（以明文形式）用户名和口令以鉴别用户。<br>特许阶段有两个主要的命令：use<user name>和pass<password></password></user></li>
+<li>事务处理阶段<br>用户代理取回报文，在这个阶段，用户代理还能进行以下操作：对报文做删除标记，取消报文删除标记，以及获取邮件的统计信息。<br>使用POP3的用户代理通常由用户配置为“下载并删除”或者“下载并保留”方式。<br>在特许阶段以后，用户代理仅使用四个命令：list、retr、dele和quit</li>
+<li>更新阶段<br>它出现在P客户机发出了quit命令之后，目的是结束该POP3会话；这时，邮件服务器删除那些被标记为删除的报文。</li>
+</ul>
+<p>在POP3中，用户代理发出一些命令，服务器对每个命令做出回答。回答可能是两种：+OK（有时后面还跟有服务器到客户机的数据），服务器用它来指示前面的命令是正常的；-ERR，服务器用它来指示前面的命令出现了差错。</p>
+<ol>
+<li>IMAP<br>POP3没有给用户提供任何创建远程文件夹以及为报文指派文件夹的方法。<br>IMAP服务器把每个报文与一个文件夹联系起来，IMAP服务器把所有报文都储存在服务器中。<br>IMAP服务器维护了IMAP会话的用户状态信息，例如，文件夹的名字以及哪个报文与哪个文件夹相关联。<br>IMAP的另一个重要特性是它具有允许用户代理获取报文组件的命令</li>
+</ol>
+<p>1】定时和吞吐量的区别<br>2】对端到端的时延没有严格的约束<br>3】为什么说UPD没有提供吞吐量的保证<br>4】持久连接的缺点<br>5】为什么说报文是用普通的ASCII码书写的<br>6】用表单生成的请求报文不需要使用POST方法<br>7】响应报文主体包含了所请求对象的本身<br>8】how to keep state<br>9】Internet dense with caches: enables “poor” content providers to effectively deliver content (so too does P2P file sharing)<br>10】POP3 is stateless across sessions<br>11】IMAP和POP3的区别</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+              <a href="/2019/09/05/CSE203W1-Storage/" rel="next" title="CSE203W1_Storage">
+                <i class="fa fa-chevron-left"></i> CSE203W1_Storage
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+          </div>
+        </div>
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+  </div>
+
+
+          </div>
+          
+
+
+        </div>
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">2AM</p>
+  <div class="site-description motion-element" itemprop="description">they said the fruit never gon' fall far from the tree</div>
+</div>
+  <nav class="site-state motion-element">
+      <div class="site-state-item site-state-posts">
+        
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">8</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-tags">
+        
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-name">tags</span>
+        
+      </div>
+    
+  </nav>
+
+
+
+        </div>
+      </div>
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#应用层协议原理"><span class="nav-number">1.</span> <span class="nav-text">应用层协议原理</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#网络应用程序体系结构"><span class="nav-number">1.1.</span> <span class="nav-text">网络应用程序体系结构</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#客户机-服务器体系结构（client-server-architecture）"><span class="nav-number">1.1.1.</span> <span class="nav-text">客户机/服务器体系结构（client-server architecture）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#P2P体系结构（P2P-architecture"><span class="nav-number">1.1.2.</span> <span class="nav-text">P2P体系结构（P2P architecture)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#进程通信（processes-communicating）"><span class="nav-number">1.1.3.</span> <span class="nav-text">进程通信（processes communicating）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#进程寻址（Addressing-processes）"><span class="nav-number">1.1.4.</span> <span class="nav-text">进程寻址（Addressing processes）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#应用层协议（application-layer-protocol）"><span class="nav-number">1.1.5.</span> <span class="nav-text">应用层协议（application-layer protocol）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#可供应用程序使用的运输服务"><span class="nav-number">1.1.6.</span> <span class="nav-text">可供应用程序使用的运输服务</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#因特网提供的运输服务"><span class="nav-number">1.1.7.</span> <span class="nav-text">因特网提供的运输服务</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Web应用和HTTP协议"><span class="nav-number">1.2.</span> <span class="nav-text">Web应用和HTTP协议</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#HTTP概况"><span class="nav-number">1.2.1.</span> <span class="nav-text">HTTP概况</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#非持久连接和持久连接"><span class="nav-number">1.2.2.</span> <span class="nav-text">非持久连接和持久连接</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#HTTP报文格式"><span class="nav-number">1.2.3.</span> <span class="nav-text">HTTP报文格式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#用户与服务器的交互：cookie"><span class="nav-number">1.2.4.</span> <span class="nav-text">用户与服务器的交互：cookie</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Web缓存器（代理服务器）"><span class="nav-number">1.2.5.</span> <span class="nav-text">Web缓存器（代理服务器）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#条件GET方法"><span class="nav-number">1.2.6.</span> <span class="nav-text">条件GET方法</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#因特网中的电子邮件"><span class="nav-number">1.3.</span> <span class="nav-text">因特网中的电子邮件</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#SMTP"><span class="nav-number">1.3.1.</span> <span class="nav-text">SMTP</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#SMTP和HTTP进行对比"><span class="nav-number">1.3.2.</span> <span class="nav-text">SMTP和HTTP进行对比</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#邮件报文格式"><span class="nav-number">1.3.3.</span> <span class="nav-text">邮件报文格式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#邮件访问协议"><span class="nav-number">1.3.4.</span> <span class="nav-text">邮件访问协议</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">2AM</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.9.0</div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">Theme – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> v7.3.0</div>
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+      </div>
+
+    
+
+  </div>
+
+  
+  <script src="/lib/jquery/index.js?v=3.4.1"></script>
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+<script src="/js/utils.js?v=7.3.0"></script>
+  <script src="/js/motion.js?v=7.3.0"></script>
+
+
+  <script src="/js/schemes/muse.js?v=7.3.0"></script>
+
+
+<script src="/js/next-boot.js?v=7.3.0"></script>
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+
+  
+  <script src="/js/scrollspy.js?v=7.3.0"></script>
+<script src="/js/post-details.js?v=7.3.0"></script>
+
+
+</body>
+</html>
