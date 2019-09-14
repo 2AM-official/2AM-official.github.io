@@ -217,6 +217,124 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/09/13/CSE201W2a-Indexing/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="2AM">
+      <meta itemprop="description" content="they said the fruit never gon' fall far from the tree">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Room of Requirment">
+    </span>
+      <header class="post-header">
+
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2019/09/13/CSE201W2a-Indexing/" class="post-title-link" itemprop="url">CSE201W2a_Indexing</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2019-09-13 22:39:02" itemprop="dateCreated datePublished" datetime="2019-09-13T22:39:02+08:00">2019-09-13</time>
+            </span>
+          
+            
+
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2019-09-14 15:36:27" itemprop="dateModified" datetime="2019-09-14T15:36:27+08:00">2019-09-14</time>
+              </span>
+            
+          
+
+          <br>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          
+            <h2 id="索引的基本概念"><a href="#索引的基本概念" class="headerlink" title="索引的基本概念"></a>索引的基本概念</h2><p>索引技术用来加快得到所需数据的时间</p>
+<p>有两种基本的索引类型</p>
+<ul>
+<li><strong>顺序索引（an ordered Index）</strong>：基于值的顺序排序</li>
+<li><strong>散列索引（a hashing Index）</strong>：基于将值平均分布到若干散列桶中，一个值所属的散列桶是由一个函数决定的，该函数称为散列函数（hash function）。</li>
+</ul>
+<p>我们将考虑用于顺序索引和散列索引的几种技术。没有哪一种技术是最好的，只能说某种技术对特定的数据库应用是最适合的。对每种技术的评价必须基于下面这些因素：</p>
+<ul>
+<li><strong>访问类型（access type）</strong>：能有效地支持的访问类型。访问类型可以包括找到具有特定属性值的记录，以及找到属性值落在某个特定范围内的记录。</li>
+<li><strong>访问时间（access time）</strong></li>
+<li><strong>插入时间（insertion time）</strong></li>
+<li><strong>删除时间（deletion time）</strong></li>
+<li><strong>空间开销（space overhead）</strong></li>
+</ul>
+<p>用于在文件中查找记录的属性或属性集称为<strong>搜索码（search key）</strong>。如果一个文件上有多个索引，那么它就有多个搜索码。</p>
+<h2 id="顺序索引"><a href="#顺序索引" class="headerlink" title="顺序索引"></a>顺序索引</h2><p>顺序索引按顺序存储搜索码的值，并将每个搜索码与包含该搜索码的记录关联起来。<br>如果包含记录的文件按照某个搜索码指定的顺序排序，那么该搜索码对应的索引称为<strong>聚集索引（clustering index）</strong>，聚集索引也被称为<strong>主索引（primary index）</strong>：主索引可以建立在任何搜索码上，一般是主搜索码。<br>搜索码指定的顺序与文件中记录的物理顺序不同的索引称为<strong>非聚集索引（nonclustering index）</strong>或<strong>辅助索引（secondary index）</strong><br>搜索码上有聚集索引的文件称为<strong>索引顺序文件（index-sequential file）</strong></p>
+<h3 id="稠密索引和稀疏索引"><a href="#稠密索引和稀疏索引" class="headerlink" title="稠密索引和稀疏索引"></a>稠密索引和稀疏索引</h3><p><strong>索引项（index entry）</strong>或<strong>索引记录（index record）</strong>由一个搜索码值和指向具有该搜索码值的一条或多条记录的指针构成。指向记录的指针包括磁盘块的标示和标示磁盘块的内部偏移量。</p>
+<ul>
+<li><strong>稠密索引（dense index）</strong><br>在稠密索引中，文件中的每个搜索码值都有一个索引项.具有相同搜索码值的其余记录顺序地储存在第一条数据记录之后。<br>在稠密非聚集索引中，索引必须储存指向所有具有相同搜索码值的记录的指针列表</li>
+<li><strong>稀疏索引（sparse index）</strong><br>在稀疏索引中，只为搜索码的某些值（一般是一个块一个）建立索引项。<strong>只有当关系按搜索码排列顺序储存时才能使用稀疏索引。</strong><br>为了定位一条记录，我们找到其最大搜索码值小于或等于所查找记录的搜索码值的索引项。然后从该索引项指向的记录开始，沿着文件中的指针查找，直到找到所需记录为止。</li>
+</ul>
+<p>利用稠密索引通常可以比稀疏索引更快地定位一条记录。但是，稀疏索引也有比稠密索引优越的地方：它所占空间较小，并且插入和删除时所需的维护开销也较小。<br><img src="/images/9/9a1.png" alt="稠密索引和稀疏索引的比较"></p>
+<h3 id="辅助索引（Secondary-Index）"><a href="#辅助索引（Secondary-Index）" class="headerlink" title="辅助索引（Secondary Index）"></a>辅助索引（Secondary Index）</h3><p><strong>辅助索引必须是稠密索引。</strong><br>候选码上的辅助索引看起来和稠密聚集索引没有太大的区别，只不过索引中一系列的连续值指向的记录不是连续存放的。<br>我们可以用一个附加的间接指针层来实现非候选码的搜索码上的辅助索引。在这样的辅助索引中，指针并不指向文件，而是指向一个包含文件指针的桶。<br>如果文件具有多个索引，无论何时修改文件，它的每个索引都必须更新？<br>用辅助索引的顺序扫描较为昂贵，每个记录也许都要从一个新的数据块中提取。</p>
+<h3 id="多级索引"><a href="#多级索引" class="headerlink" title="多级索引"></a>多级索引</h3><p>如果索引小到可以放到主存里，搜索一个索引项的时间就会很短。<br>但是如果索引过大而不能放到主存中，那么当需要时，就必须从磁盘中取出索引块。于是一次搜索需要多次读取磁盘块。<br>解决该问题，我们在原始的内层索引上构造一个稀疏的外层索引，索引项是有序的，这使得外层索引可以是稀疏的。<br>如果文件极其庞大，甚至外层索引也可能达到不能装入主存，可以创建另一级索引。事实上，可以根据需要多次重复该过程。具有两级或两级以上的索引称为<strong>多级（multilevel）</strong>索引。<br>多级索引的插入和删除：在插入和删除时，系统对底层索引更新和普通的一样，接下来的每一层都要随之改变。</p>
+<p>1】每个索引都必须更新？</p>
+
+          
+        
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+    
+      
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/09/09/CSE205W2-ApplicationLayer/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1341,7 +1459,7 @@ Z_{x,y} = h(\sum_i^{p*q} {w_i}{v_i} + b)</script><p><em>bias不与元素位置�
         
           <a href="/archives/">
         
-          <span class="site-state-item-count">8</span>
+          <span class="site-state-item-count">9</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -1465,6 +1583,8 @@ Z_{x,y} = h(\sum_i^{p*q} {w_i}{v_i} + b)</script><p><em>bias不与元素位置�
   
 
   
+    
+      
     
       
     
