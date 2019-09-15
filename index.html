@@ -266,7 +266,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2019-09-15 15:48:25" itemprop="dateModified" datetime="2019-09-15T15:48:25+08:00">2019-09-15</time>
+                <time title="Modified: 2019-09-15 16:27:37" itemprop="dateModified" datetime="2019-09-15T16:27:37+08:00">2019-09-15</time>
               </span>
             
           
@@ -299,22 +299,43 @@
       
           
             <p><strong>$B^+$树（$B^+$-tree）</strong>索引结构是在数据插入和删除下仍能保持其执行效率的几种使用最广泛的索引结构之一。B+树采用<strong>平衡树（balanced tree）</strong>结构</p>
-<h2 id="B-树的基本要求"><a href="#B-树的基本要求" class="headerlink" title="B+树的基本要求"></a>B+树的基本要求</h2><p>B+树结点最多包含$n - 1$个搜索码值<script type="math/tex">K_1, K_2, ..., K_{n-1}</script>，以及$n$个指针<script type="math/tex">P_1, P_2, ..., P_n</script>,每个结点的搜索码值排序存放。</p>
-<p><strong>根结点（root）</strong>必须至少有两个子结点<br>在每个<strong>非叶结点（nonleaf node）</strong>至少容纳$\lceil n-/2 \rceil$个指针<br>在每个<strong>叶结点（leaf node）</strong>至少容纳$\lceil (n-1)/2 \rceil$个搜索值</p>
-<p>一个B+树的高度不得超过</p>
-<script type="math/tex; mode=display">
-\lceil log_{\lceil n/2 \rceil} (K) \rceil</script><h2 id="B-树的查询"><a href="#B-树的查询" class="headerlink" title="B+树的查询"></a>B+树的查询</h2><h1 id="图片"><a href="#图片" class="headerlink" title="图片"></a>图片</h1><h2 id="B-树的更新"><a href="#B-树的更新" class="headerlink" title="B+树的更新"></a>B+树的更新</h2><h1 id="图片-1"><a href="#图片-1" class="headerlink" title="图片"></a>图片</h1><ul>
+<h2 id="B-树的基本要求"><a href="#B-树的基本要求" class="headerlink" title="B+树的基本要求"></a>B+树的基本要求</h2><p>B+树结点最多包含$n - 1$个搜索码值<script type="math/tex">K_1, K_2, ..., K_{n-1}</script>，以及$n$个指针<script type="math/tex">P_1, P_2, ..., P_n</script>,每个结点的搜索码值排序存放。<br><strong>根结点（root）</strong>必须至少有两个子结点<br>在每个<strong>非叶结点（nonleaf node）</strong>至少容纳$\lceil n-/2 \rceil$个指针<br>在每个<strong>叶结点（leaf node）</strong>至少容纳$\lceil (n-1)/2 \rceil$个搜索值<br>一个B+树的高度不得超过<script type="math/tex">\lceil log_{\lceil n/2 \rceil} (K) \rceil</script></p>
+<h2 id="B-树的查询"><a href="#B-树的查询" class="headerlink" title="B+树的查询"></a>B+树的查询</h2><p><img src="/images/10/10a1.png" alt="B+树的查询"></p>
+<h2 id="B-树的更新"><a href="#B-树的更新" class="headerlink" title="B+树的更新"></a>B+树的更新</h2><p><img src="/images/10/10a2.png" alt="B+树的更新"></p>
+<ul>
 <li><strong>Splitting a leaf node</strong>：</li>
 </ul>
+<ol>
+<li>将$n$个搜索码值和指针（包括插入的）放入一个可以存放的区域$M$，将前$\lceil n/2 \rceil$放入原先的结点，将剩余的放入一个新结点</li>
+<li>将新结点视为$p$，将该结点内最小的搜索码值视为$k$，将$(k,p)$放入父结点</li>
+<li>如果父结点也满了，就顺级分离。</li>
+</ol>
 <ul>
 <li><strong>Splitting a non-leaf node</strong>:<br>当插入搜索码值和指针到一个已经没有位置的非叶结点$N$时</li>
 </ul>
 <ol>
 <li>将$N$放到一个可以储存$n$个搜索码值和$n+1$个指针的区域$M$</li>
 <li>将要插入的$(k,p)$按照排列插入$M$中</li>
-<li>将<script type="math/tex">P_1, K_1, ..., K_{\lceil n/2 \rceil + 1}, P_{\lceil n/2 \rceil}</script>从$M$抄写到原来的$N$中</li>
+<li>将<script type="math/tex">P_1, K_1, ..., K_{\lceil n/2 \rceil - 1}, P_{\lceil n/2 \rceil}</script>从$M$抄写到原来的$N$中</li>
 <li>将<script type="math/tex">P_{\lceil n/2 \rceil+1}, K_{\lceil n/2 \rceil+1}, ..., K_n, P_{n+1}</script>从$M$抄写到新的非叶结点$N’$</li>
 <li>将(<script type="math/tex">K_{\lceil n/2 \rceil}</script>, $N’$)写到父结点中。</li>
+</ol>
+<p><em>分离结点的最差情况是整体高度+1</em><br><img src="/images/10/10a3.png" alt="Insertion例子"></p>
+<h2 id="B-树的删除"><a href="#B-树的删除" class="headerlink" title="B+树的删除"></a>B+树的删除</h2><ul>
+<li>删除后，如果该结点的搜索码值过于少，并且该结点可以和它的兄弟结点相结合成一个结点，我们使用<strong>merge siblings</strong>:</li>
+</ul>
+<ol>
+<li>将两个结点的所有搜索值码放入一个搜索值码中，并删除另一个结点。</li>
+<li>如果它是一个非叶结点，将两个结点中的父节点拷贝到结合的结点中</li>
+<li>将（<script type="math/tex">K_{i-1}, P_i</script>）从父节点中删除，$P_i$是指向原先存在结点的指针，重复上述过程</li>
+</ol>
+<ul>
+<li>删除后，如果该结点的搜索码值过于少，但是又不能和它的兄弟结点相结合成为一个结点，我们使用<strong>redistribute pointers</strong>:</li>
+</ul>
+<ol>
+<li>重新分配它和它兄弟结点的指针使这两个结点都满足最少搜索码值的要求，更新父节点中的搜索码值</li>
+<li>如果是<strong>叶结点</strong>：将一个适合的搜索码值从它的兄弟结点中移到该结点里，将父节点中的旧搜索码值替换为合适的搜索码值</li>
+<li>如果是<strong>非叶结点</strong>：将父节点中的旧搜索码放入不满的结点中，将一个合适的搜索码值从兄弟结点中移到父节点中。<br><img src="/images/10/10a4.png" alt="Deletion例子1"><br><img src="/images/10/10a5.png" alt="Deletion例子2"><br><img src="/images/10/10a6.png" alt="Deletion例子3"></li>
 </ol>
 <p>level below root?</p>
 
