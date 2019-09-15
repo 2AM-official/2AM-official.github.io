@@ -217,115 +217,6 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/09/15/CSE203W1W2-DFAandNFA/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="2AM">
-      <meta itemprop="description" content="they said the fruit never gon' fall far from the tree">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Room of Requirment">
-    </span>
-      <header class="post-header">
-
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2019/09/15/CSE203W1W2-DFAandNFA/" class="post-title-link" itemprop="url">CSE203W1W2_DFAandNFA </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-
-              
-                
-              
-
-              <time title="Created: 2019-09-15 19:32:20 / Modified: 20:10:16" itemprop="dateCreated datePublished" datetime="2019-09-15T19:32:20+08:00">2019-09-15</time>
-            </span>
-          
-            
-
-            
-          
-
-          <br>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          
-            <h2 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h2><h3 id="Definitions-and-notation"><a href="#Definitions-and-notation" class="headerlink" title="Definitions and notation:"></a>Definitions and notation:</h3><ul>
-<li>An <em>alphabet</em> is a finite set of symbols</li>
-<li>A <em>word</em> over alphabet <em>A</em> is a string of symbols belonging to A</li>
-<li>The <em>empty word</em> will be denoted $\epsilon$</li>
-<li>$A^*$ denotes the set of all words over A</li>
-<li>$A^+$ denotes the set of all non-empty words over A</li>
-</ul>
-<p>The <em>concatenation</em> (a.k.a. “product”) of two words is obtained by appending them together to form one long word.<br>Concatenation of words <em><script type="math/tex">w_1</script></em> and <em><script type="math/tex">w_2</script></em> can be written <em>$$w_1 w_2$</em><br>For any word <em>w</em>, note that <em>$w\epsilon = \epsilon w = w$</em><br>Concatenation is associative<br><em>$w^n$</em> denotes the concatenation of <em>n</em> copies of <em>w</em><br>|<em>w</em>| denotes the length(number of letters) of <em>w</em><br>|<em>$w_1w_2$</em>| = |<em>w_1</em>| + |<em>$w_2$</em>|<br>For $w \in A^<em>$, the reverse of $w$ is denoted $w^R$ and consists of $w$’s letters in reverse order.<br>A </em>palindrome<em> is a word </em>w<em> satisfying </em>w = w^R*<br>If u,v,w are words and w = uv then u is a prefix of w and v is a suffix ofw. A proper prefixofw is ap refix that is not equal to $\epsilon$ or w. (Similarly for proper suffix)</p>
-<p>A language (or formal language) over alphabet A is a subset of $A^*$<br>We can express new languages in terms of other languages using<br>concatenation and closure.</p>
-<p>$$<br>L_1L_2 = {w_1 w_2: w_1 \in L_1 and w_2 \in L_2}<br>L^* = {w_1 w_2 … w_n: n\geq 0 and w_1, w_2, … w_n \in L}</p>
-<h2 id="Deterministic-Finite-Automata"><a href="#Deterministic-Finite-Automata" class="headerlink" title="Deterministic Finite Automata"></a>Deterministic Finite Automata</h2><p>Can be used a model for what happens during lexical analysis — scan program from beginning to end and divide it into tokens.</p>
-<p>A <em>deterministic finite automaton (DFA)</em> has 5 components:</p>
-<ol>
-<li><p><em>$Q$</em> is a finite nonempty set whose members are called <em>states</em> of the<br>automaton<br><strong>state</strong> of a machine tells you something about the prefix that has been read so far. If the string is a member of the language of interest, the state reached when the whole string has been scanned will be an accepting state (a member of <em>T</em> ).</p>
-</li>
-<li><p><em>$A$</em> is a finite nonempty set called the <em>alphabet</em> of the automaton</p>
-</li>
-<li><p><em>$\phi$</em> is a map from $<em>Q</em> \times <em>A</em>$ to Q called the <strong>transition function* of the automation
-</strong>Transition function** $\phi$ tells you how state should change when an additional letter is read by the DFA</p>
-</li>
-<li><p><em>i</em> is a memver of Q and is called the <em>initial</em> state</p>
-</li>
-<li><p><em>T</em> is a nonempty subset of <em>Q</em> whose members are called <em>terminal states</em> or <em>accepting states</em>.</p>
-</li>
-</ol>
-<p>A DFA is often depicted as a labelled directed graph (called <em>transition diagram</em>)</p>
-
-          
-        
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-    
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/09/14/CSE201W2b-B-Tree/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1637,12 +1528,114 @@ Z_{x,y} = h(\sum_i^{p*q} {w_i}{v_i} + b)</script><p><em>bias不与元素位置�
   </article>
 
     
+      
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/08/04/Mixcity/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="2AM">
+      <meta itemprop="description" content="they said the fruit never gon' fall far from the tree">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Room of Requirment">
+    </span>
+      <header class="post-header">
+
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2019/08/04/Mixcity/" class="post-title-link" itemprop="url">Mixcity</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2019-08-04 11:33:57" itemprop="dateCreated datePublished" datetime="2019-08-04T11:33:57+08:00">2019-08-04</time>
+            </span>
+          
+            
+
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2019-08-07 01:17:40" itemprop="dateModified" datetime="2019-08-07T01:17:40+08:00">2019-08-07</time>
+              </span>
+            
+          
+
+          <br>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          
+            <h2 id="with-Georgia"><a href="#with-Georgia" class="headerlink" title="with Georgia"></a>with Georgia</h2><p>后来，我才知道，原来每个夏天都不一样。</p>
+<p>以前以为，夏天就是写写作业，打打游戏，和朋友在一起看着天空浪费时间，一起想想暗恋的女孩子。后面却发现夏天变得越来越热，热到不想出门，雪糕也越来越贵，一起看天空发呆的朋友也换了几批，也越来越现实，不再谈论什么梦想，看着老友，嘴臭几句，便心满意足，也再也不用去暗恋其他女孩子了，就连作业也有整整两年没有写过了。这才意识到，记忆深处的夏天，也许永远停留在了记忆深处。</p>
+<p>后来，我才觉得，生活，也许是需要记录的。现在记性越来越不大好，和自己不相关的事情过一遍脑子就被自动删除了，读了两年大学，也只是用成果和自己发的朋友圈去保存过去，但如果有人问我这两年都学了啥，我还真一时不知如何回答。不如把一些经历和所学的写下来，多多少少，也算存储记忆的一种方式，于是，就有了搭建博客的想法。</p>
+<p>如果说，每段经历都有一个事物让你能够记住它，可能是时间，可能是人物，可能是一个纪念品，也可能是一个吻。那么这个博客的搭建完成，就用万象城去代表，所以这篇文章叫Mixcity。</p>
+<p>每个假期如果有机会的话，必找高中同班的学霸Georgia出来闲逛。高中时，他过早形成的审美和世界观对我的个人发展其实也造成了一定的影响，每次便拖他出来，在闲聊的时候定会给予我灵感和让我意识到我的一些不足。这次也恰巧我搭建博客也遇到了不知名的问题，便带着问题去找他，和他在星巴克掐头去尾用了一个小时把这个博客搭了起来，所以这个博客的存在也少不了他对我的帮助，第一篇文章也表达我对他的感谢。用一句具有这个时代气息的话，shout out to Georgia。这是他的github账号: Georgia-STR，希望这个逼以后成功了能在他的公司里给我找个扫地的活。</p>
+<p>最后再来介绍一下这个博客，也算一个置顶的简介，博客的名字是Room of Requirement，来自于哈利波特，在翻译版中叫有求必应屋，希望我藏在这里面的东西可以帮助到自己和别人。Less is More则是看到next主题，突然浮现在脑海里的一句话，希望自己在生活中也可以去做实质性的事情，而不是浪费时间的事情。Description里写的则是Rich Brian在歌曲Kids里面的一句歌词’’they said the fruit never gon’ fall far from the tree”,翻译中写的是落叶归根，我一开始则以为是说凡事需要努力才会有成果。这两句的寓意我都很中意，便把这句话留下来了。虽然不知道未来会怎样，但还是最热爱养育我的地方和陪伴着我的朋友。</p>
+<p>Thanks for reading my rubbish. Thanks! Georgia!!!</p>
+<p>Test test inline code: <code>main()</code> with …<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"aaa"</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<blockquote>
+<p>Reference test: aaaaa</p>
+</blockquote>
+<h3 id="test"><a href="#test" class="headerlink" title="test"></a>test</h3><h4 id="ttt"><a href="#ttt" class="headerlink" title="ttt"></a>ttt</h4><p><strong>bold</strong>, <em>italic</em></p>
+
+          
+        
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+    
   </section>
 
   
-  <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
-  </nav>
 
 
           </div>
@@ -1674,7 +1667,7 @@ Z_{x,y} = h(\sum_i^{p*q} {w_i}{v_i} + b)</script><p><em>bias不与元素位置�
         
           <a href="/archives/">
         
-          <span class="site-state-item-count">11</span>
+          <span class="site-state-item-count">10</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -1712,9 +1705,7 @@ Z_{x,y} = h(\sum_i^{p*q} {w_i}{v_i} + b)</script><p><em>bias不与元素位置�
         
           
         
-          
-        
-        <span class="site-state-item-count">8</span>
+        <span class="site-state-item-count">7</span>
         <span class="site-state-item-name">tags</span>
         
       </div>
