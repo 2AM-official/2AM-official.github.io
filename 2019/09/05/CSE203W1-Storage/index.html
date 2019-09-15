@@ -56,6 +56,7 @@
 </script>
 
   <meta name="description" content="数据存储和数据存取物理存储介质概述 高速缓存器(cache) 高速缓存器是最快最昂贵的储存介质。高速缓存器一般很小，由计算机系统硬件来管理它的使用。  主存储器(main memory) 主存储器是用于存放可处理的数据的储存介质。通用机器指令在主储存器上执行。如果发生电源故障或者系统崩溃，主存储器中的内容通常会丢失。  快闪存储器(flash memory) 快闪存储器不同于主存储器的地方是在电源">
+<meta name="keywords" content="CSE201_Database">
 <meta property="og:type" content="article">
 <meta property="og:title" content="CSE203W1_Storage">
 <meta property="og:url" content="http://yoursite.com/2019/09/05/CSE203W1-Storage/index.html">
@@ -67,7 +68,7 @@
 <meta property="og:image" content="http://yoursite.com/images/7/7a3.png">
 <meta property="og:image" content="http://yoursite.com/images/7/7a4.png">
 <meta property="og:image" content="http://yoursite.com/images/7/7a5.png">
-<meta property="og:updated_time" content="2019-09-06T12:55:22.334Z">
+<meta property="og:updated_time" content="2019-09-15T07:08:22.931Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="CSE203W1_Storage">
 <meta name="twitter:description" content="数据存储和数据存取物理存储介质概述 高速缓存器(cache) 高速缓存器是最快最昂贵的储存介质。高速缓存器一般很小，由计算机系统硬件来管理它的使用。  主存储器(main memory) 主存储器是用于存放可处理的数据的储存介质。通用机器指令在主储存器上执行。如果发生电源故障或者系统崩溃，主存储器中的内容通常会丢失。  快闪存储器(flash memory) 快闪存储器不同于主存储器的地方是在电源">
@@ -272,9 +273,24 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2019-09-06 20:55:22" itemprop="dateModified" datetime="2019-09-06T20:55:22+08:00">2019-09-06</time>
+                <time title="Modified: 2019-09-15 15:08:22" itemprop="dateModified" datetime="2019-09-15T15:08:22+08:00">2019-09-15</time>
               </span>
             
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/XJTLU-Courses/" itemprop="url" rel="index"><span itemprop="name">XJTLU_Courses</span></a></span>
+
+                
+                
+              
+            </span>
           
 
           <br>
@@ -356,10 +372,16 @@
     
 
     <footer class="post-footer">
+          
+        
+        <div class="post-tags">
+            <a href="/tags/CSE201-Database/" rel="tag"># CSE201_Database</a>
+          
+        </div>
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
-              <a href="/2019/09/02/CSE205W1_Introduction/" rel="next" title="计算机网络和因特网">
-                <i class="fa fa-chevron-left"></i> 计算机网络和因特网
+              <a href="/2019/09/02/CSE205W1_Introduction/" rel="next" title="CSE205W1_Introduction to the Internet">
+                <i class="fa fa-chevron-left"></i> CSE205W1_Introduction to the Internet
               </a>
             
           </div>
@@ -422,9 +444,22 @@
         
           <a href="/archives/">
         
-          <span class="site-state-item-count">9</span>
+          <span class="site-state-item-count">10</span>
           <span class="site-state-item-name">posts</span>
         </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-categories">
+        
+        
+        
+          
+        
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">categories</span>
+        
       </div>
     
       
@@ -443,7 +478,11 @@
         
           
         
-        <span class="site-state-item-count">5</span>
+          
+        
+          
+        
+        <span class="site-state-item-count">7</span>
         <span class="site-state-item-name">tags</span>
         
       </div>
@@ -562,6 +601,51 @@
 
   
 
+  
+    
+      <script type="text/x-mathjax-config">
+
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$', '$'], ['\\(', '\\)'] ],
+      processEscapes: true,
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+      equationNumbers: {
+        autoNumber: 'AMS'
+      }
+    }
+  });
+
+  MathJax.Hub.Register.StartupHook('TeX Jax Ready', function() {
+    MathJax.InputJax.TeX.prefilterHooks.Add(function(data) {
+      if (data.display) {
+        var next = data.script.nextSibling;
+        while (next && next.nodeName.toLowerCase() === '#text') {
+          next = next.nextSibling;
+        }
+        if (next && next.nodeName.toLowerCase() === 'br') {
+          next.parentNode.removeChild(next);
+        }
+      }
+    });
+  });
+
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for (i = 0; i < all.length; i += 1) {
+      element = document.getElementById(all[i].inputID + '-Frame').parentNode;
+      if (element.nodeName.toLowerCase() == 'li') {
+        element = element.parentNode;
+      }
+      element.classList.add('has-jax');
+    }
+  });
+</script>
+<script src="//cdn.jsdelivr.net/npm/mathjax@2/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+    
   
 
   
