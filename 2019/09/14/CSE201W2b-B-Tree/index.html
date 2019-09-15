@@ -55,18 +55,18 @@
   };
 </script>
 
-  <meta name="description" content="$B^+$树（$B^+$-tree）索引结构是在数据插入和删除下仍能保持其执行效率的几种使用最广泛的索引结构之一。B+树采用平衡树（balanced tree）结构 B+树的基本要求B+树结点最多包含$n - 1$个搜索码值K_1, K_2, ..., K_{n-1}以及$n$个指针P_1, P_2, ..., P_n,每个结点的搜索码值排序存放。 根结点（root）必须至少有两个子结点在每个非叶">
+  <meta name="description" content="$B^+$树（$B^+$-tree）索引结构是在数据插入和删除下仍能保持其执行效率的几种使用最广泛的索引结构之一。B+树采用平衡树（balanced tree）结构 B+树的基本要求B+树结点最多包含$n - 1$个搜索码值K_1, K_2, ..., K_{n-1}，以及$n$个指针P_1, P_2, ..., P_n,每个结点的搜索码值排序存放。 根结点（root）必须至少有两个子结点在每个非">
 <meta name="keywords" content="CSE201_Database">
 <meta property="og:type" content="article">
 <meta property="og:title" content="CSE201W2b_B+Tree">
 <meta property="og:url" content="http://yoursite.com/2019/09/14/CSE201W2b-B-Tree/index.html">
 <meta property="og:site_name" content="Room of Requirment">
-<meta property="og:description" content="$B^+$树（$B^+$-tree）索引结构是在数据插入和删除下仍能保持其执行效率的几种使用最广泛的索引结构之一。B+树采用平衡树（balanced tree）结构 B+树的基本要求B+树结点最多包含$n - 1$个搜索码值K_1, K_2, ..., K_{n-1}以及$n$个指针P_1, P_2, ..., P_n,每个结点的搜索码值排序存放。 根结点（root）必须至少有两个子结点在每个非叶">
+<meta property="og:description" content="$B^+$树（$B^+$-tree）索引结构是在数据插入和删除下仍能保持其执行效率的几种使用最广泛的索引结构之一。B+树采用平衡树（balanced tree）结构 B+树的基本要求B+树结点最多包含$n - 1$个搜索码值K_1, K_2, ..., K_{n-1}，以及$n$个指针P_1, P_2, ..., P_n,每个结点的搜索码值排序存放。 根结点（root）必须至少有两个子结点在每个非">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2019-09-15T07:32:29.524Z">
+<meta property="og:updated_time" content="2019-09-15T07:44:39.982Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="CSE201W2b_B+Tree">
-<meta name="twitter:description" content="$B^+$树（$B^+$-tree）索引结构是在数据插入和删除下仍能保持其执行效率的几种使用最广泛的索引结构之一。B+树采用平衡树（balanced tree）结构 B+树的基本要求B+树结点最多包含$n - 1$个搜索码值K_1, K_2, ..., K_{n-1}以及$n$个指针P_1, P_2, ..., P_n,每个结点的搜索码值排序存放。 根结点（root）必须至少有两个子结点在每个非叶">
+<meta name="twitter:description" content="$B^+$树（$B^+$-tree）索引结构是在数据插入和删除下仍能保持其执行效率的几种使用最广泛的索引结构之一。B+树采用平衡树（balanced tree）结构 B+树的基本要求B+树结点最多包含$n - 1$个搜索码值K_1, K_2, ..., K_{n-1}，以及$n$个指针P_1, P_2, ..., P_n,每个结点的搜索码值排序存放。 根结点（root）必须至少有两个子结点在每个非">
   <link rel="canonical" href="http://yoursite.com/2019/09/14/CSE201W2b-B-Tree/">
 
 
@@ -267,7 +267,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2019-09-15 15:32:29" itemprop="dateModified" datetime="2019-09-15T15:32:29+08:00">2019-09-15</time>
+                <time title="Modified: 2019-09-15 15:44:39" itemprop="dateModified" datetime="2019-09-15T15:44:39+08:00">2019-09-15</time>
               </span>
             
           
@@ -299,7 +299,7 @@
 
       
         <p><strong>$B^+$树（$B^+$-tree）</strong>索引结构是在数据插入和删除下仍能保持其执行效率的几种使用最广泛的索引结构之一。B+树采用<strong>平衡树（balanced tree）</strong>结构</p>
-<h2 id="B-树的基本要求"><a href="#B-树的基本要求" class="headerlink" title="B+树的基本要求"></a>B+树的基本要求</h2><p>B+树结点最多包含$n - 1$个搜索码值<script type="math/tex">K_1, K_2, ..., K_{n-1}</script><br>以及$n$个指针<script type="math/tex">P_1, P_2, ..., P_n</script>,每个结点的搜索码值排序存放。</p>
+<h2 id="B-树的基本要求"><a href="#B-树的基本要求" class="headerlink" title="B+树的基本要求"></a>B+树的基本要求</h2><p>B+树结点最多包含$n - 1$个搜索码值<script type="math/tex">K_1, K_2, ..., K_{n-1}</script>，以及$n$个指针<script type="math/tex">P_1, P_2, ..., P_n</script>,每个结点的搜索码值排序存放。</p>
 <p><strong>根结点（root）</strong>必须至少有两个子结点<br>在每个<strong>非叶结点（nonleaf node）</strong>至少容纳$\lceil n-/2 \rceil$个指针<br>在每个<strong>叶结点（leaf node）</strong>至少容纳$\lceil (n-1)/2 \rceil$个搜索值</p>
 <p>一个B+树的高度不得超过</p>
 <script type="math/tex; mode=display">
@@ -312,7 +312,8 @@
 <ol>
 <li>将$N$放到一个可以储存$n$个搜索码值和$n+1$个指针的区域$M$</li>
 <li>将要插入的$(k,p)$按照排列插入$M$中</li>
-<li>将</li>
+<li>将<script type="math/tex">P_1, K_1, ..., K_{\lceil n/2 \rceil + 1}, P_{\lceil n/2 \rceil}</script>从$M$抄写到原来的$N$中</li>
+<li></li>
 </ol>
 <p>level below root?</p>
 
