@@ -63,7 +63,7 @@
 <meta property="og:site_name" content="Room of Requirment">
 <meta property="og:description" content="$B^+$树（$B^+$-tree）索引结构是在数据插入和删除下仍能保持其执行效率的几种使用最广泛的索引结构之一。B+树采用平衡树（balanced tree）结构 B+树的基本要求B+树结点最多包含$n - 1$个搜索码值K_1, K_2, ..., K_{n-1}，以及$n$个指针P_1, P_2, ..., P_n,每个结点的搜索码值排序存放。 根结点（root）必须至少有两个子结点在每个非">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2019-09-15T07:44:39.982Z">
+<meta property="og:updated_time" content="2019-09-15T07:48:25.503Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="CSE201W2b_B+Tree">
 <meta name="twitter:description" content="$B^+$树（$B^+$-tree）索引结构是在数据插入和删除下仍能保持其执行效率的几种使用最广泛的索引结构之一。B+树采用平衡树（balanced tree）结构 B+树的基本要求B+树结点最多包含$n - 1$个搜索码值K_1, K_2, ..., K_{n-1}，以及$n$个指针P_1, P_2, ..., P_n,每个结点的搜索码值排序存放。 根结点（root）必须至少有两个子结点在每个非">
@@ -267,7 +267,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2019-09-15 15:44:39" itemprop="dateModified" datetime="2019-09-15T15:44:39+08:00">2019-09-15</time>
+                <time title="Modified: 2019-09-15 15:48:25" itemprop="dateModified" datetime="2019-09-15T15:48:25+08:00">2019-09-15</time>
               </span>
             
           
@@ -313,7 +313,8 @@
 <li>将$N$放到一个可以储存$n$个搜索码值和$n+1$个指针的区域$M$</li>
 <li>将要插入的$(k,p)$按照排列插入$M$中</li>
 <li>将<script type="math/tex">P_1, K_1, ..., K_{\lceil n/2 \rceil + 1}, P_{\lceil n/2 \rceil}</script>从$M$抄写到原来的$N$中</li>
-<li></li>
+<li>将<script type="math/tex">P_{\lceil n/2 \rceil+1}, K_{\lceil n/2 \rceil+1}, ..., K_n, P_{n+1}</script>从$M$抄写到新的非叶结点$N’$</li>
+<li>将(<script type="math/tex">K_{\lceil n/2 \rceil}</script>, $N’$)写到父结点中。</li>
 </ol>
 <p>level below root?</p>
 
