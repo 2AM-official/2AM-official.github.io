@@ -55,19 +55,19 @@
   };
 </script>
 
-  <meta name="description" content="基本概念数组与其他种类容器之间的区别有三方面：效率、类型和保存基本类型的能力。在Java中，数组是一种效率最高的储存和随机访问对象引用序列的方式。数组就是一个简单的线性序列，这使得元素访问非常快速。但这种速度所付出的代价是数组对象的大小被固定。ArrayList的效率比数组低很多。这两种持有对象的方式都是类型检查型的，并且唯一明显的差异就是数组使用[]来访问元素。而List使用的是add()和ge">
-<meta name="keywords" content="Data Structure">
+  <meta name="description" content="IntroductionDefinitions and notation: An alphabet is a finite set of symbols A word over alphabet A is a string of symbols belonging to A The empty word will be denoted $\epsilon$ $A^*$ denotes the se">
+<meta name="keywords" content="CSE203_DecisionComputationandLanguage">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Java 数组">
-<meta property="og:url" content="http://yoursite.com/2019/08/27/Java_Array/index.html">
+<meta property="og:title" content="CSE203W1W2_DFAandNFA ">
+<meta property="og:url" content="http://yoursite.com/2019/09/15/CSE203W1W2-DFAandNFA/index.html">
 <meta property="og:site_name" content="Room of Requirment">
-<meta property="og:description" content="基本概念数组与其他种类容器之间的区别有三方面：效率、类型和保存基本类型的能力。在Java中，数组是一种效率最高的储存和随机访问对象引用序列的方式。数组就是一个简单的线性序列，这使得元素访问非常快速。但这种速度所付出的代价是数组对象的大小被固定。ArrayList的效率比数组低很多。这两种持有对象的方式都是类型检查型的，并且唯一明显的差异就是数组使用[]来访问元素。而List使用的是add()和ge">
+<meta property="og:description" content="IntroductionDefinitions and notation: An alphabet is a finite set of symbols A word over alphabet A is a string of symbols belonging to A The empty word will be denoted $\epsilon$ $A^*$ denotes the se">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2019-08-27T13:13:30.351Z">
+<meta property="og:updated_time" content="2019-09-15T12:10:16.284Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Java 数组">
-<meta name="twitter:description" content="基本概念数组与其他种类容器之间的区别有三方面：效率、类型和保存基本类型的能力。在Java中，数组是一种效率最高的储存和随机访问对象引用序列的方式。数组就是一个简单的线性序列，这使得元素访问非常快速。但这种速度所付出的代价是数组对象的大小被固定。ArrayList的效率比数组低很多。这两种持有对象的方式都是类型检查型的，并且唯一明显的差异就是数组使用[]来访问元素。而List使用的是add()和ge">
-  <link rel="canonical" href="http://yoursite.com/2019/08/27/Java_Array/">
+<meta name="twitter:title" content="CSE203W1W2_DFAandNFA ">
+<meta name="twitter:description" content="IntroductionDefinitions and notation: An alphabet is a finite set of symbols A word over alphabet A is a string of symbols belonging to A The empty word will be denoted $\epsilon$ $A^*$ denotes the se">
+  <link rel="canonical" href="http://yoursite.com/2019/09/15/CSE203W1W2-DFAandNFA/">
 
 
 <script id="page-configurations">
@@ -81,7 +81,7 @@
   };
 </script>
 
-  <title>Java 数组 | Room of Requirment</title>
+  <title>CSE203W1W2_DFAandNFA  | Room of Requirment</title>
   
 
 
@@ -220,7 +220,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/08/27/Java_Array/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/09/15/CSE203W1W2-DFAandNFA/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="2AM">
@@ -234,7 +234,7 @@
       <header class="post-header">
 
         
-          <h1 class="post-title" itemprop="name headline">Java 数组
+          <h1 class="post-title" itemprop="name headline">CSE203W1W2_DFAandNFA 
 
               
             
@@ -254,7 +254,7 @@
                 
               
 
-              <time title="Created: 2019-08-27 20:13:37 / Modified: 21:13:30" itemprop="dateCreated datePublished" datetime="2019-08-27T20:13:37+08:00">2019-08-27</time>
+              <time title="Created: 2019-09-15 19:32:20 / Modified: 20:10:16" itemprop="dateCreated datePublished" datetime="2019-09-15T19:32:20+08:00">2019-09-15</time>
             </span>
           
             
@@ -273,29 +273,32 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h2 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h2><p>数组与其他种类容器之间的区别有三方面：效率、类型和保存基本类型的能力。<br>在Java中，数组是一种效率最高的储存和随机访问对象引用序列的方式。数组就是一个简单的线性序列，这使得元素访问非常快速。但这种速度所付出的代价是数组对象的大小被固定。ArrayList的效率比数组低很多。这两种持有对象的方式都是类型检查型的，并且唯一明显的差异就是数组使用[]来访问元素。而List使用的是add()和get()这样的方法。<br>length是数组的大小，而不是实际保存的元素个数，所以检查其中的引用是否为null，即可知道数组的某个位置是否存有对象。同样，基本类型的数组如果是数值型的，就被自动初始化为0，如果是字符型（char）的，就被自动初始化为（char）O；如果是布尔型（boolean），就被自动初始化为false。</p>
-<h2 id="多维数组"><a href="#多维数组" class="headerlink" title="多维数组"></a>多维数组</h2><p>创建多维数组很方便。对于基本类型的多维数组，可以通过使用花括号将每个向量分隔开，每对花括号括起来的集合都会把你带到下一级数组。Java SE5的Arrays.deepToString()方法，它可以将多维数组转换为多个String。数组中构成矩阵的每个向量都可以具有任意的长度（这被称为粗糙数组）。<br>编写一个方法能够产生二维双精度型数组并加以初始化：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">double</span>[][][] creation(<span class="keyword">int</span> a, <span class="keyword">int</span> b) &#123;</span><br><span class="line">		Random rand = <span class="keyword">new</span> Random(<span class="number">47</span>);</span><br><span class="line">		<span class="keyword">int</span> c = b - a;</span><br><span class="line">		<span class="keyword">double</span> d[][][]  = <span class="keyword">new</span> <span class="keyword">double</span>[rand.nextInt(c) + a] [][];</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; d.length; i++) &#123;</span><br><span class="line">			d[i] = <span class="keyword">new</span> <span class="keyword">double</span>[rand.nextInt(c) + a][];</span><br><span class="line">			<span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; d[i].length; j++) &#123;</span><br><span class="line">				d[i][j] = <span class="keyword">new</span> <span class="keyword">double</span>[rand.nextInt(c) + a];</span><br><span class="line">				<span class="keyword">for</span>(<span class="keyword">int</span> q = <span class="number">0</span>; q &lt; d[i][j].length; q++) &#123;</span><br><span class="line">					d[i][j][q] = rand.nextDouble();</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">return</span> d;</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure></p>
-<h2 id="Arrays实用功能"><a href="#Arrays实用功能" class="headerlink" title="Arrays实用功能"></a>Arrays实用功能</h2><ul>
-<li><p>Arrays.fill() <em>只能用同一个值填充各个位置</em></p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> size = <span class="number">6</span>;</span><br><span class="line"><span class="keyword">int</span>[] a = <span class="keyword">new</span> <span class="keyword">int</span>[size];</span><br><span class="line">Arrays.fill(a,<span class="number">19</span>);</span><br><span class="line">print(<span class="string">"a = "</span> + Arrays.toString(a));</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>System.arraycopy() <em>不属于Arrays但是很有用的方法</em> <em>static</em><br>它用来复制数组比用for循环复制要快很多</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span>[] i = <span class="keyword">new</span> <span class="keyword">int</span>[<span class="number">7</span>];</span><br><span class="line"><span class="keyword">int</span>[] j = <span class="keyword">new</span> <span class="keyword">int</span>[<span class="number">10</span>];</span><br><span class="line">Arrays.fill(i, <span class="number">47</span>);</span><br><span class="line">Arrays.fill(j, <span class="number">99</span>);</span><br><span class="line">System.arraycopy(i, <span class="number">0</span>, j, <span class="number">0</span>, i.length)</span><br></pre></td></tr></table></figure>
-</li>
+        <h2 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h2><h3 id="Definitions-and-notation"><a href="#Definitions-and-notation" class="headerlink" title="Definitions and notation:"></a>Definitions and notation:</h3><ul>
+<li>An <em>alphabet</em> is a finite set of symbols</li>
+<li>A <em>word</em> over alphabet <em>A</em> is a string of symbols belonging to A</li>
+<li>The <em>empty word</em> will be denoted $\epsilon$</li>
+<li>$A^*$ denotes the set of all words over A</li>
+<li>$A^+$ denotes the set of all non-empty words over A</li>
 </ul>
-<p>arraycopy()需要的参数有：源数组，表示从源数组中的什么位置开始复制的偏移量，表示从目标数组的什么位置开始的偏移量，以及需要复制的元素个数。<em>对数组的任何越界操作都会导致异常</em><br><em>System.arraycopy()不会执行自动包装和自动拆包，两个数组必须具有相同的确切类型。</em></p>
-<ul>
-<li><p>equals()<br>Arrays类提供了重载后的equals()方法，用来比较整个数组<br>数组相等的条件是元素个数必须相等，并且对应位置的元素也相等，这可以通过对每一个元素使用equals()作比较来判断。（*对基本类型，需要使用基本类型的包装器类的equals()方法<br>deepEquals()用于多维数组</p>
+<p>The <em>concatenation</em> (a.k.a. “product”) of two words is obtained by appending them together to form one long word.<br>Concatenation of words <em><script type="math/tex">w_1</script></em> and <em><script type="math/tex">w_2</script></em> can be written <em>$$w_1 w_2$</em><br>For any word <em>w</em>, note that <em>$w\epsilon = \epsilon w = w$</em><br>Concatenation is associative<br><em>$w^n$</em> denotes the concatenation of <em>n</em> copies of <em>w</em><br>|<em>w</em>| denotes the length(number of letters) of <em>w</em><br>|<em>$w_1w_2$</em>| = |<em>w_1</em>| + |<em>$w_2$</em>|<br>For $w \in A^<em>$, the reverse of $w$ is denoted $w^R$ and consists of $w$’s letters in reverse order.<br>A </em>palindrome<em> is a word </em>w<em> satisfying </em>w = w^R*<br>If u,v,w are words and w = uv then u is a prefix of w and v is a suffix ofw. A proper prefixofw is ap refix that is not equal to $\epsilon$ or w. (Similarly for proper suffix)</p>
+<p>A language (or formal language) over alphabet A is a subset of $A^*$<br>We can express new languages in terms of other languages using<br>concatenation and closure.</p>
+<p>$$<br>L_1L_2 = {w_1 w_2: w_1 \in L_1 and w_2 \in L_2}<br>L^* = {w_1 w_2 … w_n: n\geq 0 and w_1, w_2, … w_n \in L}</p>
+<h2 id="Deterministic-Finite-Automata"><a href="#Deterministic-Finite-Automata" class="headerlink" title="Deterministic Finite Automata"></a>Deterministic Finite Automata</h2><p>Can be used a model for what happens during lexical analysis — scan program from beginning to end and divide it into tokens.</p>
+<p>A <em>deterministic finite automaton (DFA)</em> has 5 components:</p>
+<ol>
+<li><p><em>$Q$</em> is a finite nonempty set whose members are called <em>states</em> of the<br>automaton<br><strong>state</strong> of a machine tells you something about the prefix that has been read so far. If the string is a member of the language of interest, the state reached when the whole string has been scanned will be an accepting state (a member of <em>T</em> ).</p>
 </li>
-<li><p>sort()用于对数组排序</p>
+<li><p><em>$A$</em> is a finite nonempty set called the <em>alphabet</em> of the automaton</p>
 </li>
-<li><p>binarySearch()用于在已经排列的数组中查找元素</p>
+<li><p><em>$\phi$</em> is a map from $<em>Q</em> \times <em>A</em>$ to Q called the <strong>transition function* of the automation
+</strong>Transition function** $\phi$ tells you how state should change when an additional letter is read by the DFA</p>
 </li>
-<li><p>toString()产生数组的String表示</p>
+<li><p><em>i</em> is a memver of Q and is called the <em>initial</em> state</p>
 </li>
-<li><p>hashCode()产生数组的散列码</p>
+<li><p><em>T</em> is a nonempty subset of <em>Q</em> whose members are called <em>terminal states</em> or <em>accepting states</em>.</p>
 </li>
-</ul>
+</ol>
+<p>A DFA is often depicted as a labelled directed graph (called <em>transition diagram</em>)</p>
 
     </div>
 
@@ -307,13 +310,13 @@
           
         
         <div class="post-tags">
-            <a href="/tags/Data-Structure/" rel="tag"># Data Structure</a>
+            <a href="/tags/CSE203-DecisionComputationandLanguage/" rel="tag"># CSE203_DecisionComputationandLanguage</a>
           
         </div>
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
-              <a href="/2019/08/22/CNN_1/" rel="next" title="初识CNN">
-                <i class="fa fa-chevron-left"></i> 初识CNN
+              <a href="/2019/09/14/CSE201W2b-B-Tree/" rel="next" title="CSE201W2b_B+Tree">
+                <i class="fa fa-chevron-left"></i> CSE201W2b_B+Tree
               </a>
             
           </div>
@@ -321,10 +324,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-              <a href="/2019/08/31/Java_Initialization/" rel="prev" title="Java Initialization">
-                Java Initialization <i class="fa fa-chevron-right"></i>
-              </a>
-            
           </div>
         </div>
     </footer>
@@ -437,7 +436,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#基本概念"><span class="nav-number">1.</span> <span class="nav-text">基本概念</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#多维数组"><span class="nav-number">2.</span> <span class="nav-text">多维数组</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Arrays实用功能"><span class="nav-number">3.</span> <span class="nav-text">Arrays实用功能</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Introduction"><span class="nav-number">1.</span> <span class="nav-text">Introduction</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Definitions-and-notation"><span class="nav-number">1.1.</span> <span class="nav-text">Definitions and notation:</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Deterministic-Finite-Automata"><span class="nav-number">2.</span> <span class="nav-text">Deterministic Finite Automata</span></a></li></ol></div>
             
 
           </div>
@@ -535,6 +534,51 @@
 
   
 
+  
+    
+      <script type="text/x-mathjax-config">
+
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$', '$'], ['\\(', '\\)'] ],
+      processEscapes: true,
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+      equationNumbers: {
+        autoNumber: 'AMS'
+      }
+    }
+  });
+
+  MathJax.Hub.Register.StartupHook('TeX Jax Ready', function() {
+    MathJax.InputJax.TeX.prefilterHooks.Add(function(data) {
+      if (data.display) {
+        var next = data.script.nextSibling;
+        while (next && next.nodeName.toLowerCase() === '#text') {
+          next = next.nextSibling;
+        }
+        if (next && next.nodeName.toLowerCase() === 'br') {
+          next.parentNode.removeChild(next);
+        }
+      }
+    });
+  });
+
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for (i = 0; i < all.length; i += 1) {
+      element = document.getElementById(all[i].inputID + '-Frame').parentNode;
+      if (element.nodeName.toLowerCase() == 'li') {
+        element = element.parentNode;
+      }
+      element.classList.add('has-jax');
+    }
+  });
+</script>
+<script src="//cdn.jsdelivr.net/npm/mathjax@2/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+    
   
 
   
