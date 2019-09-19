@@ -63,10 +63,15 @@
 <meta property="og:site_name" content="Room of Requirment">
 <meta property="og:description" content="DNS: 因特网的目录服务主机的一种识别方法是用它的主机名（hostname），如cnn.com，但主机名提供了很少关于主机在因特网中的信息。因为主机名可能由不定长的字母数字组成，所以路由器很难处理。基于上述原因，主机也可以用IP地址（IP address）进行识别。 DNS提供的服务DNS协议是应用层协议，它使用客户机/服务器模式在通信的端系统之间运行，在通信的端系统之间通过下面的端到端运输层协">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2019-09-19T01:58:10.807Z">
+<meta property="og:image" content="http://yoursite.com/images/11/11a1.png">
+<meta property="og:image" content="http://yoursite.com/images/11/11a2.png">
+<meta property="og:image" content="http://yoursite.com/images/11/11a3.png">
+<meta property="og:image" content="http://yoursite.com/images/11/11a4.png">
+<meta property="og:updated_time" content="2019-09-19T02:50:32.331Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="CSE205W3_ApplicationLayer(2)">
 <meta name="twitter:description" content="DNS: 因特网的目录服务主机的一种识别方法是用它的主机名（hostname），如cnn.com，但主机名提供了很少关于主机在因特网中的信息。因为主机名可能由不定长的字母数字组成，所以路由器很难处理。基于上述原因，主机也可以用IP地址（IP address）进行识别。 DNS提供的服务DNS协议是应用层协议，它使用客户机/服务器模式在通信的端系统之间运行，在通信的端系统之间通过下面的端到端运输层协">
+<meta name="twitter:image" content="http://yoursite.com/images/11/11a1.png">
   <link rel="canonical" href="http://yoursite.com/2019/09/16/CSE205W3-ApplicationLayer-2/">
 
 
@@ -267,7 +272,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2019-09-19 09:58:10" itemprop="dateModified" datetime="2019-09-19T09:58:10+08:00">2019-09-19</time>
+                <time title="Modified: 2019-09-19 10:50:32" itemprop="dateModified" datetime="2019-09-19T10:50:32+08:00">2019-09-19</time>
               </span>
             
           
@@ -311,13 +316,13 @@
 <li><strong>单点故障（a single point of failure)</strong>：如果该DNS服务器故障，整个因特网将随之瘫痪</li>
 <li><strong>通信容量（traffic volume)</strong>：单个DNS服务器不得不处理所有的DNS查询</li>
 <li><strong>远距离的集中式数据库（distant centralized database)</strong>：查询的地理距离会导致严重的时延</li>
-<li><strong>维护（maintenance)</strong>：在单一DNS服务器上运行集中式数据库完全没有可扩展能力<h4 id="分布式、层次数据库"><a href="#分布式、层次数据库" class="headerlink" title="分布式、层次数据库"></a>分布式、层次数据库</h4><img src alt="DNS服务器的部分层次结构"><br>为了处理规模问题，DNS使用了大量的DNS服务器，它们以层次方式组织，并分布在全世界范围内。<br>有3种类型的DNS服务器：</li>
+<li><strong>维护（maintenance)</strong>：在单一DNS服务器上运行集中式数据库完全没有可扩展能力<h4 id="分布式、层次数据库"><a href="#分布式、层次数据库" class="headerlink" title="分布式、层次数据库"></a>分布式、层次数据库</h4><img src="/images/11/11a1.png" alt="DNS服务器的部分层次结构"><br>为了处理规模问题，DNS使用了大量的DNS服务器，它们以层次方式组织，并分布在全世界范围内。<br>有3种类型的DNS服务器：</li>
 <li><strong>根服务器（root name servers)</strong></li>
 <li><strong>顶级域（Top-level domain, TLD）服务器</strong>:<br>这些服务器负责顶级域名（如com、org、net、edu和gov）和所有国家的顶级域名（如uk、fr、ca和jp）</li>
 <li><strong>权威DNS服务器（Authoritative DNS servers)</strong>:<br>在因特网上具有公共可访问主机（如Web服务器和邮件服务器）的每个组织机构的权威DNS服务器负责保存这些记录。</li>
 </ul>
 <p>假定一个DNS客户机要确定主机名www.amazon.com的IP地址。粗略来说将发生以下事件。该客户机首先与根服务器之一联系，它将返回顶级域名com的TLD服务器的IP地址。该客户机则与这些TLD服务器之一联系，它将为amazon.com返回权威服务器的IP地址。最后，该客户机为amazon.com联系权威服务器之一，他为主机名www.amazon.com返回IP地址。</p>
-<p>还有另一类很重要的DNS，称为<strong>本地DNS服务器（local DNS server）</strong>。<br>本地服务器严格来说并不属于DNS服务器的层次结构，但它对DNS层次结构是很重要的。<br>主机的本地DNS服务器通常“临近”本主机。当主机发出DNS请求时，该请求被发往本地DNS服务器，它起着代理的作用，并将该请求转发到DNS服务器层次结构中。<br><img src alt="各种DNS服务器的交互"><br>在本例中，为了获得一个主机名的映射，共发送了8份报文：4份查询报文和4份回答报文。<br>本例中也使用了<strong>递归查询（recursive query）</strong>和<strong>迭代查询（iterative query）</strong>。查询通常按照该例子中的模式：从请求主机到本地DNS服务器的查询是递归的，其余的查询是迭代的。</p>
+<p>还有另一类很重要的DNS，称为<strong>本地DNS服务器（local DNS server）</strong>。<br>本地服务器严格来说并不属于DNS服务器的层次结构，但它对DNS层次结构是很重要的。<br>主机的本地DNS服务器通常“临近”本主机。当主机发出DNS请求时，该请求被发往本地DNS服务器，它起着代理的作用，并将该请求转发到DNS服务器层次结构中。<br><img src="/images/11/11a2.png" alt="各种DNS服务器的交互"><br>在本例中，为了获得一个主机名的映射，共发送了8份报文：4份查询报文和4份回答报文。<br>本例中也使用了<strong>递归查询（recursive query）</strong>和<strong>迭代查询（iterative query）</strong>。查询通常按照该例子中的模式：从请求主机到本地DNS服务器的查询是递归的，其余的查询是迭代的。</p>
 <h4 id="DNS缓存（DNS-caching）"><a href="#DNS缓存（DNS-caching）" class="headerlink" title="DNS缓存（DNS caching）"></a>DNS缓存（DNS caching）</h4><p>为了改善时延性能并减少在因特网上到处传输的DNS报文数量，DNS广泛使用了缓存技术。<br>在请求链中，当一个DNS服务器接收一个DNS回答（例如，包含主机名到IP地址的映射）时，DNS服务器能将回答中的信息缓存在本地存储器。如果在DNS服务器中缓存了一个主机名/IP地址对，另一个相同主机名的查询到达该DNS服务器时，该服务器能够提供所要求的IP地址，即使它不是该主机名的权威服务器。<br>由于主机和主机名与IP地址间的映射决不是永久的，所以DNS服务器在一段时间后（通常设置为两天）将丢弃缓存的信息。<br>本地DNS服务器也可以缓存TLD服务器的IP地址，因而允许本地DNS绕过查询链中的根服务器（这经常发生）。</p>
 <h3 id="DNS记录和报文"><a href="#DNS记录和报文" class="headerlink" title="DNS记录和报文"></a>DNS记录和报文</h3><p>实现DNS分布式数据库的所有DNS服务器共同存储着<strong>资源记录（Resource Record, RR)</strong>，RR提供了主机名到IP地址的映射。每个DNS回答报文包含了一条或多条资源记录。<br>资源记录是一个包含了下列字段的四元组：(Name, Value, Type, TTL)<br>TTL是该记录的生存时间，它决定了资源记录应当从缓存中删除的时间。<br>Name和Value的值取决于Type：</p>
 <ul>
@@ -326,7 +331,7 @@
 <li>如果Type=CNAME，则Value是别名为Name的主机对应的规范主机名</li>
 <li>如果Type=MX，则Value是别名为Name的邮件服务器的规范主机名。MX记录允许邮件服务器的主机名具有简单的别名。通过使用MX记录，一个公司的邮件服务器和其他服务器（如它的Web服务器）可以使用相同的别名。为了获得邮件服务器的规范主机名，DNS客户机应当请求一条CNAME记录。</li>
 </ul>
-<h4 id="DNS报文"><a href="#DNS报文" class="headerlink" title="DNS报文"></a>DNS报文</h4><p>DNS只有查询和回复报文，并且，查询和回答报文有着相同的格式。<br><img src alt="DNS报文格式"><br>DNS报文中各字段的语义如下：</p>
+<h4 id="DNS报文"><a href="#DNS报文" class="headerlink" title="DNS报文"></a>DNS报文</h4><p>DNS只有查询和回复报文，并且，查询和回答报文有着相同的格式。<br><img src="/images/11/11a3.png" alt="DNS报文格式"><br>DNS报文中各字段的语义如下：</p>
 <ul>
 <li>前12个字节是<em>首部</em>区域，其中有几个字段。<br>第一个字段是一个16比特的数，用于标示该查询。这个标识符会被复制到对查询的回答报文中，以便让客户机用它来匹配发送的请求和接收到的回答。标志字段中含有若干标志。<br>1比特的“查询/回答”标志位指出报文是查询报文（0）还是回答报文（1）。<br>在该首部还有4个“数量”字段，这些字段指出了在首部后4类数据区域出现的数量。</li>
 <li><em>问题区域</em>包含着正在进行的查询信息。该区域包括：1）名字字段，用于指出正在被查询的主机名字；2）类型字段，用于指出正被询问的问题类型。</li>
@@ -346,10 +351,13 @@
 <h4 id="P2P体系结构的扩展性"><a href="#P2P体系结构的扩展性" class="headerlink" title="P2P体系结构的扩展性"></a>P2P体系结构的扩展性</h4><p>我们假设服务器和对等方使用接入链路与因特网相连。其中$u_s$表示服务器接入链路的上载速率，$u_i$表示第$i$个对等方接入链路的下载速率。此外$F$表示被分发的文件长度（以比特计），$N$表示要获得文件拷贝的对等方的数量。<br><strong>分发时间（distribution time）</strong>是$N$个对等方得到文件拷贝所需要的时间。我们可以根据课本上的推导（足够详细）得到</p>
 <ol>
 <li>客户机/服务器体系结构中的分发时间<script type="math/tex; mode=display">
-D_{cs} \geq max{NF/u_s,F/d_{min}}</script>我们取下界为实际分发时间，即<script type="math/tex; mode=display">
-D_{cs} = max{NF/u_s,F/d_{min}}</script></li>
+D_{cs} \geq max\left\{NF/u_s,F/d_{min}\right\}</script>我们取下界为实际分发时间，即<script type="math/tex; mode=display">
+D_{cs} = max\left\{NF/u_s,F/d_{min}\right\}</script></li>
 <li>在P2P体系结构中，每个对等方都可以帮助服务器来分发文件，也就是说，当一个对等方接收到文件数据的时候，它可以利用自己的上载能力重新将数据分发给其他对等方。<br>P2P体系结构的分发时间<script type="math/tex; mode=display">
-D_{P2P} \geq max{F/u_s,F/d_{min},NF/{u_s + \sum_{i=1}^N u_i}}</script></li>
+D_{P2P} \geq max\left\{F/u_s,F/d_{min},NF/{u_s + \sum_{i=1}^N u_i}\right\}</script>我们取下界为实际的分发时间，即<script type="math/tex; mode=display">
+D_{P2P} = max\left\{F/u_s,F/d_{min},NF/{u_s + \sum_{i=1}^N u_i}\right\}</script><img src="/images/11/11a4.png" alt="P2P和客户机/服务器体系结构的分发时间"><br>上图中我们设置了$F/U = 1$小时，$u<em>s = 10u$, $d</em>{min} \geq u_s$。<br>对于客户机/服务器体系结构，随着对等方数量的增长，分发时间呈线性增长并且没有界。对于P2P体系结构，最小分发时间不仅总是小于客户机/服务器体系结构的分发时间，而且对任何多的对等方其总是小于1小时。因此采用P2P体系结构是可以拓展的，因为对等方除了是比特的消费者外还能重新分发。<h4 id="BitTorrent"><a href="#BitTorrent" class="headerlink" title="BitTorrent"></a>BitTorrent</h4>BitTorrent是一种用于文件分发的流行P2P协议。用BitTorrent的术语来讲参与一个特定文件分发的所有对等方的一个集合称为一个<em>洪流（torrent）</em>。<br>在一个洪流中，对等方彼此下载等长度的<em>文件块</em>，块长度通常为256KB。<br>每个洪流具有一个基础设施节点，称为<em>追踪器（tracker）</em>。当一个对等方加入洪流时，它向追踪器注册，并周期性地通知追踪器它仍在洪流中。<br>当一个新的对等方Alice加入洪流时，追踪器随机地从参与对等方集合中选择一些对等方Alice持有对等方的这张列表，试图与该列表上的对等方创建并行的<strong>TCP连接</strong>。所有与Alice成功地创建连接的对等方为“临近对等方”，临近对等方将随着时间而改变。<br>在任何时刻，每个对等方都具有来自某文件块的自集。Alice周期性地（经TCP）连接询问每个临近对等方它们所具有的块列表，Alice将对她目前还没有的块发出请求（仍通过TCP连接）。<br>Alice将做出两个重要的决定：</li>
+<li>她应当向她的邻居请求哪些块呢？<br>Alice使用一种<strong>最稀罕优先（rarest first）</strong>的技术。这种技术的思路是：根据她没有的块从她的邻居中确定最稀罕的块（就是在她的邻居中拷贝数量最少的那些块），并优先请求那些最稀罕的块。</li>
+<li>她请求的块应当发送给她的哪些邻居<br>为了决定Alice响应哪个请求，其基本想法是Alice确定其邻居的优先权，这些邻居是那些当前能以<em>最高的速率</em>给她数据的。</li>
 </ol>
 <p>1】递归迭代？<br>2】分布式数据库<br>3】Type = NS？</p>
 
@@ -487,7 +495,7 @@ D_{P2P} \geq max{F/u_s,F/d_{min},NF/{u_s + \sum_{i=1}^N u_i}}</script></li>
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#DNS-因特网的目录服务"><span class="nav-number">1.</span> <span class="nav-text">DNS: 因特网的目录服务</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#DNS提供的服务"><span class="nav-number">1.1.</span> <span class="nav-text">DNS提供的服务</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#DNS工作机理概述"><span class="nav-number">1.2.</span> <span class="nav-text">DNS工作机理概述</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#分布式、层次数据库"><span class="nav-number">1.2.1.</span> <span class="nav-text">分布式、层次数据库</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#DNS缓存（DNS-caching）"><span class="nav-number">1.2.2.</span> <span class="nav-text">DNS缓存（DNS caching）</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#DNS记录和报文"><span class="nav-number">1.3.</span> <span class="nav-text">DNS记录和报文</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#DNS报文"><span class="nav-number">1.3.1.</span> <span class="nav-text">DNS报文</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#在DNS数据库中插入记录"><span class="nav-number">1.3.2.</span> <span class="nav-text">在DNS数据库中插入记录</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#DNS攻击"><span class="nav-number">1.3.3.</span> <span class="nav-text">DNS攻击</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#P2P应用"><span class="nav-number">2.</span> <span class="nav-text">P2P应用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#P2P文件分发"><span class="nav-number">2.1.</span> <span class="nav-text">P2P文件分发</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#P2P体系结构的扩展性"><span class="nav-number">2.1.1.</span> <span class="nav-text">P2P体系结构的扩展性</span></a></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#DNS-因特网的目录服务"><span class="nav-number">1.</span> <span class="nav-text">DNS: 因特网的目录服务</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#DNS提供的服务"><span class="nav-number">1.1.</span> <span class="nav-text">DNS提供的服务</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#DNS工作机理概述"><span class="nav-number">1.2.</span> <span class="nav-text">DNS工作机理概述</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#分布式、层次数据库"><span class="nav-number">1.2.1.</span> <span class="nav-text">分布式、层次数据库</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#DNS缓存（DNS-caching）"><span class="nav-number">1.2.2.</span> <span class="nav-text">DNS缓存（DNS caching）</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#DNS记录和报文"><span class="nav-number">1.3.</span> <span class="nav-text">DNS记录和报文</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#DNS报文"><span class="nav-number">1.3.1.</span> <span class="nav-text">DNS报文</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#在DNS数据库中插入记录"><span class="nav-number">1.3.2.</span> <span class="nav-text">在DNS数据库中插入记录</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#DNS攻击"><span class="nav-number">1.3.3.</span> <span class="nav-text">DNS攻击</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#P2P应用"><span class="nav-number">2.</span> <span class="nav-text">P2P应用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#P2P文件分发"><span class="nav-number">2.1.</span> <span class="nav-text">P2P文件分发</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#P2P体系结构的扩展性"><span class="nav-number">2.1.1.</span> <span class="nav-text">P2P体系结构的扩展性</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#BitTorrent"><span class="nav-number">2.1.2.</span> <span class="nav-text">BitTorrent</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>
