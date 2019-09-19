@@ -1,0 +1,634 @@
+<!DOCTYPE html>
+
+
+
+
+
+<html class="theme-next muse use-motion" lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="generator" content="Hexo 3.9.0">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.3.0">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.3.0">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.3.0">
+  <link rel="mask-icon" href="/images/logo.svg?v=7.3.0" color="#222">
+
+<link rel="stylesheet" href="/css/main.css?v=7.3.0">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.7.0">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '7.3.0',
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    save_scroll: false,
+    copycode: {"enable":false,"show_result":false,"style":null},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: '',
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    translation: {
+      copy_button: 'Copy',
+      copy_success: 'Copied',
+      copy_failure: 'Copy failed'
+    }
+  };
+</script>
+
+  <meta name="description" content="静态散列（Static Hashing）顺序组织文件的一个缺点是我们必须访问索引结构来定位数据，或者必须使用二分法搜索，这将导致过多的I/O操作。基于散列（hashing）技术的文件组织使我们能够避免访问索引结构。在对散列的描述中，我们将使用术语桶（bucket）来表示能存储一条或多条记录的一个储存单位，通常一个桶就是一个磁盘块，但也可能小于或大于一个磁盘块。令$K$表示所有搜索码值的集合，令$B">
+<meta name="keywords" content="CSE201_Database">
+<meta property="og:type" content="article">
+<meta property="og:title" content="CSE201W3_HashIndex">
+<meta property="og:url" content="http://yoursite.com/2019/09/19/CSE201W3-HashIndex/index.html">
+<meta property="og:site_name" content="Room of Requirment">
+<meta property="og:description" content="静态散列（Static Hashing）顺序组织文件的一个缺点是我们必须访问索引结构来定位数据，或者必须使用二分法搜索，这将导致过多的I/O操作。基于散列（hashing）技术的文件组织使我们能够避免访问索引结构。在对散列的描述中，我们将使用术语桶（bucket）来表示能存储一条或多条记录的一个储存单位，通常一个桶就是一个磁盘块，但也可能小于或大于一个磁盘块。令$K$表示所有搜索码值的集合，令$B">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="http://yoursite.com/images/12/12a1.png">
+<meta property="og:updated_time" content="2019-09-19T09:35:48.039Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="CSE201W3_HashIndex">
+<meta name="twitter:description" content="静态散列（Static Hashing）顺序组织文件的一个缺点是我们必须访问索引结构来定位数据，或者必须使用二分法搜索，这将导致过多的I/O操作。基于散列（hashing）技术的文件组织使我们能够避免访问索引结构。在对散列的描述中，我们将使用术语桶（bucket）来表示能存储一条或多条记录的一个储存单位，通常一个桶就是一个磁盘块，但也可能小于或大于一个磁盘块。令$K$表示所有搜索码值的集合，令$B">
+<meta name="twitter:image" content="http://yoursite.com/images/12/12a1.png">
+  <link rel="canonical" href="http://yoursite.com/2019/09/19/CSE201W3-HashIndex/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true,
+    isPage: false,
+    isArchive: false
+  };
+</script>
+
+  <title>CSE201W3_HashIndex | Room of Requirment</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  <div class="container sidebar-position-left">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Room of Requirment</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+        <p class="site-subtitle">Less is More</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="Toggle navigation bar">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+      
+      
+      
+        
+        <li class="menu-item menu-item-home">
+      
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>Home</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-tags">
+      
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>Tags</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-categories">
+      
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>Categories</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-archives">
+      
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives</a>
+
+  </li>
+  </ul>
+
+    
+
+</nav>
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content page-post-detail">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/09/19/CSE201W3-HashIndex/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="2AM">
+      <meta itemprop="description" content="they said the fruit never gon' fall far from the tree">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Room of Requirment">
+    </span>
+      <header class="post-header">
+
+        
+          <h1 class="post-title" itemprop="name headline">CSE201W3_HashIndex
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2019-09-19 11:57:47 / Modified: 17:35:48" itemprop="dateCreated datePublished" datetime="2019-09-19T11:57:47+08:00">2019-09-19</time>
+            </span>
+          
+            
+
+            
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/XJTLU-Courses/" itemprop="url" rel="index"><span itemprop="name">XJTLU_Courses</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          <br>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="静态散列（Static-Hashing）"><a href="#静态散列（Static-Hashing）" class="headerlink" title="静态散列（Static Hashing）"></a>静态散列（Static Hashing）</h2><p>顺序组织文件的一个缺点是我们必须访问索引结构来定位数据，或者必须使用二分法搜索，这将导致过多的I/O操作。基于<strong>散列（hashing）</strong>技术的文件组织使我们能够避免访问索引结构。<br>在对散列的描述中，我们将使用术语<strong>桶（bucket）</strong>来表示能存储一条或多条记录的一个储存单位，通常一个桶就是一个磁盘块，但也可能小于或大于一个磁盘块。<br>令$K$表示所有搜索码值的集合，令$B$表示所有桶地址的集合，<strong>散列函数（hashing function）</strong>$h$是一个从$K$到$B$的函数。<br>不同搜索码值可能被存储到同一个桶中，因此，我们必须检查桶中每条记录的搜索码值，以确定该记录是否是我们要查找的记录。</p>
+<h3 id="散列函数"><a href="#散列函数" class="headerlink" title="散列函数"></a>散列函数</h3><p>最坏的可能是散列函数把所有搜索码值映射到同一桶中。<br>具有下列分布特性的散列函数是我们理想中想建成的：</p>
+<ul>
+<li><em>分布是均匀的</em>。即散列函数从所有可能的搜索码值集合中为每个桶分配同样数量的搜索码值</li>
+<li><em>分布是随机的</em>。即在一般情况下，不管搜索码值实际怎样分布，每个桶应分配到的搜索码值数目几乎相同。散列函数应该表现为随机的。</li>
+</ul>
+<p>通常散列函数在搜索码中字符的内部二进制机器表示上执行计算。这种类型的一个简单函数是先计算码中字符的二进制表示的总和，然后返回该总和取桶数目的模。</p>
+<h3 id="桶溢出处理（bucket-overflow）"><a href="#桶溢出处理（bucket-overflow）" class="headerlink" title="桶溢出处理（bucket overflow）"></a>桶溢出处理（bucket overflow）</h3><p>如果桶没有足够的空间，就会发生<strong>桶溢出</strong>，桶溢出的发生可能有以下几个原因：</p>
+<ul>
+<li><strong>桶不足</strong></li>
+<li><strong>偏斜</strong>偏斜发生的原因可能有两个：1）多条记录可能具有相同的搜索码。2）所选的散列函数可能会造成搜索码的分布不均。</li>
+</ul>
+<p>尽管分配的桶比所需的桶多一些，但是桶溢出还是可能发生。我们用<strong>溢出桶（overflow bucket）</strong>来处理桶溢出问题。如果一条记录必须插入桶$b$中，而桶$b$已满，系统会为桶$b$提供一个溢出桶，并将此记录插入到这个溢出桶中。如果溢出桶也满了，系统会提供另一个溢出桶。</p>
+<p>一个给定桶的所有溢出桶用一个链接列表链接在一起，使用这种链接列表的溢出处理称为<strong>溢出链（overflow chaining）</strong>。<br><img src="/images/12/12a1.png" alt="散列结构中的溢出链"></p>
+<h3 id="散列索引（Hash-Indices）"><a href="#散列索引（Hash-Indices）" class="headerlink" title="散列索引（Hash Indices）"></a>散列索引（Hash Indices）</h3><p>散列不仅可以用于文件组织，还可以用于索引结构的创建。<strong>散列索引</strong>将搜索码及其相应的指针组织成散列文件结构。<br>我们将散列函数作用于搜索码以确定对应的桶，然后将此搜索码以及响应指针存入此桶（或溢出桶）中。<br>严格地说，散列索引只是一种辅助索引结构。如果一个文件自身是按 散列组织的，就不必在其上另外建立一个独立的索引结构。<br>我们用术语<em>散列索引</em>来表示散列文件结构和辅助散列索引。</p>
+<h3 id="静态散列的缺点"><a href="#静态散列的缺点" class="headerlink" title="静态散列的缺点"></a>静态散列的缺点</h3><p>如果我们为会随时间变大的数据库使用静态散列时会有三种选择：</p>
+<ol>
+<li>根据当前文件大小选择散列函数。这种选择会使性能随数据库的增大而下降</li>
+<li>根据将来某个时刻文件的预计大小选择散列函数。尽管这样可以避免性能下降，但是初始会造成相当大的空间浪费。</li>
+<li>随着文件增大，周期性地对散列结构进行重组。但重组是一个规模大、耗时的操作，而且重组期间必须禁止对文件的访问。</li>
+</ol>
+<h2 id="动态散列"><a href="#动态散列" class="headerlink" title="动态散列"></a>动态散列</h2><p>几种<strong>动态散列</strong>技术允许散列函数动态改变，以适应数据库增大或缩小的需要。这里介绍的是<strong>可扩充散列（extendable hashing）</strong>。</p>
+<h3 id="数据结构"><a href="#数据结构" class="headerlink" title="数据结构"></a>数据结构</h3><p>使用可扩散序列时，我们选择一个具有均匀性和随机特性的散列函数$h$。但是，此散列函数产生的值范围相对较大，是$b$位二进制整数。一个典型的$b$值是32.<br>开始时，我们并不使用散列值的全部$b$，任意时刻我们使用的位数$i$满足$0 \leq i \leq b$。这个的$i$个位用作附加的桶地址表中的偏移量。$i$的值随着数据库大小的变化而增大或减小。<br>几个连续的表项可能指向同一个桶。所有这样的表项有一个共同的散列前缀，但这个前缀的长度可能小于$i$。因此，我们给每一个桶附加一个整数值，用来表明<strong>共同的散列前缀长度</strong>，桶地址中指向桶的表项编号为</p>
+<script type="math/tex; mode=display">
+2^{i-i_j}</script><h3 id="查询和更新"><a href="#查询和更新" class="headerlink" title="查询和更新"></a>查询和更新</h3><h4 id="查询"><a href="#查询" class="headerlink" title="查询"></a>查询</h4><p>为了确定含有搜索码$K_l$的痛的位置，系统取得$h(K_l)$的前$i$个高位，然后为这个位串查找对应的表项，再根据表项中的指针得到桶的位置。</p>
+<h4 id="插入"><a href="#插入" class="headerlink" title="插入"></a>插入</h4><p>要插入一条搜索码值为$k_l$的记录，系统按上述相同过程进行查找，最终定位到某个桶$j$，如果该桶中有剩余空间，系统将该记录插入该桶即可；若桶$j$已满，系统必须分裂该桶，系统需首先根据散列值确定是否需要增加所使用的位数</p>
+<ul>
+<li>如果$i = i_j$，那么在桶地址中只有一个表项 指向桶$j$。所以系统需要增加桶地址表的大小，系统考虑多引入散列值的一位。系统将$i$的值加1，从而使桶地址表的大小加倍。<br>*如果桶$j$中所有记录搜索码值相同，那么分裂多少次也不能解决问题。在这种情况下，采用溢出桶来储存记录，就像在静态散列中那样。</li>
+<li>如果$i &gt; i_j$，那么在桶地址中表中有多个表项指向桶$j$。因此，系统不需要扩大桶地址表就能分裂桶j。<h4 id="删除"><a href="#删除" class="headerlink" title="删除"></a>删除</h4>要删除一条搜索码值为$K_l$的记录，系统可以按照前面的查找过程找到相应的桶$j$，系统不仅要把搜索码从桶中删除，还要把记录从文件中删除。如果此时桶为空，那么桶也要删除。注意⚠️，此时某些桶可能合并，桶地址表的大小也可能减半。</li>
+</ul>
+<h3 id="静态散列和动态散列的比较"><a href="#静态散列和动态散列的比较" class="headerlink" title="静态散列和动态散列的比较"></a>静态散列和动态散列的比较</h3><p>可扩充散列最主要的优点：</p>
+<ul>
+<li>其性能不随文件的增长而降低</li>
+<li>其空间开销是最小的<br>可扩充散列的缺点：</li>
+<li>查找涉及一个附加的简介层</li>
+<li>桶地址表可能会变得十分巨大</li>
+<li>改变桶地址表的大小是非常昂贵的操作</li>
+</ul>
+<h2 id="顺序索引和散列的比较"><a href="#顺序索引和散列的比较" class="headerlink" title="顺序索引和散列的比较"></a>顺序索引和散列的比较</h2><p>文件可以被组织为</p>
+<ul>
+<li>$B^+$树组织或索引顺序组织将记录文件组织成顺序文件</li>
+<li>散列</li>
+<li>堆文件<br>要对关系的文件组织和索引技术做出明智的选择，实现者或数据者必须考虑以下问题：</li>
+<li>索引或散列组织的周期性重组代价是否可以接受？</li>
+<li>插入和删除的相对频率如何？</li>
+<li>是否愿意以增加最坏情况下的访问时间为代价优化平均访问时间？</li>
+<li>用户可能提出哪些类型的查询？</li>
+</ul>
+<p>散列文件组织和散列索引的区别？</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          
+        
+        <div class="post-tags">
+            <a href="/tags/CSE201-Database/" rel="tag"># CSE201_Database</a>
+          
+        </div>
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+              <a href="/2019/09/16/CSE205W3-ApplicationLayer-2/" rel="next" title="CSE205W3_ApplicationLayer(2)">
+                <i class="fa fa-chevron-left"></i> CSE205W3_ApplicationLayer(2)
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+          </div>
+        </div>
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+  </div>
+
+
+          </div>
+          
+
+
+        </div>
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">2AM</p>
+  <div class="site-description motion-element" itemprop="description">they said the fruit never gon' fall far from the tree</div>
+</div>
+  <nav class="site-state motion-element">
+      <div class="site-state-item site-state-posts">
+        
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">12</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-categories">
+        
+        
+        
+          
+        
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">categories</span>
+        
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-tags">
+        
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-name">tags</span>
+        
+      </div>
+    
+  </nav>
+
+
+
+        </div>
+      </div>
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#静态散列（Static-Hashing）"><span class="nav-number">1.</span> <span class="nav-text">静态散列（Static Hashing）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#散列函数"><span class="nav-number">1.1.</span> <span class="nav-text">散列函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#桶溢出处理（bucket-overflow）"><span class="nav-number">1.2.</span> <span class="nav-text">桶溢出处理（bucket overflow）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#散列索引（Hash-Indices）"><span class="nav-number">1.3.</span> <span class="nav-text">散列索引（Hash Indices）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#静态散列的缺点"><span class="nav-number">1.4.</span> <span class="nav-text">静态散列的缺点</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#动态散列"><span class="nav-number">2.</span> <span class="nav-text">动态散列</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#数据结构"><span class="nav-number">2.1.</span> <span class="nav-text">数据结构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#查询和更新"><span class="nav-number">2.2.</span> <span class="nav-text">查询和更新</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#查询"><span class="nav-number">2.2.1.</span> <span class="nav-text">查询</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#插入"><span class="nav-number">2.2.2.</span> <span class="nav-text">插入</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#删除"><span class="nav-number">2.2.3.</span> <span class="nav-text">删除</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#静态散列和动态散列的比较"><span class="nav-number">2.3.</span> <span class="nav-text">静态散列和动态散列的比较</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#顺序索引和散列的比较"><span class="nav-number">3.</span> <span class="nav-text">顺序索引和散列的比较</span></a></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">2AM</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.9.0</div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">Theme – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> v7.3.0</div>
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+      </div>
+
+    
+
+  </div>
+
+  
+  <script src="/lib/jquery/index.js?v=3.4.1"></script>
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+<script src="/js/utils.js?v=7.3.0"></script>
+  <script src="/js/motion.js?v=7.3.0"></script>
+
+
+  <script src="/js/schemes/muse.js?v=7.3.0"></script>
+
+
+<script src="/js/next-boot.js?v=7.3.0"></script>
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+    
+      <script type="text/x-mathjax-config">
+
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$', '$'], ['\\(', '\\)'] ],
+      processEscapes: true,
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+      equationNumbers: {
+        autoNumber: 'AMS'
+      }
+    }
+  });
+
+  MathJax.Hub.Register.StartupHook('TeX Jax Ready', function() {
+    MathJax.InputJax.TeX.prefilterHooks.Add(function(data) {
+      if (data.display) {
+        var next = data.script.nextSibling;
+        while (next && next.nodeName.toLowerCase() === '#text') {
+          next = next.nextSibling;
+        }
+        if (next && next.nodeName.toLowerCase() === 'br') {
+          next.parentNode.removeChild(next);
+        }
+      }
+    });
+  });
+
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for (i = 0; i < all.length; i += 1) {
+      element = document.getElementById(all[i].inputID + '-Frame').parentNode;
+      if (element.nodeName.toLowerCase() == 'li') {
+        element = element.parentNode;
+      }
+      element.classList.add('has-jax');
+    }
+  });
+</script>
+<script src="//cdn.jsdelivr.net/npm/mathjax@2/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+    
+  
+
+  
+
+  
+
+
+  
+  <script src="/js/scrollspy.js?v=7.3.0"></script>
+<script src="/js/post-details.js?v=7.3.0"></script>
+
+
+  
+</body>
+</html>
