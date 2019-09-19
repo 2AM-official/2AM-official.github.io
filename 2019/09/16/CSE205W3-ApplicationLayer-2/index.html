@@ -67,7 +67,7 @@
 <meta property="og:image" content="http://yoursite.com/images/11/11a2.png">
 <meta property="og:image" content="http://yoursite.com/images/11/11a3.png">
 <meta property="og:image" content="http://yoursite.com/images/11/11a4.png">
-<meta property="og:updated_time" content="2019-09-19T02:50:32.331Z">
+<meta property="og:updated_time" content="2019-09-19T02:59:59.338Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="CSE205W3_ApplicationLayer(2)">
 <meta name="twitter:description" content="DNS: 因特网的目录服务主机的一种识别方法是用它的主机名（hostname），如cnn.com，但主机名提供了很少关于主机在因特网中的信息。因为主机名可能由不定长的字母数字组成，所以路由器很难处理。基于上述原因，主机也可以用IP地址（IP address）进行识别。 DNS提供的服务DNS协议是应用层协议，它使用客户机/服务器模式在通信的端系统之间运行，在通信的端系统之间通过下面的端到端运输层协">
@@ -272,7 +272,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2019-09-19 10:50:32" itemprop="dateModified" datetime="2019-09-19T10:50:32+08:00">2019-09-19</time>
+                <time title="Modified: 2019-09-19 10:59:59" itemprop="dateModified" datetime="2019-09-19T10:59:59+08:00">2019-09-19</time>
               </span>
             
           
@@ -354,8 +354,8 @@
 D_{cs} \geq max\left\{NF/u_s,F/d_{min}\right\}</script>我们取下界为实际分发时间，即<script type="math/tex; mode=display">
 D_{cs} = max\left\{NF/u_s,F/d_{min}\right\}</script></li>
 <li>在P2P体系结构中，每个对等方都可以帮助服务器来分发文件，也就是说，当一个对等方接收到文件数据的时候，它可以利用自己的上载能力重新将数据分发给其他对等方。<br>P2P体系结构的分发时间<script type="math/tex; mode=display">
-D_{P2P} \geq max\left\{F/u_s,F/d_{min},NF/{u_s + \sum_{i=1}^N u_i}\right\}</script>我们取下界为实际的分发时间，即<script type="math/tex; mode=display">
-D_{P2P} = max\left\{F/u_s,F/d_{min},NF/{u_s + \sum_{i=1}^N u_i}\right\}</script><img src="/images/11/11a4.png" alt="P2P和客户机/服务器体系结构的分发时间"><br>上图中我们设置了$F/U = 1$小时，$u<em>s = 10u$, $d</em>{min} \geq u_s$。<br>对于客户机/服务器体系结构，随着对等方数量的增长，分发时间呈线性增长并且没有界。对于P2P体系结构，最小分发时间不仅总是小于客户机/服务器体系结构的分发时间，而且对任何多的对等方其总是小于1小时。因此采用P2P体系结构是可以拓展的，因为对等方除了是比特的消费者外还能重新分发。<h4 id="BitTorrent"><a href="#BitTorrent" class="headerlink" title="BitTorrent"></a>BitTorrent</h4>BitTorrent是一种用于文件分发的流行P2P协议。用BitTorrent的术语来讲参与一个特定文件分发的所有对等方的一个集合称为一个<em>洪流（torrent）</em>。<br>在一个洪流中，对等方彼此下载等长度的<em>文件块</em>，块长度通常为256KB。<br>每个洪流具有一个基础设施节点，称为<em>追踪器（tracker）</em>。当一个对等方加入洪流时，它向追踪器注册，并周期性地通知追踪器它仍在洪流中。<br>当一个新的对等方Alice加入洪流时，追踪器随机地从参与对等方集合中选择一些对等方Alice持有对等方的这张列表，试图与该列表上的对等方创建并行的<strong>TCP连接</strong>。所有与Alice成功地创建连接的对等方为“临近对等方”，临近对等方将随着时间而改变。<br>在任何时刻，每个对等方都具有来自某文件块的自集。Alice周期性地（经TCP）连接询问每个临近对等方它们所具有的块列表，Alice将对她目前还没有的块发出请求（仍通过TCP连接）。<br>Alice将做出两个重要的决定：</li>
+D_{P2P} \geq max\left\{F/u_s,F/d_{min},NF/(u_s + \sum_{i=1}^N u_i)\right\}</script>我们取下界为实际的分发时间，即<script type="math/tex; mode=display">
+D_{P2P} = max\left\{F/u_s,F/d_{min},NF/(u_s + \sum_{i=1}^N u_i)\right\}</script><img src="/images/11/11a4.png" alt="P2P和客户机/服务器体系结构的分发时间"><br>上图中我们设置了<script type="math/tex">F/U = 1</script>小时，<script type="math/tex">u_s = 10u</script>, <script type="math/tex">d_{min} \geq u_s</script>。<br>对于客户机/服务器体系结构，随着对等方数量的增长，分发时间呈线性增长并且没有界。对于P2P体系结构，最小分发时间不仅总是小于客户机/服务器体系结构的分发时间，而且对任何多的对等方其总是小于1小时。因此采用P2P体系结构是可以拓展的，因为对等方除了是比特的消费者外还能重新分发。<h4 id="BitTorrent"><a href="#BitTorrent" class="headerlink" title="BitTorrent"></a>BitTorrent</h4>BitTorrent是一种用于文件分发的流行P2P协议。用BitTorrent的术语来讲参与一个特定文件分发的所有对等方的一个集合称为一个<em>洪流（torrent）</em>。<br>在一个洪流中，对等方彼此下载等长度的<em>文件块</em>，块长度通常为256KB。<br>每个洪流具有一个基础设施节点，称为<em>追踪器（tracker）</em>。当一个对等方加入洪流时，它向追踪器注册，并周期性地通知追踪器它仍在洪流中。<br>当一个新的对等方Alice加入洪流时，追踪器随机地从参与对等方集合中选择一些对等方Alice持有对等方的这张列表，试图与该列表上的对等方创建并行的<strong>TCP连接</strong>。所有与Alice成功地创建连接的对等方为“临近对等方”，临近对等方将随着时间而改变。<br>在任何时刻，每个对等方都具有来自某文件块的自集。Alice周期性地（经TCP）连接询问每个临近对等方它们所具有的块列表，Alice将对她目前还没有的块发出请求（仍通过TCP连接）。<br>Alice将做出两个重要的决定：</li>
 <li>她应当向她的邻居请求哪些块呢？<br>Alice使用一种<strong>最稀罕优先（rarest first）</strong>的技术。这种技术的思路是：根据她没有的块从她的邻居中确定最稀罕的块（就是在她的邻居中拷贝数量最少的那些块），并优先请求那些最稀罕的块。</li>
 <li>她请求的块应当发送给她的哪些邻居<br>为了决定Alice响应哪个请求，其基本想法是Alice确定其邻居的优先权，这些邻居是那些当前能以<em>最高的速率</em>给她数据的。</li>
 </ol>
