@@ -55,26 +55,19 @@
   };
 </script>
 
-  <meta name="description" content="$B^+$树（$B^+$-tree）索引结构是在数据插入和删除下仍能保持其执行效率的几种使用最广泛的索引结构之一。B+树采用平衡树（balanced tree）结构 B+树的基本要求B+树结点最多包含$n - 1$个搜索码值K_1, K_2, ..., K_{n-1}，以及$n$个指针P_1, P_2, ..., P_n,每个结点的搜索码值排序存放。根结点（root）必须至少有两个子结点在每个非叶">
+  <meta name="description" content="查询处理概述查询处理的基本步骤：  语法分析与翻译查询处理中系统首先必须把查询语句翻译成系统的内部表示形式。该翻译过程类似于编译器的语法分析器所做的工作。在此过程中，语法分析器检查用户查询的语法，验证查询中出现的关系名是数据库中的关系名等。系统构造该查询语句的语法分析树表示，然后将之翻译成关系代数表达式。 优化查询执行引擎（query-execution engine）接受一个查询执行计划（qu">
 <meta name="keywords" content="CSE201_Database">
 <meta property="og:type" content="article">
-<meta property="og:title" content="CSE201W2b_B+Tree">
-<meta property="og:url" content="http://yoursite.com/2019/09/14/CSE201W2b-B-Tree/index.html">
+<meta property="og:title" content="CSE201W4_QueryEvaluation">
+<meta property="og:url" content="http://yoursite.com/2019/09/24/CSE201W4-QueryEvaluation/index.html">
 <meta property="og:site_name" content="Room of Requirment">
-<meta property="og:description" content="$B^+$树（$B^+$-tree）索引结构是在数据插入和删除下仍能保持其执行效率的几种使用最广泛的索引结构之一。B+树采用平衡树（balanced tree）结构 B+树的基本要求B+树结点最多包含$n - 1$个搜索码值K_1, K_2, ..., K_{n-1}，以及$n$个指针P_1, P_2, ..., P_n,每个结点的搜索码值排序存放。根结点（root）必须至少有两个子结点在每个非叶">
+<meta property="og:description" content="查询处理概述查询处理的基本步骤：  语法分析与翻译查询处理中系统首先必须把查询语句翻译成系统的内部表示形式。该翻译过程类似于编译器的语法分析器所做的工作。在此过程中，语法分析器检查用户查询的语法，验证查询中出现的关系名是数据库中的关系名等。系统构造该查询语句的语法分析树表示，然后将之翻译成关系代数表达式。 优化查询执行引擎（query-execution engine）接受一个查询执行计划（qu">
 <meta property="og:locale" content="en">
-<meta property="og:image" content="http://yoursite.com/images/10/10a1.png">
-<meta property="og:image" content="http://yoursite.com/images/10/10a2.png">
-<meta property="og:image" content="http://yoursite.com/images/10/10a3.png">
-<meta property="og:image" content="http://yoursite.com/images/10/10a4.png">
-<meta property="og:image" content="http://yoursite.com/images/10/10a5.png">
-<meta property="og:image" content="http://yoursite.com/images/10/10a6.png">
-<meta property="og:updated_time" content="2019-09-17T12:53:06.118Z">
+<meta property="og:updated_time" content="2019-09-24T13:15:58.867Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="CSE201W2b_B+Tree">
-<meta name="twitter:description" content="$B^+$树（$B^+$-tree）索引结构是在数据插入和删除下仍能保持其执行效率的几种使用最广泛的索引结构之一。B+树采用平衡树（balanced tree）结构 B+树的基本要求B+树结点最多包含$n - 1$个搜索码值K_1, K_2, ..., K_{n-1}，以及$n$个指针P_1, P_2, ..., P_n,每个结点的搜索码值排序存放。根结点（root）必须至少有两个子结点在每个非叶">
-<meta name="twitter:image" content="http://yoursite.com/images/10/10a1.png">
-  <link rel="canonical" href="http://yoursite.com/2019/09/14/CSE201W2b-B-Tree/">
+<meta name="twitter:title" content="CSE201W4_QueryEvaluation">
+<meta name="twitter:description" content="查询处理概述查询处理的基本步骤：  语法分析与翻译查询处理中系统首先必须把查询语句翻译成系统的内部表示形式。该翻译过程类似于编译器的语法分析器所做的工作。在此过程中，语法分析器检查用户查询的语法，验证查询中出现的关系名是数据库中的关系名等。系统构造该查询语句的语法分析树表示，然后将之翻译成关系代数表达式。 优化查询执行引擎（query-execution engine）接受一个查询执行计划（qu">
+  <link rel="canonical" href="http://yoursite.com/2019/09/24/CSE201W4-QueryEvaluation/">
 
 
 <script id="page-configurations">
@@ -88,7 +81,7 @@
   };
 </script>
 
-  <title>CSE201W2b_B+Tree | Room of Requirment</title>
+  <title>CSE201W4_QueryEvaluation | Room of Requirment</title>
   
 
 
@@ -227,7 +220,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/09/14/CSE201W2b-B-Tree/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/09/24/CSE201W4-QueryEvaluation/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="2AM">
@@ -241,7 +234,7 @@
       <header class="post-header">
 
         
-          <h1 class="post-title" itemprop="name headline">CSE201W2b_B+Tree
+          <h1 class="post-title" itemprop="name headline">CSE201W4_QueryEvaluation
 
               
             
@@ -261,21 +254,11 @@
                 
               
 
-              <time title="Created: 2019-09-14 19:14:24" itemprop="dateCreated datePublished" datetime="2019-09-14T19:14:24+08:00">2019-09-14</time>
+              <time title="Created: 2019-09-24 13:39:24 / Modified: 21:15:58" itemprop="dateCreated datePublished" datetime="2019-09-24T13:39:24+08:00">2019-09-24</time>
             </span>
           
             
 
-            
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Edited on</span>
-                
-                <time title="Modified: 2019-09-17 20:53:06" itemprop="dateModified" datetime="2019-09-17T20:53:06+08:00">2019-09-17</time>
-              </span>
             
           
             <span class="post-meta-item">
@@ -305,47 +288,28 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p><strong>$B^+$树（$B^+$-tree）</strong>索引结构是在数据插入和删除下仍能保持其执行效率的几种使用最广泛的索引结构之一。B+树采用<strong>平衡树（balanced tree）</strong>结构</p>
-<h2 id="B-树的基本要求"><a href="#B-树的基本要求" class="headerlink" title="B+树的基本要求"></a>B+树的基本要求</h2><p>B+树结点最多包含$n - 1$个搜索码值<script type="math/tex">K_1, K_2, ..., K_{n-1}</script>，以及$n$个指针<script type="math/tex">P_1, P_2, ..., P_n</script>,每个结点的搜索码值排序存放。<br><strong>根结点（root）</strong>必须至少有两个子结点<br>在每个<strong>非叶结点（nonleaf node）</strong>至少容纳$\lceil n/2 \rceil$个指针<br>在每个<strong>叶结点（leaf node）</strong>至少容纳$\lceil (n-1)/2 \rceil$个搜索值<br>一个B+树的高度不得超过<script type="math/tex">\lceil log_{\lceil n/2 \rceil} (K) \rceil</script></p>
-<h2 id="B-树的查询"><a href="#B-树的查询" class="headerlink" title="B+树的查询"></a>B+树的查询</h2><p><img src="/images/10/10a1.png" alt="B+树的查询"></p>
-<h2 id="B-树的更新"><a href="#B-树的更新" class="headerlink" title="B+树的更新"></a>B+树的更新</h2><p><img src="/images/10/10a2.png" alt="B+树的更新"></p>
-<ul>
-<li><strong>Splitting a leaf node</strong>：</li>
+        <h1 id><a href="#" class="headerlink" title=" "></a> </h1><h1 id="查询处理"><a href="#查询处理" class="headerlink" title="查询处理"></a>查询处理</h1><h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><p>查询处理的基本步骤：</p>
+<ol>
+<li>语法分析与翻译<br>查询处理中系统首先必须把查询语句翻译成系统的内部表示形式。该翻译过程类似于编译器的语法分析器所做的工作。在此过程中，语法分析器检查用户查询的语法，验证查询中出现的关系名是数据库中的关系名等。<br>系统构造该查询语句的语法分析树表示，然后将之翻译成关系代数表达式。</li>
+<li>优化<br><strong>查询执行引擎（query-execution engine）</strong>接受一个<strong>查询执行计划（query-execution engine）</strong>，执行该计划并把结果返回给查询。<br>给定查询的不同执行计划会有不同的代价。我们不能寄希望于用户写出具有最高效率执行计划的查询语句。相反，构造具有最小查询执行代价的查询执行计划应当是系统的责任。这项工作叫作<em>查询优化</em>。</li>
+<li>执行</li>
+</ol>
+<h2 id="查询代价的度量"><a href="#查询代价的度量" class="headerlink" title="查询代价的度量"></a>查询代价的度量</h2><p>查询处理的代价可以通过该查询对各种资源的使用情况进行度量，这些资源包括<strong>磁盘存取、执行一个查询所用CPU时间，还有在并行/分布式数据库系统中的通信代价</strong><br><em>在大型数据库系统中，在磁盘上存取数据的代价通常是最主要的代价，因为磁盘存取比内存操作速度慢。此外，CPU速度的提升比磁盘速度的提升要快的多，这样很可能花费在磁盘存取上的时间仍将决定整个查询的时间。</em><br>我们用<strong>传送磁盘块数</strong>以及<strong>搜索磁盘次数</strong>来度量查询计算计划的代价：<br>假设磁盘子系统传输一个块的数据平均消耗$t_T$秒，<br>磁盘块平均访问时间（磁盘搜索时间加上旋转延迟）为$t_S$秒，<br>则一次传输$b$个块以及执行$S$次磁盘搜索的操作将消耗$b <em> t_T + S </em> t_S$秒<br>$t_T$和$t_S$的值必须针对所使用的磁盘系统进行计算，而如今高端磁盘的典型数值通常是$t_S = 4$毫秒和$t_T = 0.1$毫秒。</p>
+<h2 id="选择运算"><a href="#选择运算" class="headerlink" title="选择运算"></a>选择运算</h2><h3 id="使用文件扫描和索引的选择"><a href="#使用文件扫描和索引的选择" class="headerlink" title="使用文件扫描和索引的选择"></a>使用文件扫描和索引的选择</h3><ul>
+<li><strong>文件扫描（file scan）</strong>：<br>在查询处理中，<strong>文件扫描</strong>是存取数据最低级的操作。文件扫描是用于定位、检索满足选择条件的记录的搜索算法。在关系系统中，若关系保存在单个专用的文件中，采用文件扫描就可以读取整个关系。<br><em>线性搜索和二分搜索属于文件扫描</em></li>
+<li><strong>索引扫描（index scan）</strong>：<br>使用索引的搜索算法称为<strong>索引扫描</strong>。我们用选择谓词来指导我们在查询处理中使用哪个索引。</li>
 </ul>
 <ol>
-<li>将$n$个搜索码值和指针（包括插入的）放入一个可以存放的区域$M$，将前$\lceil n/2 \rceil$放入原先的结点，将剩余的放入一个新结点</li>
-<li>将新结点视为$p$，将该结点内最小的搜索码值视为$k$，将$(k,p)$放入父结点</li>
-<li>如果父结点也满了，就顺级分离。</li>
+<li><strong>线性搜索（linear search）</strong>：<br>系统扫描每一个文件块，对所有记录都进行测试，看它们是否满足选择条件。<br>开销：$t_s + b_r <em> t_T$ </em>一次初始搜索加上$b_r$个块运输，$b_r$表示在文件中的块数量<em><br>若使用码属性值比较，则平均开销：$t_s + (b_r/2) </em> t_T$ *因为最多一条记录满足条件，所以只要找到所需的记录，扫描就可以终止。在最坏的情况下，仍需要$b_r$个块传输。<br>虽然线性搜索比其他实现操作的算法速度要慢，但它可用于任何文件，不用管该文件的顺序、索引的可用性，以及选择操作的种类。</li>
+<li><strong>二分搜索（binary search）</strong>：<br>只有在等值比较且按序排列的情况下可以用<br>开销：<script type="math/tex">\lceil log_2(b_r) \rceil * (t_T + t_S)</script></li>
+<li><strong>$B^+$树，主索引，码属性，等值比较</strong>：<br>开销：<script type="math/tex">(h_i + 1) * (t_T + t_S)</script><br>$h_i$表示索引的高度。索引查找穿越树的高度，再加上一次I/O来取记录；每个这样的I/O操作需要一次搜索和块传输</li>
+<li><strong>$B^+$树，主索引，非码属性，等值比较</strong>：<br>开销：<script type="math/tex">h_i * (t_T + t_S) + t_S + t_T * b</script><br>树的每层一次搜索，第一个块一次搜索。$b$是包含具有指定搜索码记录的块数。</li>
+<li><strong>$B^+$树，辅助索引，码属性，等值比较</strong>：<br>开销：<script type="math/tex">(h_i + 1) * (t_T + t_S)</script><br>这种情形和主索引相似</li>
+<li><strong>$B^+$树，辅助索引，非码属性，等值比较</strong>：<br>开销：<script type="math/tex">(h_i + n) * (t_T + t_S)</script><br>$n$是记录数，索引查找的代价和4类似，但是每条记录可能在不同的块上，这需要每条记录一次搜索。如果$n$值比较大，代价可能会非常高。</li>
+<li><strong>$B^+$树，主索引，比较</strong>：<br>开销：<script type="math/tex">h_i * (t_T + t_S) + t_S + b * t_T</script><br><em>和主索引，非码属性，等值比较情形一样</em><br>形如$A \geq v$，我们在索引中寻找值$v$，以检索出满足条件$A = v$的首条记录。从该元组开始到文件末尾进行一次文件扫描就返回所有满足该条件的元组。形如$A &gt; v$，文件扫描从第一条满足$A &gt; v$的记录开始。<br>若为$A &lt; v 或 A \leq v$的比较式，从文件头开始进行文件扫描，直到遇上首条满足$A = v 或 A &gt; v$的元组为止。</li>
+<li><strong>$B^+$树，辅助索引，比较</strong>：<br>开销：<script type="math/tex">(h_i + n) * (t_T + t_S)</script><br><em>和辅助索引，非码属性，等值比较情形一样</em><br>对于$&lt; \leq$情形，扫描最底层索引块是从最小值开始直到$v$为止<br>对于$&gt; \geq$情形，扫描是从$v$开始直到最大值为止<br>辅助索引提供了指向记录的指针，但我们需要使用指针以取得实际的记录。由于连续的记录可能存在于不同的磁盘块中，因此每取一条记录可能需要一次I/O操作，即需要一次磁盘搜索和一次块传输。<br>如果检索得到的记录数很大的话，使用辅助索引的代价甚至比线性搜索还要大，因此辅助索引应该仅在选择得到的记录很少时使用。</li>
 </ol>
-<ul>
-<li><strong>Splitting a non-leaf node</strong>:<br>当插入搜索码值和指针到一个已经没有位置的非叶结点$N$时</li>
-</ul>
-<ol>
-<li>将$N$放到一个可以储存$n$个搜索码值和$n+1$个指针的区域$M$</li>
-<li>将要插入的$(k,p)$按照排列插入$M$中</li>
-<li>将<script type="math/tex">P_1, K_1, ..., K_{\lceil n/2 \rceil - 1}, P_{\lceil n/2 \rceil}</script>从$M$抄写到原来的$N$中</li>
-<li>将<script type="math/tex">P_{\lceil n/2 \rceil+1}, K_{\lceil n/2 \rceil+1}, ..., K_n, P_{n+1}</script>从$M$抄写到新的非叶结点$N’$</li>
-<li>将(<script type="math/tex">K_{\lceil n/2 \rceil}</script>, $N’$)写到父结点中。</li>
-</ol>
-<p><em>分离结点的最差情况是整体高度+1</em><br><img src="/images/10/10a3.png" alt="Insertion例子"></p>
-<h2 id="B-树的删除"><a href="#B-树的删除" class="headerlink" title="B+树的删除"></a>B+树的删除</h2><ul>
-<li>删除后，如果该结点的搜索码值过于少，并且该结点可以和它的兄弟结点相结合成一个结点，我们使用<strong>merge siblings</strong>:</li>
-</ul>
-<ol>
-<li>将两个结点的所有搜索值码放入一个搜索值码中，并删除另一个结点。</li>
-<li>如果它是一个非叶结点，将两个结点中的父节点拷贝到结合的结点中</li>
-<li>将（<script type="math/tex">K_{i-1}, P_i</script>）从父节点中删除，$P_i$是指向原先存在结点的指针，重复上述过程</li>
-</ol>
-<ul>
-<li>删除后，如果该结点的搜索码值过于少，但是又不能和它的兄弟结点相结合成为一个结点，我们使用<strong>redistribute pointers</strong>:</li>
-</ul>
-<ol>
-<li>重新分配它和它兄弟结点的指针使这两个结点都满足最少搜索码值的要求，更新父节点中的搜索码值</li>
-<li>如果是<strong>叶结点</strong>：将一个适合的搜索码值从它的兄弟结点中移到该结点里，将父节点中的旧搜索码值替换为合适的搜索码值</li>
-<li>如果是<strong>非叶结点</strong>：将父节点中的旧搜索码放入不满的结点中，将一个合适的搜索码值从兄弟结点中移到父节点中。<br><img src="/images/10/10a4.png" alt="Deletion例子1"><br><img src="/images/10/10a5.png" alt="Deletion例子2"><br><img src="/images/10/10a6.png" alt="Deletion例子3"></li>
-</ol>
-<p>level below root?</p>
-
+<h3 id="复杂选择的实现"><a href="#复杂选择的实现" class="headerlink" title="复杂选择的实现"></a>复杂选择的实现</h3>
     </div>
 
     
@@ -361,8 +325,8 @@
         </div>
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
-              <a href="/2019/09/13/CSE201W2a-Indexing/" rel="next" title="CSE201W2a_Indexing">
-                <i class="fa fa-chevron-left"></i> CSE201W2a_Indexing
+              <a href="/2019/09/23/CSE205W4-TransportLayer/" rel="next" title="CSE205W4_TransportLayer">
+                <i class="fa fa-chevron-left"></i> CSE205W4_TransportLayer
               </a>
             
           </div>
@@ -370,10 +334,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-              <a href="/2019/09/16/CSE205W3-ApplicationLayer-2/" rel="prev" title="CSE205W3_ApplicationLayer(2)">
-                CSE205W3_ApplicationLayer(2) <i class="fa fa-chevron-right"></i>
-              </a>
-            
           </div>
         </div>
     </footer>
@@ -484,7 +444,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#B-树的基本要求"><span class="nav-number">1.</span> <span class="nav-text">B+树的基本要求</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#B-树的查询"><span class="nav-number">2.</span> <span class="nav-text">B+树的查询</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#B-树的更新"><span class="nav-number">3.</span> <span class="nav-text">B+树的更新</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#B-树的删除"><span class="nav-number">4.</span> <span class="nav-text">B+树的删除</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#null"><span class="nav-number">1.</span> <span class="nav-text"> </span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#查询处理"><span class="nav-number">2.</span> <span class="nav-text">查询处理</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#概述"><span class="nav-number">2.1.</span> <span class="nav-text">概述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#查询代价的度量"><span class="nav-number">2.2.</span> <span class="nav-text">查询代价的度量</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#选择运算"><span class="nav-number">2.3.</span> <span class="nav-text">选择运算</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#使用文件扫描和索引的选择"><span class="nav-number">2.3.1.</span> <span class="nav-text">使用文件扫描和索引的选择</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#复杂选择的实现"><span class="nav-number">2.3.2.</span> <span class="nav-text">复杂选择的实现</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>

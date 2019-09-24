@@ -217,6 +217,237 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/08/27/Java_Array/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="2AM">
+      <meta itemprop="description" content="they said the fruit never gon' fall far from the tree">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Room of Requirment">
+    </span>
+      <header class="post-header">
+
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2019/08/27/Java_Array/" class="post-title-link" itemprop="url">Java 数组</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2019-08-27 20:13:37 / Modified: 21:13:30" itemprop="dateCreated datePublished" datetime="2019-08-27T20:13:37+08:00">2019-08-27</time>
+            </span>
+          
+            
+
+            
+          
+
+          <br>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          
+            <h2 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h2><p>数组与其他种类容器之间的区别有三方面：效率、类型和保存基本类型的能力。<br>在Java中，数组是一种效率最高的储存和随机访问对象引用序列的方式。数组就是一个简单的线性序列，这使得元素访问非常快速。但这种速度所付出的代价是数组对象的大小被固定。ArrayList的效率比数组低很多。这两种持有对象的方式都是类型检查型的，并且唯一明显的差异就是数组使用[]来访问元素。而List使用的是add()和get()这样的方法。<br>length是数组的大小，而不是实际保存的元素个数，所以检查其中的引用是否为null，即可知道数组的某个位置是否存有对象。同样，基本类型的数组如果是数值型的，就被自动初始化为0，如果是字符型（char）的，就被自动初始化为（char）O；如果是布尔型（boolean），就被自动初始化为false。</p>
+<h2 id="多维数组"><a href="#多维数组" class="headerlink" title="多维数组"></a>多维数组</h2><p>创建多维数组很方便。对于基本类型的多维数组，可以通过使用花括号将每个向量分隔开，每对花括号括起来的集合都会把你带到下一级数组。Java SE5的Arrays.deepToString()方法，它可以将多维数组转换为多个String。数组中构成矩阵的每个向量都可以具有任意的长度（这被称为粗糙数组）。<br>编写一个方法能够产生二维双精度型数组并加以初始化：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">double</span>[][][] creation(<span class="keyword">int</span> a, <span class="keyword">int</span> b) &#123;</span><br><span class="line">		Random rand = <span class="keyword">new</span> Random(<span class="number">47</span>);</span><br><span class="line">		<span class="keyword">int</span> c = b - a;</span><br><span class="line">		<span class="keyword">double</span> d[][][]  = <span class="keyword">new</span> <span class="keyword">double</span>[rand.nextInt(c) + a] [][];</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; d.length; i++) &#123;</span><br><span class="line">			d[i] = <span class="keyword">new</span> <span class="keyword">double</span>[rand.nextInt(c) + a][];</span><br><span class="line">			<span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; d[i].length; j++) &#123;</span><br><span class="line">				d[i][j] = <span class="keyword">new</span> <span class="keyword">double</span>[rand.nextInt(c) + a];</span><br><span class="line">				<span class="keyword">for</span>(<span class="keyword">int</span> q = <span class="number">0</span>; q &lt; d[i][j].length; q++) &#123;</span><br><span class="line">					d[i][j][q] = rand.nextDouble();</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">return</span> d;</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure></p>
+<h2 id="Arrays实用功能"><a href="#Arrays实用功能" class="headerlink" title="Arrays实用功能"></a>Arrays实用功能</h2><ul>
+<li><p>Arrays.fill() <em>只能用同一个值填充各个位置</em></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> size = <span class="number">6</span>;</span><br><span class="line"><span class="keyword">int</span>[] a = <span class="keyword">new</span> <span class="keyword">int</span>[size];</span><br><span class="line">Arrays.fill(a,<span class="number">19</span>);</span><br><span class="line">print(<span class="string">"a = "</span> + Arrays.toString(a));</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>System.arraycopy() <em>不属于Arrays但是很有用的方法</em> <em>static</em><br>它用来复制数组比用for循环复制要快很多</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span>[] i = <span class="keyword">new</span> <span class="keyword">int</span>[<span class="number">7</span>];</span><br><span class="line"><span class="keyword">int</span>[] j = <span class="keyword">new</span> <span class="keyword">int</span>[<span class="number">10</span>];</span><br><span class="line">Arrays.fill(i, <span class="number">47</span>);</span><br><span class="line">Arrays.fill(j, <span class="number">99</span>);</span><br><span class="line">System.arraycopy(i, <span class="number">0</span>, j, <span class="number">0</span>, i.length)</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>arraycopy()需要的参数有：源数组，表示从源数组中的什么位置开始复制的偏移量，表示从目标数组的什么位置开始的偏移量，以及需要复制的元素个数。<em>对数组的任何越界操作都会导致异常</em><br><em>System.arraycopy()不会执行自动包装和自动拆包，两个数组必须具有相同的确切类型。</em></p>
+<ul>
+<li><p>equals()<br>Arrays类提供了重载后的equals()方法，用来比较整个数组<br>数组相等的条件是元素个数必须相等，并且对应位置的元素也相等，这可以通过对每一个元素使用equals()作比较来判断。（*对基本类型，需要使用基本类型的包装器类的equals()方法<br>deepEquals()用于多维数组</p>
+</li>
+<li><p>sort()用于对数组排序</p>
+</li>
+<li><p>binarySearch()用于在已经排列的数组中查找元素</p>
+</li>
+<li><p>toString()产生数组的String表示</p>
+</li>
+<li><p>hashCode()产生数组的散列码</p>
+</li>
+</ul>
+
+          
+        
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+    
+      
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/08/22/CNN_1/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="2AM">
+      <meta itemprop="description" content="they said the fruit never gon' fall far from the tree">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Room of Requirment">
+    </span>
+      <header class="post-header">
+
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2019/08/22/CNN_1/" class="post-title-link" itemprop="url">初识CNN</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2019-08-22 22:05:10" itemprop="dateCreated datePublished" datetime="2019-08-22T22:05:10+08:00">2019-08-22</time>
+            </span>
+          
+            
+
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2019-08-27 20:11:52" itemprop="dateModified" datetime="2019-08-27T20:11:52+08:00">2019-08-27</time>
+              </span>
+            
+          
+
+          <br>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          
+            <h2 id="Convolutional-Neural-Networks-CNNs"><a href="#Convolutional-Neural-Networks-CNNs" class="headerlink" title="Convolutional Neural Networks(CNNs)"></a>Convolutional Neural Networks(CNNs)</h2><h3 id="CNNs的结构"><a href="#CNNs的结构" class="headerlink" title="CNNs的结构"></a>CNNs的结构</h3><p><img src="/images/3a1.png" alt="&quot;Figure 1: Convolutional Neural Network for Relation Extraction&quot;"></p>
+<h4 id="Convolution-卷积"><a href="#Convolution-卷积" class="headerlink" title="Convolution (卷积)"></a>Convolution (卷积)</h4><h5 id="卷积的数学理解"><a href="#卷积的数学理解" class="headerlink" title="卷积的数学理解"></a>卷积的数学理解</h5><h6 id="1、卷积的定义"><a href="#1、卷积的定义" class="headerlink" title="1、卷积的定义"></a>1、卷积的定义</h6><p>我们称 $(f*g)(n)$ 为 $f,g$ 的卷积<br>其连续的定义为：</p>
+<script type="math/tex; mode=display">
+(f*g)(n) = \int_{-\infty}^{+\infty} {f(t)g(n - t)}  {\rm d}t</script><p>其离散的定义为：</p>
+<script type="math/tex; mode=display">
+(f*g)(n) = \sum_{t=-\infty}^{\infty} {f(t)g(n - t)}</script><p>这两个式子有一个共同特征：都类似于$n = t + n - t$<br>我们令$x = r, y = n - r$,那么$x + y = n$ 就是下面这些直线<br><img src="/images/3a2.gif" alt="lines"></p>
+<h6 id="2、离散卷积的例子：丢骰子"><a href="#2、离散卷积的例子：丢骰子" class="headerlink" title="2、离散卷积的例子：丢骰子"></a>2、离散卷积的例子：丢骰子</h6><p>将两枚🎲抛出去，两枚🎲点数加起来为4的概率是多少？<br>我们把🎲各个点数出现的概率表示出来：<br>相加点数4出现概率为：$f(1)g(3)$ $f(2)g(2)$ $f(3)g(1)$<br>因此，两枚🎲点数加起来为4的概率为：$f(1)g(3) + f(2)g(2) + f(3)g(1)$<br>符合卷积的定义，把它写成标准的形式就是：</p>
+<script type="math/tex; mode=display">
+(f*g)(4) = \sum_{m=1}^{3} {f(4 -m)g(m)}</script><h6 id="3、连续卷积的例子：做馒头"><a href="#3、连续卷积的例子：做馒头" class="headerlink" title="3、连续卷积的例子：做馒头"></a>3、连续卷积的例子：做馒头</h6><p>假设我们拥有一台可以一天不断生产馒头的机器<br>假设馒头的生产速度为$f(t)$，那么一天后生产出的馒头总量为：</p>
+<script type="math/tex; mode=display">
+\int_0^{24} {f(t)} {\rm d}t</script><p>馒头生产出来后会慢慢腐败，假设腐败函数为$g(t)$，比如，10个馒头，24小时会腐败 $10*g(t)$<br>如此，我们可以知道，一天后，馒头总共腐败了：</p>
+<script type="math/tex; mode=display">
+\int_0^{24} {f(t)g(24-t)} {\rm d}t</script><h5 id="卷积的实际运用"><a href="#卷积的实际运用" class="headerlink" title="卷积的实际运用"></a>卷积的实际运用</h5><p>基础CNN所用的卷积是一种2D卷积。Kernel只能在x,y上滑动位移，不能进行深度（跨通道）位移。<br>对于RGB图像，采用了三个独立的2D kernel，如黄色部分，这个kernel的维度是$X*Y*3$。再基础CNN的不同stage中，kernel的深度都应当一致，等于输入图像的通道数。<br>卷积需要输入两个参数，实质是二维空间滤波，滤波的性质与kernel选择有关，CNN的卷积是在一个2-D kernel 和输入的 2-D input map 之间，RGB中各图像通道分别完成。<br>我们假设单一通道输入图像的空间坐标为$(x,y)$ ，卷积核大小是$p * q$ ，kernel权重为$w$ ,图像亮度值是$v$ ，卷积过程就是kernel 所有权重与其在输入图像上对应元素亮度之和，可以表示为：</p>
+<script type="math/tex; mode=display">
+conv_{x,y} = \sum_i^{p*q} {w_i}{v_i}</script><p><img src="/images/3a3.jpeg" alt="convolution"><br>并将kernel随（x,y）平移扫描，可以得到输出空间，这时假设输入图像大小是$512*512$，卷积核是$3*3$，在不考虑零填充（zero padding）的情况，输出是（512 - 3 + 1） = 510 *510<br>卷积层的kernel可能不止一个，扫描步长，方向也有不同，这些进阶方式可以归纳一下：</p>
+<ul>
+<li>可以采用多个卷积核，设为n同时扫描，得到的feature map会增加n个维度，通常认为是多抓取n个特征</li>
+<li>可以采取不同扫描步长，比如上例子中采用步长为n，输出是（510/n，510/n）</li>
+<li>padding，上例中，卷积过后的图像维度是缩减的，可以在图像周围填充0来保证feature map与原始图像大小不变</li>
+<li>深度升降，例如采用增加一个1*1 kernel来增加深度，相当于复制一层前通道作为feature map</li>
+<li>跨层传递feature map，不再局限于输入即输出，例如ResNet跨层传递特征，Faster RCNN 的POI pooling</li>
+</ul>
+<h4 id="Activation（激活）"><a href="#Activation（激活）" class="headerlink" title="Activation（激活）"></a>Activation（激活）</h4><p>卷积之后，通常会加入偏置(bias), 并引入非线性激活函数(activation function)，这里定义bias为b，activation function 是h（），经过激活函数后，得到的结果是,</p>
+<script type="math/tex; mode=display">
+Z_{x,y} = h(\sum_i^{p*q} {w_i}{v_i} + b)</script><p><em>bias不与元素位置相关，只与层有关</em><br>主流的activation function 有：<br><img src="/images/3a4.png" alt="activation functions"><br>例如采用$277*277$的RGB图像， 采用96个$11*11*3$的kernels同时扫描，很容易得到输出的feature maps是96个$267*267$的二维 feature map, $267*267$是单个图像feature map的x,y轴大小，96是卷积核个数，原本的3通道在积分的时候会被作为一个元素加起来。 如上图，这些feature map可视化之后，可以看到4和35表示边缘特征，23是模糊化的输入，10和16在强调灰度变化，39强调眼睛，45强调红色通道的表现。</p>
+<h4 id="Pooling-池化"><a href="#Pooling-池化" class="headerlink" title="Pooling (池化)"></a>Pooling (池化)</h4><p>池化(pooling），是一种降采样操作(subsampling)，主要目标是降低feature maps的特征空间，或者可以认为是降低feature maps的分辨率。因为feature map参数太多，而图像细节不利于高层特征的抽取。<br><img src="/images/3a5.jpeg" alt="pooling"><br>目前主要的pooling操作有:</p>
+<ul>
+<li>最大值池化 Max pooling: $2*2$的max pooling就是取4个像素点中最大值保留</li>
+<li>平均值池化 Average pooling, $2*2$的average pooling就是取4个像素点中平均值保留</li>
+<li>L2池化 L2 pooling: 即取均方值保留<br>Pooling操作会降低参数，降低feature maps的分辨率，但是这种暴力降低在计算力足够的情况下是不是必须的，并不确定。目前一些大的CNNs网络只是偶尔使用pooling.</li>
+</ul>
+<p>该CNN stage的基本结构是可变的，目前大部分网络都是根据基本结构堆叠调整参数，或跳层连接而成</p>
+
+          
+        
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+    
+      
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/08/12/Github+Hexo/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -471,7 +702,7 @@
         
           <a href="/archives/">
         
-          <span class="site-state-item-count">12</span>
+          <span class="site-state-item-count">14</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -616,6 +847,57 @@
       
     
       
+        
+      
+    
+      
+    
+      
+    
+  
+    
+      <script type="text/x-mathjax-config">
+
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$', '$'], ['\\(', '\\)'] ],
+      processEscapes: true,
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+      equationNumbers: {
+        autoNumber: 'AMS'
+      }
+    }
+  });
+
+  MathJax.Hub.Register.StartupHook('TeX Jax Ready', function() {
+    MathJax.InputJax.TeX.prefilterHooks.Add(function(data) {
+      if (data.display) {
+        var next = data.script.nextSibling;
+        while (next && next.nodeName.toLowerCase() === '#text') {
+          next = next.nextSibling;
+        }
+        if (next && next.nodeName.toLowerCase() === 'br') {
+          next.parentNode.removeChild(next);
+        }
+      }
+    });
+  });
+
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for (i = 0; i < all.length; i += 1) {
+      element = document.getElementById(all[i].inputID + '-Frame').parentNode;
+      if (element.nodeName.toLowerCase() == 'li') {
+        element = element.parentNode;
+      }
+      element.classList.add('has-jax');
+    }
+  });
+</script>
+<script src="//cdn.jsdelivr.net/npm/mathjax@2/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
     
   
 

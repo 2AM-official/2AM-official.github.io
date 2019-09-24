@@ -64,7 +64,7 @@
 <meta property="og:description" content="静态散列（Static Hashing）顺序组织文件的一个缺点是我们必须访问索引结构来定位数据，或者必须使用二分法搜索，这将导致过多的I/O操作。基于散列（hashing）技术的文件组织使我们能够避免访问索引结构。在对散列的描述中，我们将使用术语桶（bucket）来表示能存储一条或多条记录的一个储存单位，通常一个桶就是一个磁盘块，但也可能小于或大于一个磁盘块。令$K$表示所有搜索码值的集合，令$B">
 <meta property="og:locale" content="en">
 <meta property="og:image" content="http://yoursite.com/images/12/12a1.png">
-<meta property="og:updated_time" content="2019-09-19T09:35:48.039Z">
+<meta property="og:updated_time" content="2019-09-19T09:37:39.640Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="CSE201W3_HashIndex">
 <meta name="twitter:description" content="静态散列（Static Hashing）顺序组织文件的一个缺点是我们必须访问索引结构来定位数据，或者必须使用二分法搜索，这将导致过多的I/O操作。基于散列（hashing）技术的文件组织使我们能够避免访问索引结构。在对散列的描述中，我们将使用术语桶（bucket）来表示能存储一条或多条记录的一个储存单位，通常一个桶就是一个磁盘块，但也可能小于或大于一个磁盘块。令$K$表示所有搜索码值的集合，令$B">
@@ -256,7 +256,7 @@
                 
               
 
-              <time title="Created: 2019-09-19 11:57:47 / Modified: 17:35:48" itemprop="dateCreated datePublished" datetime="2019-09-19T11:57:47+08:00">2019-09-19</time>
+              <time title="Created: 2019-09-19 11:57:47 / Modified: 17:37:39" itemprop="dateCreated datePublished" datetime="2019-09-19T11:57:47+08:00">2019-09-19</time>
             </span>
           
             
@@ -323,7 +323,10 @@
 <h3 id="静态散列和动态散列的比较"><a href="#静态散列和动态散列的比较" class="headerlink" title="静态散列和动态散列的比较"></a>静态散列和动态散列的比较</h3><p>可扩充散列最主要的优点：</p>
 <ul>
 <li>其性能不随文件的增长而降低</li>
-<li>其空间开销是最小的<br>可扩充散列的缺点：</li>
+<li>其空间开销是最小的</li>
+</ul>
+<p>可扩充散列的缺点：</p>
+<ul>
 <li>查找涉及一个附加的简介层</li>
 <li>桶地址表可能会变得十分巨大</li>
 <li>改变桶地址表的大小是非常昂贵的操作</li>
@@ -332,7 +335,10 @@
 <ul>
 <li>$B^+$树组织或索引顺序组织将记录文件组织成顺序文件</li>
 <li>散列</li>
-<li>堆文件<br>要对关系的文件组织和索引技术做出明智的选择，实现者或数据者必须考虑以下问题：</li>
+<li>堆文件</li>
+</ul>
+<p>要对关系的文件组织和索引技术做出明智的选择，实现者或数据者必须考虑以下问题：</p>
+<ul>
 <li>索引或散列组织的周期性重组代价是否可以接受？</li>
 <li>插入和删除的相对频率如何？</li>
 <li>是否愿意以增加最坏情况下的访问时间为代价优化平均访问时间？</li>
@@ -364,6 +370,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+              <a href="/2019/09/23/CSE205W4-TransportLayer/" rel="prev" title="CSE205W4_TransportLayer">
+                CSE205W4_TransportLayer <i class="fa fa-chevron-right"></i>
+              </a>
+            
           </div>
         </div>
     </footer>
@@ -415,7 +425,7 @@
         
           <a href="/archives/">
         
-          <span class="site-state-item-count">12</span>
+          <span class="site-state-item-count">14</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
