@@ -63,7 +63,7 @@
 <meta property="og:site_name" content="Room of Requirment">
 <meta property="og:description" content="查询处理概述查询处理的基本步骤：  语法分析与翻译查询处理中系统首先必须把查询语句翻译成系统的内部表示形式。该翻译过程类似于编译器的语法分析器所做的工作。在此过程中，语法分析器检查用户查询的语法，验证查询中出现的关系名是数据库中的关系名等。系统构造该查询语句的语法分析树表示，然后将之翻译成关系代数表达式。 优化查询执行引擎（query-execution engine）接受一个查询执行计划（qu">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2019-09-24T13:15:58.867Z">
+<meta property="og:updated_time" content="2019-09-24T13:26:24.612Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="CSE201W4_QueryEvaluation">
 <meta name="twitter:description" content="查询处理概述查询处理的基本步骤：  语法分析与翻译查询处理中系统首先必须把查询语句翻译成系统的内部表示形式。该翻译过程类似于编译器的语法分析器所做的工作。在此过程中，语法分析器检查用户查询的语法，验证查询中出现的关系名是数据库中的关系名等。系统构造该查询语句的语法分析树表示，然后将之翻译成关系代数表达式。 优化查询执行引擎（query-execution engine）接受一个查询执行计划（qu">
@@ -254,7 +254,7 @@
                 
               
 
-              <time title="Created: 2019-09-24 13:39:24 / Modified: 21:15:58" itemprop="dateCreated datePublished" datetime="2019-09-24T13:39:24+08:00">2019-09-24</time>
+              <time title="Created: 2019-09-24 13:39:24 / Modified: 21:26:24" itemprop="dateCreated datePublished" datetime="2019-09-24T13:39:24+08:00">2019-09-24</time>
             </span>
           
             
@@ -294,13 +294,13 @@
 <li>优化<br><strong>查询执行引擎（query-execution engine）</strong>接受一个<strong>查询执行计划（query-execution engine）</strong>，执行该计划并把结果返回给查询。<br>给定查询的不同执行计划会有不同的代价。我们不能寄希望于用户写出具有最高效率执行计划的查询语句。相反，构造具有最小查询执行代价的查询执行计划应当是系统的责任。这项工作叫作<em>查询优化</em>。</li>
 <li>执行</li>
 </ol>
-<h2 id="查询代价的度量"><a href="#查询代价的度量" class="headerlink" title="查询代价的度量"></a>查询代价的度量</h2><p>查询处理的代价可以通过该查询对各种资源的使用情况进行度量，这些资源包括<strong>磁盘存取、执行一个查询所用CPU时间，还有在并行/分布式数据库系统中的通信代价</strong><br><em>在大型数据库系统中，在磁盘上存取数据的代价通常是最主要的代价，因为磁盘存取比内存操作速度慢。此外，CPU速度的提升比磁盘速度的提升要快的多，这样很可能花费在磁盘存取上的时间仍将决定整个查询的时间。</em><br>我们用<strong>传送磁盘块数</strong>以及<strong>搜索磁盘次数</strong>来度量查询计算计划的代价：<br>假设磁盘子系统传输一个块的数据平均消耗$t_T$秒，<br>磁盘块平均访问时间（磁盘搜索时间加上旋转延迟）为$t_S$秒，<br>则一次传输$b$个块以及执行$S$次磁盘搜索的操作将消耗$b <em> t_T + S </em> t_S$秒<br>$t_T$和$t_S$的值必须针对所使用的磁盘系统进行计算，而如今高端磁盘的典型数值通常是$t_S = 4$毫秒和$t_T = 0.1$毫秒。</p>
+<h2 id="查询代价的度量"><a href="#查询代价的度量" class="headerlink" title="查询代价的度量"></a>查询代价的度量</h2><p>查询处理的代价可以通过该查询对各种资源的使用情况进行度量，这些资源包括<strong>磁盘存取、执行一个查询所用CPU时间，还有在并行/分布式数据库系统中的通信代价</strong><br><em>在大型数据库系统中，在磁盘上存取数据的代价通常是最主要的代价，因为磁盘存取比内存操作速度慢。此外，CPU速度的提升比磁盘速度的提升要快的多，这样很可能花费在磁盘存取上的时间仍将决定整个查询的时间。</em><br>我们用<strong>传送磁盘块数</strong>以及<strong>搜索磁盘次数</strong>来度量查询计算计划的代价：<br>假设磁盘子系统传输一个块的数据平均消耗$t_T$秒，<br>磁盘块平均访问时间（磁盘搜索时间加上旋转延迟）为$t_S$秒，<br>则一次传输$b$个块以及执行$S$次磁盘搜索的操作将消耗<script type="math/tex">b * t_T + S * t_S</script>秒<br>$t_T$和$t_S$的值必须针对所使用的磁盘系统进行计算，而如今高端磁盘的典型数值通常是$t_S = 4$毫秒和$t_T = 0.1$毫秒。</p>
 <h2 id="选择运算"><a href="#选择运算" class="headerlink" title="选择运算"></a>选择运算</h2><h3 id="使用文件扫描和索引的选择"><a href="#使用文件扫描和索引的选择" class="headerlink" title="使用文件扫描和索引的选择"></a>使用文件扫描和索引的选择</h3><ul>
 <li><strong>文件扫描（file scan）</strong>：<br>在查询处理中，<strong>文件扫描</strong>是存取数据最低级的操作。文件扫描是用于定位、检索满足选择条件的记录的搜索算法。在关系系统中，若关系保存在单个专用的文件中，采用文件扫描就可以读取整个关系。<br><em>线性搜索和二分搜索属于文件扫描</em></li>
 <li><strong>索引扫描（index scan）</strong>：<br>使用索引的搜索算法称为<strong>索引扫描</strong>。我们用选择谓词来指导我们在查询处理中使用哪个索引。</li>
 </ul>
 <ol>
-<li><strong>线性搜索（linear search）</strong>：<br>系统扫描每一个文件块，对所有记录都进行测试，看它们是否满足选择条件。<br>开销：$t_s + b_r <em> t_T$ </em>一次初始搜索加上$b_r$个块运输，$b_r$表示在文件中的块数量<em><br>若使用码属性值比较，则平均开销：$t_s + (b_r/2) </em> t_T$ *因为最多一条记录满足条件，所以只要找到所需的记录，扫描就可以终止。在最坏的情况下，仍需要$b_r$个块传输。<br>虽然线性搜索比其他实现操作的算法速度要慢，但它可用于任何文件，不用管该文件的顺序、索引的可用性，以及选择操作的种类。</li>
+<li><strong>线性搜索（linear search）</strong>：<br>系统扫描每一个文件块，对所有记录都进行测试，看它们是否满足选择条件。<br>开销：$t_s + b_r <em> t_T$ </em>一次初始搜索加上$b_r$个块运输，$b_r$表示在文件中的块数量<em><br>若使用码属性值比较，则平均开销：$$t_s + (b_r/2) </em> t_T$$ *因为最多一条记录满足条件，所以只要找到所需的记录，扫描就可以终止。在最坏的情况下，仍需要$b_r$个块传输。<br>虽然线性搜索比其他实现操作的算法速度要慢，但它可用于任何文件，不用管该文件的顺序、索引的可用性，以及选择操作的种类。</li>
 <li><strong>二分搜索（binary search）</strong>：<br>只有在等值比较且按序排列的情况下可以用<br>开销：<script type="math/tex">\lceil log_2(b_r) \rceil * (t_T + t_S)</script></li>
 <li><strong>$B^+$树，主索引，码属性，等值比较</strong>：<br>开销：<script type="math/tex">(h_i + 1) * (t_T + t_S)</script><br>$h_i$表示索引的高度。索引查找穿越树的高度，再加上一次I/O来取记录；每个这样的I/O操作需要一次搜索和块传输</li>
 <li><strong>$B^+$树，主索引，非码属性，等值比较</strong>：<br>开销：<script type="math/tex">h_i * (t_T + t_S) + t_S + t_T * b</script><br>树的每层一次搜索，第一个块一次搜索。$b$是包含具有指定搜索码记录的块数。</li>
