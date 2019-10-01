@@ -63,7 +63,7 @@
 <meta property="og:site_name" content="Room of Requirment">
 <meta property="og:description" content="查询处理概述查询处理的基本步骤：  语法分析与翻译查询处理中系统首先必须把查询语句翻译成系统的内部表示形式。该翻译过程类似于编译器的语法分析器所做的工作。在此过程中，语法分析器检查用户查询的语法，验证查询中出现的关系名是数据库中的关系名等。系统构造该查询语句的语法分析树表示，然后将之翻译成关系代数表达式。 优化查询执行引擎（query-execution engine）接受一个查询执行计划（qu">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2019-09-24T13:26:24.612Z">
+<meta property="og:updated_time" content="2019-10-01T13:39:27.920Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="CSE201W4_QueryEvaluation">
 <meta name="twitter:description" content="查询处理概述查询处理的基本步骤：  语法分析与翻译查询处理中系统首先必须把查询语句翻译成系统的内部表示形式。该翻译过程类似于编译器的语法分析器所做的工作。在此过程中，语法分析器检查用户查询的语法，验证查询中出现的关系名是数据库中的关系名等。系统构造该查询语句的语法分析树表示，然后将之翻译成关系代数表达式。 优化查询执行引擎（query-execution engine）接受一个查询执行计划（qu">
@@ -254,11 +254,21 @@
                 
               
 
-              <time title="Created: 2019-09-24 13:39:24 / Modified: 21:26:24" itemprop="dateCreated datePublished" datetime="2019-09-24T13:39:24+08:00">2019-09-24</time>
+              <time title="Created: 2019-09-24 13:39:24" itemprop="dateCreated datePublished" datetime="2019-09-24T13:39:24+08:00">2019-09-24</time>
             </span>
           
             
 
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2019-10-01 21:39:27" itemprop="dateModified" datetime="2019-10-01T21:39:27+08:00">2019-10-01</time>
+              </span>
             
           
             <span class="post-meta-item">
@@ -300,7 +310,7 @@
 <li><strong>索引扫描（index scan）</strong>：<br>使用索引的搜索算法称为<strong>索引扫描</strong>。我们用选择谓词来指导我们在查询处理中使用哪个索引。</li>
 </ul>
 <ol>
-<li><strong>线性搜索（linear search）</strong>：<br>系统扫描每一个文件块，对所有记录都进行测试，看它们是否满足选择条件。<br>开销：$t_s + b_r <em> t_T$ </em>一次初始搜索加上$b_r$个块运输，$b_r$表示在文件中的块数量<em><br>若使用码属性值比较，则平均开销：$$t_s + (b_r/2) </em> t_T$$ *因为最多一条记录满足条件，所以只要找到所需的记录，扫描就可以终止。在最坏的情况下，仍需要$b_r$个块传输。<br>虽然线性搜索比其他实现操作的算法速度要慢，但它可用于任何文件，不用管该文件的顺序、索引的可用性，以及选择操作的种类。</li>
+<li><strong>线性搜索（linear search）</strong>：<br>系统扫描每一个文件块，对所有记录都进行测试，看它们是否满足选择条件。<br>开销：<script type="math/tex">t_s + b_r * t_T</script> <em>一次初始搜索加上$b_r$个块运输，$b_r$表示在文件中的块数量</em><br>若使用码属性值比较，则平均开销：<script type="math/tex">t_s + (b_r/2) * t_T</script> 因为最多一条记录满足条件，所以只要找到所需的记录，扫描就可以终止。在最坏的情况下，仍需要$b_r$个块传输。<br>虽然线性搜索比其他实现操作的算法速度要慢，但它可用于任何文件，不用管该文件的顺序、索引的可用性，以及选择操作的种类。</li>
 <li><strong>二分搜索（binary search）</strong>：<br>只有在等值比较且按序排列的情况下可以用<br>开销：<script type="math/tex">\lceil log_2(b_r) \rceil * (t_T + t_S)</script></li>
 <li><strong>$B^+$树，主索引，码属性，等值比较</strong>：<br>开销：<script type="math/tex">(h_i + 1) * (t_T + t_S)</script><br>$h_i$表示索引的高度。索引查找穿越树的高度，再加上一次I/O来取记录；每个这样的I/O操作需要一次搜索和块传输</li>
 <li><strong>$B^+$树，主索引，非码属性，等值比较</strong>：<br>开销：<script type="math/tex">h_i * (t_T + t_S) + t_S + t_T * b</script><br>树的每层一次搜索，第一个块一次搜索。$b$是包含具有指定搜索码记录的块数。</li>
