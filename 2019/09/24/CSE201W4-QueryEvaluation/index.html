@@ -63,7 +63,7 @@
 <meta property="og:site_name" content="Room of Requirment">
 <meta property="og:description" content="查询处理概述查询处理的基本步骤：  语法分析与翻译查询处理中系统首先必须把查询语句翻译成系统的内部表示形式。该翻译过程类似于编译器的语法分析器所做的工作。在此过程中，语法分析器检查用户查询的语法，验证查询中出现的关系名是数据库中的关系名等。系统构造该查询语句的语法分析树表示，然后将之翻译成关系代数表达式。 优化查询执行引擎（query-execution engine）接受一个查询执行计划（qu">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2019-10-01T13:39:27.920Z">
+<meta property="og:updated_time" content="2019-10-01T15:40:18.362Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="CSE201W4_QueryEvaluation">
 <meta name="twitter:description" content="查询处理概述查询处理的基本步骤：  语法分析与翻译查询处理中系统首先必须把查询语句翻译成系统的内部表示形式。该翻译过程类似于编译器的语法分析器所做的工作。在此过程中，语法分析器检查用户查询的语法，验证查询中出现的关系名是数据库中的关系名等。系统构造该查询语句的语法分析树表示，然后将之翻译成关系代数表达式。 优化查询执行引擎（query-execution engine）接受一个查询执行计划（qu">
@@ -267,7 +267,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2019-10-01 21:39:27" itemprop="dateModified" datetime="2019-10-01T21:39:27+08:00">2019-10-01</time>
+                <time title="Modified: 2019-10-01 23:40:18" itemprop="dateModified" datetime="2019-10-01T23:40:18+08:00">2019-10-01</time>
               </span>
             
           
@@ -317,9 +317,55 @@
 <li><strong>$B^+$树，辅助索引，码属性，等值比较</strong>：<br>开销：<script type="math/tex">(h_i + 1) * (t_T + t_S)</script><br>这种情形和主索引相似</li>
 <li><strong>$B^+$树，辅助索引，非码属性，等值比较</strong>：<br>开销：<script type="math/tex">(h_i + n) * (t_T + t_S)</script><br>$n$是记录数，索引查找的代价和4类似，但是每条记录可能在不同的块上，这需要每条记录一次搜索。如果$n$值比较大，代价可能会非常高。</li>
 <li><strong>$B^+$树，主索引，比较</strong>：<br>开销：<script type="math/tex">h_i * (t_T + t_S) + t_S + b * t_T</script><br><em>和主索引，非码属性，等值比较情形一样</em><br>形如$A \geq v$，我们在索引中寻找值$v$，以检索出满足条件$A = v$的首条记录。从该元组开始到文件末尾进行一次文件扫描就返回所有满足该条件的元组。形如$A &gt; v$，文件扫描从第一条满足$A &gt; v$的记录开始。<br>若为$A &lt; v 或 A \leq v$的比较式，从文件头开始进行文件扫描，直到遇上首条满足$A = v 或 A &gt; v$的元组为止。</li>
-<li><strong>$B^+$树，辅助索引，比较</strong>：<br>开销：<script type="math/tex">(h_i + n) * (t_T + t_S)</script><br><em>和辅助索引，非码属性，等值比较情形一样</em><br>对于$&lt; \leq$情形，扫描最底层索引块是从最小值开始直到$v$为止<br>对于$&gt; \geq$情形，扫描是从$v$开始直到最大值为止<br>辅助索引提供了指向记录的指针，但我们需要使用指针以取得实际的记录。由于连续的记录可能存在于不同的磁盘块中，因此每取一条记录可能需要一次I/O操作，即需要一次磁盘搜索和一次块传输。<br>如果检索得到的记录数很大的话，使用辅助索引的代价甚至比线性搜索还要大，因此辅助索引应该仅在选择得到的记录很少时使用。</li>
+<li><strong>$B^+$树，辅助索引，比较</strong>：<br>开销：<script type="math/tex">(h_i + n) * (t_T + t_S)</script><br><em>和辅助索引，非码属性，等值比较情形一样</em><br>对于$ \leq$情形，扫描最底层索引块是从最小值开始直到$v$为止<br>对于$ \geq$情形，扫描是从$v$开始直到最大值为止<br>辅助索引提供了指向记录的指针，但我们需要使用指针以取得实际的记录。由于连续的记录可能存在于不同的磁盘块中，因此每取一条记录可能需要一次I/O操作，即需要一次磁盘搜索和一次块传输。<br>如果检索得到的记录数很大的话，使用辅助索引的代价甚至比线性搜索还要大，因此辅助索引应该仅在选择得到的记录很少时使用。</li>
 </ol>
-<h3 id="复杂选择的实现"><a href="#复杂选择的实现" class="headerlink" title="复杂选择的实现"></a>复杂选择的实现</h3>
+<h3 id="复杂选择的实现"><a href="#复杂选择的实现" class="headerlink" title="复杂选择的实现"></a>复杂选择的实现</h3><h4 id="合取选择（Conjunctive-Selections"><a href="#合取选择（Conjunctive-Selections" class="headerlink" title="合取选择（Conjunctive Selections)"></a>合取选择（Conjunctive Selections)</h4><script type="math/tex; mode=display">
+\sigma_{\theta_1 \bigwedge \theta_2 \bigwedge ... \bigwedge \theta_n} (r)</script><p>利用一个索引实现：</p>
+<ol>
+<li>从上述的选择运算中选出对于$\sigma_{\theta_i}(r)$开销最小的算法来查找$\theta_i$</li>
+<li>在<strong>内存缓冲区</strong>中，我们通过测试每条检索到的记录是否满足其余的简单条件。</li>
+</ol>
+<p><em>在这个事件中，如何去选取第一个条件是十分重要的</em></p>
+<p>使用组合索引的合取选择：<br>使用合适的<em>组合索引(composite index)</em>，即在多个属性上建立的一个索引来检索。</p>
+<h4 id="析取选择（Disjunctive-Selections"><a href="#析取选择（Disjunctive-Selections" class="headerlink" title="析取选择（Disjunctive Selections)"></a>析取选择（Disjunctive Selections)</h4><script type="math/tex; mode=display">
+\sigma_{\theta_1 \bigvee \theta_2 \bigvee ... \bigvee \theta_n}(r)</script><p>通过标识符的交：</p>
+<ul>
+<li>线性扫描</li>
+<li>如果在析取选择中所有条件上均有相应的存取路径存在，则逐个扫描索引获取满足单个条件的元组指针。检索到的所有指针的并集就是指向满足析取条件的额所有元组的指针集。然后利用这些指针检索实际的记录</li>
+</ul>
+<h4 id="取反"><a href="#取反" class="headerlink" title="取反"></a>取反</h4><script type="math/tex; mode=display">
+\sigma_{\neg \theta}(r)</script><ul>
+<li>线性扫描</li>
+<li>如果有相应的存取路径：<br>利用索引找到符合的记录，$\sigma_{\neg \theta}(r) 就是在$r$中对条件$\theta$取值为假的元组的集合</li>
+</ul>
+<h4 id="删除重复值"><a href="#删除重复值" class="headerlink" title="删除重复值"></a>删除重复值</h4><p>重复值的删除可以通过散列或分类来实现</p>
+<h2 id="排序"><a href="#排序" class="headerlink" title="排序"></a>排序</h2><p>数据排序在数据库系统中有重要的作用：</p>
+<ol>
+<li>SQL查询会指明对结果进行排序</li>
+<li>当输入的关系已排序时，关系运算中的一些运算（如连接运算）能够得到高效实现。</li>
+</ol>
+<p>通过在排序码上建立索引，然后使用该索引按序读取关系，可以完成对关系的排序。然而，这一过程仅仅在逻辑上通过索引对关系排序，而没有在物理上排序。因此，顺序读取元组可能导致每读一个元组就要访问一次磁盘。</p>
+<h3 id="外部排序归并算法"><a href="#外部排序归并算法" class="headerlink" title="外部排序归并算法"></a>外部排序归并算法</h3><p>对于内存中能够完全容纳关系的话，可以利用标准的排序技术（如快速排序）</p>
+<p>对不能全部放在内存中的关系的排序称为<strong>外排序（external sorting）</strong>。外排序中最常用的技术是<strong>外部排序归并（external sort-merge)</strong>算法。</p>
+<p>令$M$表示内存缓冲区中可以用于排序的块数，即内存的缓冲区能容纳的磁盘块数。</p>
+<ol>
+<li><p>建立多个排好序的<strong>归并段（run）</strong>。每个归并段都是排序过的，但仅包含关系中的部分记录。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">i = 0;</span><br><span class="line">repeat</span><br><span class="line">      读入关系的$M$块数据或剩下的不足$M$块数据；</span><br><span class="line">      在内存中对关系的这一部分进行排序；</span><br><span class="line">      将排好序的数据写到归并段文件$R_i$中；</span><br><span class="line">      $i = i + 1$</span><br><span class="line">until 到达关系末尾</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>对归并段进行<em>归并</em>，暂时假定归并段的总数$N$小于$M$,这样我们可以为每个归并段文件分配一个块，此外剩下的空间还应能容纳存放结果的一个块。为$N$个归并段文件$R_i$各分配一个内存缓冲块，并分别读入一个数据块：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">repeat</span><br><span class="line">      在所有缓冲块中按序挑选第一个元组；</span><br><span class="line">      把该元组作为输出写出，并将其从缓冲块中删除；</span><br><span class="line">      if 任何一个归并段文件$R_i$的缓冲块为空并且没有到达$R_i$末尾</span><br><span class="line">           then 读入$R_i$的下一块到相应的缓冲块</span><br><span class="line">until 所有的缓冲块均为空</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>如果关系比内存大的多，则在第一阶段可能产生$M$个甚至更多的归并段，在这种情况下，归并操作需要分多躺进行。由于内存足以容纳$M - 1$个缓冲块，因此每趟归并可以用$M - 1$个归并段作为输入<br>最初的那趟归并过程：头$M - 1$个归并段如前第2⃣️点所述进行归并得到一个归并段作为下一趟的输入。接下来的$M - 1$个归并段类似的进行归并，如此下去，知道所有的初始归并段都处理过为止。此时，归并段的数目减少到原来的$1/(M - 1)$，如果归并后的归并段数目仍大于等于$M$，则以上一趟归并创建的归并段作为输入进行下一趟归并，直到归并段数目小于$M$</p>
+</li>
+</ol>
+<h3 id="外部排序归并的代价分析"><a href="#外部排序归并的代价分析" class="headerlink" title="外部排序归并的代价分析"></a>外部排序归并的代价分析</h3><p>假定$b_r$表示关系$r$中记录的磁盘块数，$M$表示内存缓冲区中可以用于排序的块数，$b_b$表示缓冲块（每次读取$b_b$块从每个归并段。</p>
+<ul>
+<li>磁盘块传输的总数：<script type="math/tex; mode=display">
+b_r(2\lceil log_{\lfloor M/b_b \rfloor - 1}(b_r/M)\rceil + 1)</script></li>
+<li>磁盘搜索的总次数：<script type="math/tex; mode=display">
+2\lceil b_r/M \ rceil + \lceil b_r/b_b \rceil (2\lceil log_{\lfloor M/b_b \rfloor - 1}(b_r/M)\rceil - 1)</script></li>
+</ul>
+
     </div>
 
     
@@ -454,7 +500,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#null"><span class="nav-number">1.</span> <span class="nav-text"> </span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#查询处理"><span class="nav-number">2.</span> <span class="nav-text">查询处理</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#概述"><span class="nav-number">2.1.</span> <span class="nav-text">概述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#查询代价的度量"><span class="nav-number">2.2.</span> <span class="nav-text">查询代价的度量</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#选择运算"><span class="nav-number">2.3.</span> <span class="nav-text">选择运算</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#使用文件扫描和索引的选择"><span class="nav-number">2.3.1.</span> <span class="nav-text">使用文件扫描和索引的选择</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#复杂选择的实现"><span class="nav-number">2.3.2.</span> <span class="nav-text">复杂选择的实现</span></a></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#null"><span class="nav-number">1.</span> <span class="nav-text"> </span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#查询处理"><span class="nav-number">2.</span> <span class="nav-text">查询处理</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#概述"><span class="nav-number">2.1.</span> <span class="nav-text">概述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#查询代价的度量"><span class="nav-number">2.2.</span> <span class="nav-text">查询代价的度量</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#选择运算"><span class="nav-number">2.3.</span> <span class="nav-text">选择运算</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#使用文件扫描和索引的选择"><span class="nav-number">2.3.1.</span> <span class="nav-text">使用文件扫描和索引的选择</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#复杂选择的实现"><span class="nav-number">2.3.2.</span> <span class="nav-text">复杂选择的实现</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#合取选择（Conjunctive-Selections"><span class="nav-number">2.3.2.1.</span> <span class="nav-text">合取选择（Conjunctive Selections)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#析取选择（Disjunctive-Selections"><span class="nav-number">2.3.2.2.</span> <span class="nav-text">析取选择（Disjunctive Selections)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#取反"><span class="nav-number">2.3.2.3.</span> <span class="nav-text">取反</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#删除重复值"><span class="nav-number">2.3.2.4.</span> <span class="nav-text">删除重复值</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#排序"><span class="nav-number">2.4.</span> <span class="nav-text">排序</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#外部排序归并算法"><span class="nav-number">2.4.1.</span> <span class="nav-text">外部排序归并算法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#外部排序归并的代价分析"><span class="nav-number">2.4.2.</span> <span class="nav-text">外部排序归并的代价分析</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>
