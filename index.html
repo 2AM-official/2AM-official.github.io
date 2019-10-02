@@ -266,7 +266,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2019-10-01 23:40:18" itemprop="dateModified" datetime="2019-10-01T23:40:18+08:00">2019-10-01</time>
+                <time title="Modified: 2019-10-02 16:28:28" itemprop="dateModified" datetime="2019-10-02T16:28:28+08:00">2019-10-02</time>
               </span>
             
           
@@ -363,8 +363,58 @@
 <li>磁盘块传输的总数：<script type="math/tex; mode=display">
 b_r(2\lceil log_{\lfloor M/b_b \rfloor - 1}(b_r/M)\rceil + 1)</script></li>
 <li>磁盘搜索的总次数：<script type="math/tex; mode=display">
-2\lceil b_r/M \ rceil + \lceil b_r/b_b \rceil (2\lceil log_{\lfloor M/b_b \rfloor - 1}(b_r/M)\rceil - 1)</script></li>
+2\lceil b_r/M \rceil + \lceil b_r/b_b \rceil (2\lceil log_{\lfloor M/b_b \rfloor - 1}(b_r/M)\rceil - 1)</script></li>
 </ul>
+<h2 id="连接运算"><a href="#连接运算" class="headerlink" title="连接运算"></a>连接运算</h2><h3 id="嵌套循环连接-Nested-Loop-Join"><a href="#嵌套循环连接-Nested-Loop-Join" class="headerlink" title="嵌套循环连接(Nested-Loop Join)"></a>嵌套循环连接(Nested-Loop Join)</h3><p>最简单的连接算法<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">for each 元组 $t_r$ in r do begin</span><br><span class="line">         for each 元组 $t_s$ in s do begin</span><br><span class="line">                  测试元组对（t_r, t_s)是否满足连接条件\theta</span><br><span class="line">                  如果满足，把t_r t_s加到结果中</span><br><span class="line">         end</span><br><span class="line">end</span><br></pre></td></tr></table></figure></p>
+<p>关系$r$称为连接的<strong>外层关系（outer relation）</strong>，而$s$称为连接的<strong>内层关系（inner relation）</strong>。<br>与选择算法中使用的线性文件扫描算法类似，嵌套循环连接算法不要求有索引，并且不管连接条件是什么，该算法均可以使用。将其变为自然连接只需要删除$t_r <em> t_s$的重复属性。
+</em>嵌套连接算法的代价很大，因为该算法逐个检查两个关系中的每一对元组。*</p>
+<p>我们假设$n_r$和$n_s$分别表示$r$和$s$中的元组数，$b_r$和$b_s$分别代表包含关系$r$和$s$中元组的磁盘块数<br>在最坏的情况下，缓冲区只能容纳每个关系的一个数据块：</p>
+<ul>
+<li>共需$n_r * b_s + b_r$次块传输</li>
+<li>共需$n_r + b_r$次磁盘搜索，*对每次扫描内层关系$s$我们只需一次磁盘搜索，读取关系$r$一共需要$b_r$次磁盘搜索</li>
+</ul>
+<p>在最好的情况下，内存有足够的空间同时容纳两个关系，此时每一数据块只需读一次</p>
+<ul>
+<li>$b_r + b_s$块传输</li>
+<li>2次磁盘搜索</li>
+</ul>
+<p>如果只有一个关系能完全放在内存中，那么把内层关系作为这个关系来处理是有好处的。因为这样内层循环只需要读一次，如果把$s$小到可以装入内存，那么我们的策略只需$b_r + b_s$次块传输和两次磁盘搜索，<em>其代价与两个关系能同时装入内存的情形相同</em>。</p>
+<h3 id="块嵌套循环连接（Block-Nested-Loop-Join"><a href="#块嵌套循环连接（Block-Nested-Loop-Join" class="headerlink" title="块嵌套循环连接（Block Nested-Loop Join)"></a>块嵌套循环连接（Block Nested-Loop Join)</h3><p>因缓冲区太小而内存不足以完全容纳任何一个关系时，如果我们以块的方式而不是以元组的方式处理关系，仍然可以减少不少块读写次数<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">for each 块 B_r of r do begin</span><br><span class="line">    for each 块 B_s of s do begin</span><br><span class="line">       for each 元组 t_r in B_r do begin</span><br><span class="line">          for each 元组 t_s in B_s do begin</span><br><span class="line">              测试元组对(t_r, t_s)是否满足连接条件</span><br><span class="line">              如果满足，把t_r * t_s加到结果中</span><br><span class="line">          end</span><br><span class="line">       end</span><br><span class="line">    end</span><br><span class="line">end</span><br></pre></td></tr></table></figure></p>
+<p>在最坏的情况下：</p>
+<ul>
+<li>共需$b_r * b_s + b_r$次块传输</li>
+<li>共需$2b_r$次磁盘搜索</li>
+</ul>
+<p>在最好的情况下，内存能够容纳内层关系:</p>
+<ul>
+<li>$b_r + b_s$次块传输</li>
+<li>2次磁盘搜索</li>
+</ul>
+<p><em>进一步改进嵌套循环和块嵌套循环：通过对内层循环轮流做向前、向后的扫描。该扫描方法对磁盘块读写请求进行排序，使得上一次扫描时留在缓冲区的数据可以重用，从而减少磁盘存取次数</em></p>
+<h3 id="索引嵌套循环连接（Indexed-Nested-Loop-Join"><a href="#索引嵌套循环连接（Indexed-Nested-Loop-Join" class="headerlink" title="索引嵌套循环连接（Indexed Nested Loop Join)"></a>索引嵌套循环连接（Indexed Nested Loop Join)</h3><p>在嵌套循环连接中，若在内层循环的连接属性上有索引，则可以用索引查找替代文件扫描。对于外层关系$r$的每一个元组$t_r$，可以利用索引查找$s$中和元组$t_r$满足连接的元组</p>
+<p>最坏的情况下，缓冲区只能容纳关系$r$的一块和索引的一块。<br>这种状况下，连接的开销为：$b_r + n_r <em> c$次<em>*块传输和磁盘搜索</em></em><br>$c$是使用连接条件对关系$s$进行单次选择操作的代价</p>
+<p>代价公式表明，如果两个关系$r, s$上均有索引时，一般把元组较少的关系做外层关系时效果更好</p>
+<h3 id="归并连接-Merge-Join"><a href="#归并连接-Merge-Join" class="headerlink" title="归并连接(Merge Join)"></a>归并连接(Merge Join)</h3><p><strong>归并连接算法</strong>（又称<strong>排序—归并—连接（sort-merge join)</strong>算法）可用于计算自然连接和等值连接</p>
+<p>假设所有集合$S_s$都能被装进内存，这时的开销是：</p>
+<ul>
+<li>$b_r + b_s$次磁盘块传输</li>
+<li><script type="math/tex">\lceil b_r/b_b \rceil + \lceil b_s/b_b \rceil</script>次磁盘搜索</li>
+</ul>
+<p>*若任意一个输入关系$r$或$s$未能按属性排序，那么必须先对它们排序。</p>
+<h3 id="散列连接（Hash-Join）"><a href="#散列连接（Hash-Join）" class="headerlink" title="散列连接（Hash-Join）"></a>散列连接（Hash-Join）</h3><p>类似于归并连接算法，散列连接算法可用于实现自然连接和等值连接。<br>在散列连接算法中，用散列函数$h$来划分两个关系的元组</p>
+<p>基本思想：如果关系$r$的一个元组与关系$s$的一个元组满足连接条件，那么它们在连接属性上就会有相同的值。若该值经散列函数映射到$i$，则关系$r$的那个元组必在$r_i$中，而关系$s$中的元组必在$s_i$中。因此，$r_i$中的元组$r$只需要与$s_i$中的元组$s$相比较，而没有必要与其他任何划分里的元组$s$相比较。</p>
+<p>关系$s$被称为<strong>构造用输入（build input）</strong>，关系$r$被称为<strong>探查用输入（probe input）</strong></p>
+<p>应选择足够大的$n_h$值，以使对于任意的$i$，内存中可以容纳构造用输入关系的划分$s_i$中的元组以及划分上的散列索引。<br>一般我们使$n = \lceil b_s/M \rceil <em> f$，$f$被称为<em>*避让因子(fudge factor)</em></em>，一般$f$在1.2左右来避开溢出情况。</p>
+<p>散列连接的代价：</p>
+<ul>
+<li>$3(b_r + b_s) + 4 * n_h$ 块传输</li>
+<li><script type="math/tex">2(\lceil b_r/ b_b \rceil + \lceil b_s/ b_b \rceil) + 2 * n_h</script>次磁盘搜索</li>
+</ul>
+<h2 id="其他运算"><a href="#其他运算" class="headerlink" title="其他运算"></a>其他运算</h2><h3 id="去除重复-Duplicate-Elimination"><a href="#去除重复-Duplicate-Elimination" class="headerlink" title="去除重复(Duplicate Elimination)"></a>去除重复(Duplicate Elimination)</h3><ul>
+<li>我们可以用排序方式很容易地实现去除重复：<br>最坏情况去除重复的代价估计与最坏情况对该关系的排序代价估计一样</li>
+<li>也可以用散列来实现去除重复：<br>其代价估算与散列连接中构造用输入关系的处理（划分以及读入每个划分）的代价一样</li>
+</ul>
+<h3 id="投影-Projection"><a href="#投影-Projection" class="headerlink" title="投影(Projection)"></a>投影(Projection)</h3><h3 id="聚集-Aggregation"><a href="#聚集-Aggregation" class="headerlink" title="聚集(Aggregation)"></a>聚集(Aggregation)</h3><p>聚集运算可以用去除重复类似的方法来实现，我们使用排序或散列。但是，我们不是去除在分组属性上有相同值的元组，而是将之聚集成组，并对每一组应用聚集运算以获取结果。<br>如果结果集的元组可以装入内存，则基于排序的实现方法与基于散列的实现方法不必将元组写到磁盘上</p>
 
           
         
